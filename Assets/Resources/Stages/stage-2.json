@@ -1,0 +1,531 @@
+{
+  "Floors": [
+    [
+      {
+        "Position": {
+          "x": 0,
+          "y": 0,
+          "magnitude": 0.0,
+          "sqrMagnitude": 0
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 0,
+          "y": 1,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 0,
+          "y": 2,
+          "magnitude": 2.0,
+          "sqrMagnitude": 4
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 0,
+          "y": 3,
+          "magnitude": 3.0,
+          "sqrMagnitude": 9
+        },
+        "Type": 4,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 0,
+          "y": 4,
+          "magnitude": 4.0,
+          "sqrMagnitude": 16
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 0,
+          "y": 5,
+          "magnitude": 5.0,
+          "sqrMagnitude": 25
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      }
+    ],
+    [
+      {
+        "Position": {
+          "x": 1,
+          "y": 0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 1,
+          "y": 1,
+          "magnitude": 1.41421354,
+          "sqrMagnitude": 2
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 1,
+          "y": 2,
+          "magnitude": 2.236068,
+          "sqrMagnitude": 5
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 1,
+          "y": 3,
+          "magnitude": 3.1622777,
+          "sqrMagnitude": 10
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 1,
+          "y": 4,
+          "magnitude": 4.12310553,
+          "sqrMagnitude": 17
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 1,
+          "y": 5,
+          "magnitude": 5.09901953,
+          "sqrMagnitude": 26
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      }
+    ],
+    [
+      {
+        "Position": {
+          "x": 2,
+          "y": 0,
+          "magnitude": 2.0,
+          "sqrMagnitude": 4
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 2,
+          "y": 1,
+          "magnitude": 2.236068,
+          "sqrMagnitude": 5
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 2,
+          "y": 2,
+          "magnitude": 2.828427,
+          "sqrMagnitude": 8
+        },
+        "Type": 1,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 2,
+          "y": 3,
+          "magnitude": 3.60555124,
+          "sqrMagnitude": 13
+        },
+        "Type": 0,
+        "TileObjectType": 2,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 2,
+          "y": 4,
+          "magnitude": 4.472136,
+          "sqrMagnitude": 20
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": "GroundEffectFire"
+      },
+      {
+        "Position": {
+          "x": 2,
+          "y": 5,
+          "magnitude": 5.38516474,
+          "sqrMagnitude": 29
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      }
+    ],
+    [
+      {
+        "Position": {
+          "x": 3,
+          "y": 0,
+          "magnitude": 3.0,
+          "sqrMagnitude": 9
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 3,
+          "y": 1,
+          "magnitude": 3.1622777,
+          "sqrMagnitude": 10
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 3,
+          "y": 2,
+          "magnitude": 3.60555124,
+          "sqrMagnitude": 13
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 3,
+          "y": 3,
+          "magnitude": 4.2426405,
+          "sqrMagnitude": 18
+        },
+        "Type": 1,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 3,
+          "y": 4,
+          "magnitude": 5.0,
+          "sqrMagnitude": 25
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": "GroundEffectFire"
+      },
+      {
+        "Position": {
+          "x": 3,
+          "y": 5,
+          "magnitude": 5.83095169,
+          "sqrMagnitude": 34
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      }
+    ],
+    [
+      {
+        "Position": {
+          "x": 4,
+          "y": 0,
+          "magnitude": 4.0,
+          "sqrMagnitude": 16
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 4,
+          "y": 1,
+          "magnitude": 4.12310553,
+          "sqrMagnitude": 17
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": "GroundEffectFire"
+      },
+      {
+        "Position": {
+          "x": 4,
+          "y": 2,
+          "magnitude": 4.472136,
+          "sqrMagnitude": 20
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": "GroundEffectFire"
+      },
+      {
+        "Position": {
+          "x": 4,
+          "y": 3,
+          "magnitude": 5.0,
+          "sqrMagnitude": 25
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": "GroundEffectFire"
+      },
+      {
+        "Position": {
+          "x": 4,
+          "y": 4,
+          "magnitude": 5.656854,
+          "sqrMagnitude": 32
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": "GroundEffectFire"
+      },
+      {
+        "Position": {
+          "x": 4,
+          "y": 5,
+          "magnitude": 6.40312433,
+          "sqrMagnitude": 41
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      }
+    ],
+    [
+      {
+        "Position": {
+          "x": 5,
+          "y": 0,
+          "magnitude": 5.0,
+          "sqrMagnitude": 25
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 5,
+          "y": 1,
+          "magnitude": 5.09901953,
+          "sqrMagnitude": 26
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 5,
+          "y": 2,
+          "magnitude": 5.38516474,
+          "sqrMagnitude": 29
+        },
+        "Type": 4,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 5,
+          "y": 3,
+          "magnitude": 5.83095169,
+          "sqrMagnitude": 34
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 5,
+          "y": 4,
+          "magnitude": 6.40312433,
+          "sqrMagnitude": 41
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 5,
+          "y": 5,
+          "magnitude": 7.071068,
+          "sqrMagnitude": 50
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      }
+    ],
+    [
+      {
+        "Position": {
+          "x": 6,
+          "y": 0,
+          "magnitude": 6.0,
+          "sqrMagnitude": 36
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 6,
+          "y": 1,
+          "magnitude": 6.08276272,
+          "sqrMagnitude": 37
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 6,
+          "y": 2,
+          "magnitude": 6.3245554,
+          "sqrMagnitude": 40
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 6,
+          "y": 3,
+          "magnitude": 6.708204,
+          "sqrMagnitude": 45
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 6,
+          "y": 4,
+          "magnitude": 7.21110249,
+          "sqrMagnitude": 52
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 6,
+          "y": 5,
+          "magnitude": 7.81025,
+          "sqrMagnitude": 61
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      }
+    ]
+  ],
+  "Meta": {
+    "Version": "1.0.0",
+    "Time": "2022-12-27T02:50:41.8900863-08:00",
+    "Name": "stage-2",
+    "Width": 7,
+    "Height": 6
+  },
+  "Width": 7,
+  "Height": 6
+}

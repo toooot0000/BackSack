@@ -1,0 +1,5 @@
+id,key,desc,type,value
+"ID
+表头不能改！",唯一key,描述,类型,值
+int,String,String,String,String
+1,player_init_hp,初始血量,int,10
