@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using Utility;
 using EnumUtility = Utility.EnumUtility;
 
-namespace Stages.StageEditor{
+namespace StageEditor{
     public class StageInEditManager: MonoBehaviour{
         public string enemyTileResourcePath = "Tiles/Objects/Enemies/";
         public string groundEffectTileResourcePath = "Tiles/GroundEffects/";

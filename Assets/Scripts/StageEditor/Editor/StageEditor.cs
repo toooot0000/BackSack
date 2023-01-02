@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 
-namespace Stages.StageEditor.Editor{
+namespace StageEditor.Editor{
     [CustomEditor(typeof(StageInEditManager))]
     public class StageEditor: UnityEditor.Editor{
         public string StageSavingPath => $"{Application.dataPath}/Resources/{stageResPath}";

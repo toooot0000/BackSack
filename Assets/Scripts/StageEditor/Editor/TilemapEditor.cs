@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Stages.StageEditor.Editor{
+namespace StageEditor.Editor{
     [CustomEditor(typeof(Tilemap))]
     public class TilemapEditor: UnityEditor.Editor{
         

@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine.Tilemaps;
 
-namespace Stages.StageEditor{
+namespace StageEditor{
     public class StageTile: Tile{
         public const string FloorTilePrefix = "tile-";
         public const string GroundEffectTilePrefix = "ground-";
