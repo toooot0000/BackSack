@@ -50,7 +50,7 @@ namespace Models{
         public string GroundEffectName = "";
         
         [JsonIgnore]
-        public IGroundEffect GroundEffect = null;
+        public BaseGroundEffect BaseGroundEffect = null;
         [JsonIgnore]
         public ITileObject TileObject = null;
     } 

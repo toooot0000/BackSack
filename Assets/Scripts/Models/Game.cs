@@ -1,16 +1,26 @@
-﻿using Models.TileObjects;
+﻿using System.ComponentModel;
+using Models.TileObjects;
 using MVC;
 
 namespace Models{
 
     public enum ElementType{
+        [Description("fire")]
         Fire,
+        [Description("water")]
         Water,
+        [Description("wind")]
         Wind,
+        [Description("earth")]
         Earth,
+        [Description("electric")]
         Electric,
-        Soul,
+        [Description("poison")]
+        Poison,
+        [Description("physic")]
         Physic,
+        [Description("real")]
+        Real,
     }
     
     public class Game: Model{

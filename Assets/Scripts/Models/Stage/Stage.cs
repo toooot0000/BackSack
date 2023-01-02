@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Models.TileObjects;
 using MVC;
 using UnityEngine;
 
@@ -28,12 +29,18 @@ namespace Models{
                 for (var j = 0; j < Meta.Height; j++){
                     Floors[i, j] = new(){
                         Position = new(i, j),
-                        GroundEffect = null,
+                        BaseGroundEffect = null,
                         TileObject = null,
                         Type = FloorType.Block
                     };
                 }
             }
+        }
+
+        public Vector3Int GetGridPosition(int x, int y) => new Vector3Int(x - Meta.Width / 2, y - Meta.Height / 2);
+
+        public ITileObject GetTileObject(Vector2Int position){
+            return Floors[position.x, position.y].TileObject;
         }
     }
 }
