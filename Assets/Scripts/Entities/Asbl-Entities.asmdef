@@ -1,7 +1,10 @@
 {
-    "name": "Asbl-Utility",
+    "name": "Asbl-Entities",
     "rootNamespace": "",
     "references": [
+        "GUID:5a3097934fbb5e94186e161edb65dd51",
+        "GUID:d4d227aabb1feae4ea8bdbaf6ae2728b",
+        "GUID:224c97914efe4c64d9c590dba3c38125",
         "GUID:5cd52755d05a4cb4d9498fb418152dc5"
     ],
     "includePlatforms": [],
