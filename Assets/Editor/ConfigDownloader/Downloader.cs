@@ -35,6 +35,7 @@ namespace Editor.ConfigDownloader{
             Debug.Log(process.StandardOutput.ReadToEnd());
             Debug.Log(process.StandardError.ReadToEnd());
             process.WaitForExit();
+            AssetDatabase.Refresh();
         }
 
         private static string GetPythonPath(){

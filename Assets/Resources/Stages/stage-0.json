@@ -44,7 +44,7 @@
           "magnitude": 3.0,
           "sqrMagnitude": 9
         },
-        "Type": 4,
+        "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
         "GroundEffectName": ""
@@ -67,6 +67,18 @@
           "y": 5,
           "magnitude": 5.0,
           "sqrMagnitude": 25
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 0,
+          "y": 6,
+          "magnitude": 6.0,
+          "sqrMagnitude": 36
         },
         "Type": 2,
         "TileObjectType": 0,
@@ -142,6 +154,18 @@
           "magnitude": 5.09901953,
           "sqrMagnitude": 26
         },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 1,
+          "y": 6,
+          "magnitude": 6.08276272,
+          "sqrMagnitude": 37
+        },
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
@@ -180,9 +204,9 @@
           "magnitude": 2.828427,
           "sqrMagnitude": 8
         },
-        "Type": 1,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
+        "Type": 0,
+        "TileObjectType": 1,
+        "TileObjectId": -1,
         "GroundEffectName": ""
       },
       {
@@ -193,7 +217,7 @@
           "sqrMagnitude": 13
         },
         "Type": 0,
-        "TileObjectType": 2,
+        "TileObjectType": 0,
         "TileObjectId": 0,
         "GroundEffectName": ""
       },
@@ -205,9 +229,9 @@
           "sqrMagnitude": 20
         },
         "Type": 0,
-        "TileObjectType": 0,
+        "TileObjectType": 2,
         "TileObjectId": 0,
-        "GroundEffectName": "GroundEffectFire"
+        "GroundEffectName": ""
       },
       {
         "Position": {
@@ -215,6 +239,18 @@
           "y": 5,
           "magnitude": 5.38516474,
           "sqrMagnitude": 29
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": "fire"
+      },
+      {
+        "Position": {
+          "x": 2,
+          "y": 6,
+          "magnitude": 6.3245554,
+          "sqrMagnitude": 40
         },
         "Type": 2,
         "TileObjectType": 0,
@@ -266,7 +302,7 @@
           "magnitude": 4.2426405,
           "sqrMagnitude": 18
         },
-        "Type": 1,
+        "Type": 3,
         "TileObjectType": 0,
         "TileObjectId": 0,
         "GroundEffectName": ""
@@ -281,7 +317,7 @@
         "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "GroundEffectFire"
+        "GroundEffectName": ""
       },
       {
         "Position": {
@@ -289,6 +325,18 @@
           "y": 5,
           "magnitude": 5.83095169,
           "sqrMagnitude": 34
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": "fire"
+      },
+      {
+        "Position": {
+          "x": 3,
+          "y": 6,
+          "magnitude": 6.708204,
+          "sqrMagnitude": 45
         },
         "Type": 2,
         "TileObjectType": 0,
@@ -319,7 +367,7 @@
         "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "GroundEffectFire"
+        "GroundEffectName": ""
       },
       {
         "Position": {
@@ -331,7 +379,7 @@
         "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "GroundEffectFire"
+        "GroundEffectName": "fire"
       },
       {
         "Position": {
@@ -343,7 +391,7 @@
         "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "GroundEffectFire"
+        "GroundEffectName": "fire"
       },
       {
         "Position": {
@@ -355,7 +403,7 @@
         "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "GroundEffectFire"
+        "GroundEffectName": "fire"
       },
       {
         "Position": {
@@ -363,6 +411,18 @@
           "y": 5,
           "magnitude": 6.40312433,
           "sqrMagnitude": 41
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": "fire"
+      },
+      {
+        "Position": {
+          "x": 4,
+          "y": 6,
+          "magnitude": 7.21110249,
+          "sqrMagnitude": 52
         },
         "Type": 2,
         "TileObjectType": 0,
@@ -390,7 +450,7 @@
           "magnitude": 5.09901953,
           "sqrMagnitude": 26
         },
-        "Type": 2,
+        "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
         "GroundEffectName": ""
@@ -402,7 +462,7 @@
           "magnitude": 5.38516474,
           "sqrMagnitude": 29
         },
-        "Type": 4,
+        "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
         "GroundEffectName": ""
@@ -414,7 +474,7 @@
           "magnitude": 5.83095169,
           "sqrMagnitude": 34
         },
-        "Type": 2,
+        "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
         "GroundEffectName": ""
@@ -426,7 +486,7 @@
           "magnitude": 6.40312433,
           "sqrMagnitude": 41
         },
-        "Type": 2,
+        "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
         "GroundEffectName": ""
@@ -437,6 +497,18 @@
           "y": 5,
           "magnitude": 7.071068,
           "sqrMagnitude": 50
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 5,
+          "y": 6,
+          "magnitude": 7.81025,
+          "sqrMagnitude": 61
         },
         "Type": 2,
         "TileObjectType": 0,
@@ -516,16 +588,28 @@
         "TileObjectType": 0,
         "TileObjectId": 0,
         "GroundEffectName": ""
+      },
+      {
+        "Position": {
+          "x": 6,
+          "y": 6,
+          "magnitude": 8.485281,
+          "sqrMagnitude": 72
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundEffectName": ""
       }
     ]
   ],
   "Meta": {
     "Version": "1.0.0",
-    "Time": "2022-12-27T02:22:13.0937978-08:00",
+    "Time": "2022-12-27T22:11:47.8800504-08:00",
     "Name": "stage-0",
     "Width": 7,
-    "Height": 6
+    "Height": 7
   },
   "Width": 7,
-  "Height": 6
+  "Height": 7
 }

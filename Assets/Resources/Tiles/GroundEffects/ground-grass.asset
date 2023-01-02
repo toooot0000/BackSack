@@ -35,4 +35,4 @@ MonoBehaviour:
   m_Flags: 1
   m_ColliderType: 1
   tileName: ground-grass
-  params: GroundEffectGrass
+  params: grass
