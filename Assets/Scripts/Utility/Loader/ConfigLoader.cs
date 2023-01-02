@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MVC;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Utility.Loader{
+    using TableEntry = Dictionary<string, object>;
     using Table = Dictionary<int, Dictionary<string, object>>;
-    using TableInfo = Dictionary<string, object>;
 
     public static class ConfigLoader{
         private const string EmptyString = "__empty";
         private static readonly Dictionary<string, Table> PrevLoaded = new();
         private static readonly Dictionary<string, object> ConfigTable = new();
 
-        public static Table Load(string filename){
+        public static string ConfigFolderPath = "Configs/";
+
+        public static Table GetTable(string filename){
+            if (!filename.StartsWith(ConfigFolderPath)) filename = $"{ConfigFolderPath}{filename}";
             if (PrevLoaded.ContainsKey(filename)) return PrevLoaded[filename];
             var file = Resources.Load<TextAsset>(filename);
             if (file == null){
@@ -41,11 +45,11 @@ namespace Utility.Loader{
             for (var i = 3; i < lines.Length; i++){
                 var line = ParseLine(lines[i], ',');
                 var id = (int)Math.Round(float.Parse(line[idInd]));
-                ret[id] = new TableInfo();
+                ret[id] = new TableEntry();
                 for (var j = 0; j < line.Length; j++){
                     var key = keys[j];
                     var type = types[j];
-                    ret[id][key] = ParseValue(type, line[j]);
+                    ret[id][key] = ParseTypedValue(type, line[j]);
                 }
             }
 
@@ -53,7 +57,7 @@ namespace Utility.Loader{
             return ret;
         }
 
-        public static object ParseValue(string typename, string val){
+        public static object ParseTypedValue(string typename, string val){
             return typename.ToLower() switch{
                 "int" => IntUtility.ParseString(val),
                 "string" => val.Equals(EmptyString) ? "" : val,
@@ -83,8 +87,8 @@ namespace Utility.Loader{
             return ret.ToArray();
         }
 
-        public static TableInfo TryToLoad(string filename, int id){
-            var table = Load(filename);
+        public static TableEntry TryGetValue(string filename, int id){
+            var table = GetTable(filename);
             if (table == null) return null;
             if (!table.ContainsKey(id)){
                 Debug.LogError($"Wrong id in table '{filename}', id = {id}");
@@ -102,7 +106,7 @@ namespace Utility.Loader{
                 return null;
             }
 
-            var config = Load("Configs/configs");
+            var config = GetTable("Configs/configs");
             if (config == null){
                 Debug.LogError("No configs.csv! Did you forget to download config tables?");
                 return null;
@@ -111,7 +115,7 @@ namespace Utility.Loader{
             foreach (var pair in config){
                 var key = pair.Value["key"] as string;
                 var type = pair.Value["type"] as string;
-                var val = ParseValue(type, pair.Value["value"] as string);
+                var val = ParseTypedValue(type, pair.Value["value"] as string);
                 ConfigTable[key!] = val!;
             }
 
@@ -122,5 +126,32 @@ namespace Utility.Loader{
             Debug.LogError($"No config key: {configKey}!");
             return null;
         }
+    }
+
+    public static class ModelExtension{
+        private static Table _currenTable = null;
+        public static T GetField<T, TSrc>(this Model model, string key, Func<TSrc, T> converter){
+            if (model.ID == null) return default(T);
+            var entry = _currenTable[model.ID.Value];
+            if (!entry.ContainsKey(key)) return default(T);
+            return converter((TSrc)entry[key]);
+        }
+
+        public static T GetField<T>(this Model model, string key, Func<T, T> converter = null){
+            return GetField<T, T>(model, key, converter ?? (arg => arg) );
+        }
+
+        public static bool StartFieldSetting(this Model model, string tableName){
+            if (model.ID == null) return false;
+            _currenTable = ConfigLoader.GetTable(tableName);
+            if (_currenTable.ContainsKey(model.ID.Value)) return true;
+            _currenTable = null;
+            return false;
+        }
+
+        public static void EndFieldSetting(this Model model){
+            _currenTable = null;
+        }
+        
     }
 }

@@ -7,8 +7,16 @@ using UnityEngine;
 
 
 namespace MVC{
+
+    public interface IModel{ }
+    
+    public class IdNotSetException: Exception{}
+    
     [Serializable]
-    public abstract class Model{
+    public abstract class Model: IModel{
+        public int? ID = null;
+        public string Name;
+        public string Desc;
 
         private static JsonSerializerSettings _jsonSerializerSetting = new JsonSerializerSettings{
             MissingMemberHandling = MissingMemberHandling.Ignore,
