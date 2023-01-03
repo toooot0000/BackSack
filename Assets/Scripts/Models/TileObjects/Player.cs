@@ -5,7 +5,7 @@ using MVC;
 using UnityEngine;
 
 namespace Models.TileObjects{
-    public class Player : Model, ITileObject, IBuffHolder{
+    public class Player : Model, ITileObject, IBuffHolder, IDamageable{
         public Vector2Int CurrentStagePosition{ get; set; } = Vector2Int.zero;
         public int Weight{ get; set; }
 

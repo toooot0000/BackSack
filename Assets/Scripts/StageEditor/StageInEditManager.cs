@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Models;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -16,7 +17,7 @@ namespace StageEditor{
         public Tilemap groundEffectMap;
         public StageTile tileTreasure;
 
-        private Tilemap[] _allMaps;
+        private Tilemap[] _allMaps = Array.Empty<Tilemap>();
 
         [HideInInspector] 
         public string loadName = ""; 
@@ -178,7 +179,10 @@ namespace StageEditor{
         private bool SetStageObject(int i, int j, Stage ret){
             // 通过tile 决定类型：tile-player -> Player, tile-enemy-0 -> enemy, tile-chest-x -> chest
             var tile = objectMap.GetTile<StageTile>(floorMap.GetGridPosition(i, j));
-            if (tile == null) return true;
+            if (tile == null){
+                ret.Floors[i, j].TileObjectType = TileObjectType.Null;
+                return true;
+            }
             if (tile.tileName.Contains("player")){
                 // TODO
             } else if (tile.tileName.Contains("enemy")){

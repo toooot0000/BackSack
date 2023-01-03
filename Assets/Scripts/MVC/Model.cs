@@ -10,8 +10,6 @@ namespace MVC{
 
     public interface IModel{ }
     
-    public class IdNotSetException: Exception{}
-    
     [Serializable]
     public abstract class Model: IModel{
         public int? ID = null;
@@ -27,8 +25,8 @@ namespace MVC{
             return JsonConvert.SerializeObject(this, formatting, _jsonSerializerSetting);
         }
 
-        public static T ToModel<T>(string json){
-            return JsonConvert.DeserializeObject<T>(json, _jsonSerializerSetting);
+        public static T ToModel<T>(string jsonText) where T: Model{
+            return JsonConvert.DeserializeObject<T>(jsonText, _jsonSerializerSetting);
         }
     }
 }

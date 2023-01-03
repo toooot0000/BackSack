@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Models;
-using Models.GroundEffects;
+using Models.Ground;
 using Models.TileObjects;
 using MVC;
 using Newtonsoft.Json;
@@ -50,7 +50,7 @@ namespace Models{
         public string GroundEffectName = "";
         
         [JsonIgnore]
-        public BaseGroundEffect BaseGroundEffect = null;
+        public BaseGround BaseGround = null;
         [JsonIgnore]
         public ITileObject TileObject = null;
     } 

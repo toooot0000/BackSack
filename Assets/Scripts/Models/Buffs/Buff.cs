@@ -7,7 +7,7 @@ using UnityEngine;
 using Utility.Loader;
 
 namespace Models.Buffs{
-    public interface IBuffHolder: IDamageable{
+    public interface IBuffHolder{
         List<Buff> Buffs{ set; get; }
     }
 

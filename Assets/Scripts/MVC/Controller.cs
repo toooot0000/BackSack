@@ -35,8 +35,8 @@ namespace MVC{
         }
 
         public void SetModel(TModel model) => Model = model;
-        public TModel GetModel() => Model;
-        public TView GetView() => view;
+        public virtual TModel GetModel() => Model;
+        public virtual TView GetView() => view;
     }
     
     

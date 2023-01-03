@@ -29,7 +29,7 @@ namespace Models{
                 for (var j = 0; j < Meta.Height; j++){
                     Floors[i, j] = new(){
                         Position = new(i, j),
-                        BaseGroundEffect = null,
+                        BaseGround = null,
                         TileObject = null,
                         Type = FloorType.Block
                     };

@@ -26,5 +26,8 @@ namespace Entities.Players{
             Model.CurrentStagePosition = dest;
             view.MoveToPosition(stageController.StagePositionToWorldPosition(dest));
         }
+        
+        
+        
     }
 }

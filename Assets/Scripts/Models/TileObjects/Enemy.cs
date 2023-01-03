@@ -7,7 +7,7 @@ using UnityEngine;
 using Utility.Loader;
 
 namespace Models.TileObjects{
-    public class Enemy: Model, ITileObject, IBuffHolder{
+    public class Enemy: Model, ITileObject, IBuffHolder, IDamageable{
         public Vector2Int CurrentStagePosition{ get; set; }
         public int Weight{ get; set; }
         public int HealthPoint{ get; set; }

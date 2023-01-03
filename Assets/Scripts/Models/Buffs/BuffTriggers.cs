@@ -4,27 +4,27 @@ namespace Models.Buffs{
     public interface IBuffTrigger{ }
 
     public interface IBuffTriggerOnTurnBegin : IBuffTrigger{
-        void OnTurnBegin(IBuffHolder holder);
+        BuffEffectInfo OnTurnBegin(IBuffHolder holder);
     }
 
     public interface IBuffTriggerOnTurnEnd : IBuffTrigger{
-        void OnTurnEnd(IBuffHolder holder);
+        BuffEffectInfo OnTurnEnd(IBuffHolder holder);
     }
 
     public interface IBuffTriggerOnTakeDamage : IBuffTrigger{
-        void OnTakeDamage(IBuffHolder holder);
+        BuffEffectInfo OnTakeDamage(IBuffHolder holder);
     }
 
     public interface IBuffTriggerOnApplied : IBuffTrigger{
-        void OnApplied(IBuffHolder holder);
+        BuffEffectInfo OnApplied(IBuffHolder holder);
     }
 
     public interface IBuffTriggerOnRemoved : IBuffTrigger{
-        void OnRemoved(IBuffHolder holder);
+        BuffEffectInfo OnRemoved(IBuffHolder holder);
     }
 
     public interface IBuffTriggerOnGetResistance : IBuffTrigger{
-        void OnGetResistance(Dictionary<ElementType, int> originResistance);
+        BuffEffectInfo OnGetResistance(IBuffHolder holder);
     }
     
 }

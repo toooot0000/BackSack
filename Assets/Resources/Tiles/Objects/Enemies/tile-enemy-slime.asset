@@ -35,4 +35,4 @@ MonoBehaviour:
   m_Flags: 1
   m_ColliderType: 1
   tileName: tile-enemy-slime
-  params: -1
+  params: 0

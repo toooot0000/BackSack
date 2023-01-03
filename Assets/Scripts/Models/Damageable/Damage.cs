@@ -11,8 +11,8 @@ namespace Models.Damageable{
             return damage.Point; // TODO
         }
         
-        public static DamageResolvedInfo GetDamageResolvedInfo(IDamageable target, Damage damage){
-            var finalPoint = Damage.GetFinalPoint(damage, target);
+        public static DamageEffectInfo GetDamageResolvedInfo(IDamageable target, Damage damage){
+            var finalPoint = GetFinalPoint(damage, target);
             var deductedDp = Math.Min(target.DefendPoint, finalPoint);
             var deductedHp = finalPoint - deductedDp;
             var deductedSp = 0;
@@ -22,7 +22,7 @@ namespace Models.Damageable{
                 deductedSp = 1;
             }
             
-            return new DamageResolvedInfo(){
+            return new DamageEffectInfo(){
                 Target = target,
                 DeductedHealthPoint = deductedHp,
                 DeductedShieldPoint = deductedSp,

@@ -18,5 +18,9 @@ namespace Entities.Enemies{
         public IEnumerator BeingAttackedRoutine(){
             yield return null;
         }
+
+        public void SetPosition(Vector3 position){
+            transform.position = position;
+        }
     }
 }
