@@ -3,46 +3,84 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using Utility.Animation.Tweens;
 
 namespace Utility.Animation{
+    [Serializable]
+    public struct TweenPair<T> where T: Enum{
+        public T type;
+        public Tween tween;
+    }
+    
+    public interface IAnimator{
+        float Length{ set; get; }
+        public void Play();
+    }
+
+    public interface IAnimatorArgument<in T> where T : IAnimator{
+        void SetUp(T animator);
+    }
+
+    public interface IAnimatorHandleInterrupt{
+        void HandleInterrupt(IAnimator next);
+    }
+
+    public class WrappedAnimator : IAnimator{
+        public float Length{ get; set; }
+        public Animator UnderlyingAnimator;
+        public string AnimationName;
+        public void Play(){
+            UnderlyingAnimator.Play(AnimationName);
+        }
+    }
+    
+    [RequireComponent(typeof(Animator))]
     public class AnimationController<T> : MonoBehaviour
         where T : Enum{
-        public delegate void AnimationCallback(T currentAnimation);
-
-        private readonly Dictionary<T, float> _times = new();
-        private Animator _animator;
-
-        private T _currentAnimation;
+        public TweenPair<T>[] tweenPairs;
+        private readonly Dictionary<T, IAnimator> _animator = new();
+        private IAnimator _currentAnimator = null;
 
         private void Awake(){
-            _animator = GetComponent<Animator>();
-            foreach (var clip in _animator.runtimeAnimatorController.animationClips)
+            UpdateAnimatorData();
+            UpdateTweenData();
+        }
+
+        private void UpdateAnimatorData(){
+            var animator = GetComponent<Animator>();
+            foreach (var clip in animator.runtimeAnimatorController.animationClips){
                 try{
-                    _times[EnumUtility.GetValue<T>(clip.name)] = clip.length + 0.02f;
+                    var type = EnumUtility.GetValue<T>(clip.name);
+                    _animator[type] = new WrappedAnimator(){
+                        UnderlyingAnimator = animator,
+                        AnimationName = GetDescription(type),
+                        Length = clip.length + 0.02f
+                    };
                 } catch{
-                    Debug.Log($"Enum not has the animation name: {clip.name}");
+                    Debug.Log($"Enum does not have the animation with the name of {clip.name}");
                 }
+            }
         }
 
-        public void Play(T anim){
-            _animator.Play(GetDescription(anim));
+        private void UpdateTweenData(){
+            foreach (var tweenPair in tweenPairs){
+                _animator[tweenPair.type] = tweenPair.tween;
+            }
         }
 
-        public void Play(T anim, Action completeCallback){
-            Play(anim);
-            StartCoroutine(CoroutineUtility.Delayed(_times[anim], completeCallback));
+        public void Play<TAnimator>(T anim, IAnimatorArgument<TAnimator> argument = null) where TAnimator : IAnimator{
+            var animator = _animator[anim];
+            if (animator is not TAnimator typed) return;
+            if(_currentAnimator is IAnimatorHandleInterrupt handleInterrupt) handleInterrupt.HandleInterrupt(animator);
+            _currentAnimator = animator;
+            argument?.SetUp(typed);
+            animator.Play();
         }
 
-        public IEnumerator PlayUntilComplete(T anim){
-            Play(anim);
-            yield return new WaitForSeconds(_times[anim]);
+        public IEnumerator PlayAndWaitUntilComplete<TAnimator>(T anim, IAnimatorArgument<TAnimator> argument = null) where TAnimator : IAnimator{
+            Play(anim, argument);
+            yield return new WaitForSeconds(_animator[anim].Length);
         }
-
-        public void Play(T anim, float seconds, Action callback){
-            Play(anim);
-            StartCoroutine(CoroutineUtility.Delayed(seconds, callback));
-        }
-
 
         private static string GetDescription(T value){
             var field = value.GetType().GetField(value.ToString());

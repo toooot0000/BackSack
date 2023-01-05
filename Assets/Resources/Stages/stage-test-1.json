@@ -53,36 +53,6 @@
           "magnitude": 3.0,
           "sqrMagnitude": 9
         },
-        "Type": 4,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 0,
-          "y": 4,
-          "magnitude": 4.0,
-          "sqrMagnitude": 16
-        },
-        "Type": 2,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 0,
-          "y": 5,
-          "magnitude": 5.0,
-          "sqrMagnitude": 25
-        },
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
@@ -115,7 +85,7 @@
           "magnitude": 1.41421354,
           "sqrMagnitude": 2
         },
-        "Type": 0,
+        "Type": 3,
         "TileObjectType": 0,
         "TileObjectId": 0,
         "GroundEffectName": "",
@@ -144,36 +114,6 @@
           "y": 3,
           "magnitude": 3.1622777,
           "sqrMagnitude": 10
-        },
-        "Type": 0,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 1,
-          "y": 4,
-          "magnitude": 4.12310553,
-          "sqrMagnitude": 17
-        },
-        "Type": 0,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 1,
-          "y": 5,
-          "magnitude": 5.09901953,
-          "sqrMagnitude": 26
         },
         "Type": 2,
         "TileObjectType": 0,
@@ -222,8 +162,8 @@
           "magnitude": 2.828427,
           "sqrMagnitude": 8
         },
-        "Type": 0,
-        "TileObjectType": 1,
+        "Type": 1,
+        "TileObjectType": 0,
         "TileObjectId": 0,
         "GroundEffectName": "",
         "ID": null,
@@ -236,36 +176,6 @@
           "y": 3,
           "magnitude": 3.60555124,
           "sqrMagnitude": 13
-        },
-        "Type": 0,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 2,
-          "y": 4,
-          "magnitude": 4.472136,
-          "sqrMagnitude": 20
-        },
-        "Type": 0,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 2,
-          "y": 5,
-          "magnitude": 5.38516474,
-          "sqrMagnitude": 29
         },
         "Type": 2,
         "TileObjectType": 0,
@@ -314,8 +224,8 @@
           "magnitude": 3.60555124,
           "sqrMagnitude": 13
         },
-        "Type": 1,
-        "TileObjectType": 0,
+        "Type": 0,
+        "TileObjectType": 1,
         "TileObjectId": 0,
         "GroundEffectName": "",
         "ID": null,
@@ -328,36 +238,6 @@
           "y": 3,
           "magnitude": 4.2426405,
           "sqrMagnitude": 18
-        },
-        "Type": 3,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 3,
-          "y": 4,
-          "magnitude": 5.0,
-          "sqrMagnitude": 25
-        },
-        "Type": 0,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 3,
-          "y": 5,
-          "magnitude": 5.83095169,
-          "sqrMagnitude": 34
         },
         "Type": 2,
         "TileObjectType": 0,
@@ -392,7 +272,7 @@
           "sqrMagnitude": 17
         },
         "Type": 0,
-        "TileObjectType": 0,
+        "TileObjectType": 2,
         "TileObjectId": 0,
         "GroundEffectName": "",
         "ID": null,
@@ -406,7 +286,7 @@
           "magnitude": 4.472136,
           "sqrMagnitude": 20
         },
-        "Type": 3,
+        "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
         "GroundEffectName": "",
@@ -420,36 +300,6 @@
           "y": 3,
           "magnitude": 5.0,
           "sqrMagnitude": 25
-        },
-        "Type": 1,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 4,
-          "y": 4,
-          "magnitude": 5.656854,
-          "sqrMagnitude": 32
-        },
-        "Type": 0,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 4,
-          "y": 5,
-          "magnitude": 6.40312433,
-          "sqrMagnitude": 41
         },
         "Type": 2,
         "TileObjectType": 0,
@@ -513,36 +363,6 @@
           "magnitude": 5.83095169,
           "sqrMagnitude": 34
         },
-        "Type": 0,
-        "TileObjectType": 1,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 5,
-          "y": 4,
-          "magnitude": 6.40312433,
-          "sqrMagnitude": 41
-        },
-        "Type": 0,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 5,
-          "y": 5,
-          "magnitude": 7.071068,
-          "sqrMagnitude": 50
-        },
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
@@ -575,7 +395,7 @@
           "magnitude": 6.08276272,
           "sqrMagnitude": 37
         },
-        "Type": 0,
+        "Type": 4,
         "TileObjectType": 0,
         "TileObjectId": 0,
         "GroundEffectName": "",
@@ -590,7 +410,7 @@
           "magnitude": 6.3245554,
           "sqrMagnitude": 40
         },
-        "Type": 0,
+        "Type": 5,
         "TileObjectType": 0,
         "TileObjectId": 0,
         "GroundEffectName": "",
@@ -604,36 +424,6 @@
           "y": 3,
           "magnitude": 6.708204,
           "sqrMagnitude": 45
-        },
-        "Type": 0,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 6,
-          "y": 4,
-          "magnitude": 7.21110249,
-          "sqrMagnitude": 52
-        },
-        "Type": 0,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 6,
-          "y": 5,
-          "magnitude": 7.81025,
-          "sqrMagnitude": 61
         },
         "Type": 2,
         "TileObjectType": 0,
@@ -682,7 +472,7 @@
           "magnitude": 7.28011,
           "sqrMagnitude": 53
         },
-        "Type": 4,
+        "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
         "GroundEffectName": "",
@@ -704,45 +494,15 @@
         "ID": null,
         "Name": null,
         "Desc": null
-      },
-      {
-        "Position": {
-          "x": 7,
-          "y": 4,
-          "magnitude": 8.062258,
-          "sqrMagnitude": 65
-        },
-        "Type": 2,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
-      },
-      {
-        "Position": {
-          "x": 7,
-          "y": 5,
-          "magnitude": 8.602325,
-          "sqrMagnitude": 74
-        },
-        "Type": 2,
-        "TileObjectType": 0,
-        "TileObjectId": 0,
-        "GroundEffectName": "",
-        "ID": null,
-        "Name": null,
-        "Desc": null
       }
     ]
   ],
   "Meta": {
     "Version": "1.0.0",
-    "Time": "2023-01-03T00:24:27.8815335-08:00",
-    "Name": "stage-0",
+    "Time": "2023-01-02T23:32:33.3830542-08:00",
+    "Name": "stage-test-1",
     "Width": 8,
-    "Height": 6,
+    "Height": 4,
     "ID": null,
     "Desc": null
   },
@@ -750,5 +510,5 @@
   "Name": null,
   "Desc": null,
   "Width": 8,
-  "Height": 6
+  "Height": 4
 }

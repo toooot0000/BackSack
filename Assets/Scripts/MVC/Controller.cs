@@ -8,13 +8,13 @@ using UnityEngine;
 namespace MVC{
 
     public interface IController{
-        public static readonly List<IController> Managers = new();
+        public static readonly List<IController> Controllers = new();
         public static void RegisterManager(IController controller){
-            Managers.Add(controller);
+            Controllers.Add(controller);
         }
 
-        public static T GetManager<T>() where T : IController{
-            return Managers.Capacity == 0 ? default : (T)Managers.First(m => m is T);
+        public static T GetController<T>() where T : IController{
+            return Controllers.Capacity == 0 ? default : (T)Controllers.First(m => m is T);
         }
     }
 

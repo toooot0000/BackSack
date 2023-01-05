@@ -53,7 +53,21 @@ namespace Models{
         public BaseGround BaseGround = null;
         [JsonIgnore]
         public ITileObject TileObject = null;
-    } 
+    }
+    
+    public static class FloorTypeExtension{
+        public static bool IsSteppable(this FloorType floorType){
+            return floorType switch{
+                FloorType.Empty => true,
+                FloorType.Ana => false,
+                FloorType.Block => false,
+                FloorType.Gate => true,
+                FloorType.Pillar => false,
+                FloorType.Stair => true,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+    }
 }
 
 public static class FloorExtension{
@@ -72,4 +86,6 @@ public static class FloorTypeExtension{
     public static string GetFloorTileFileName(this FloorType floorType){
         return $"{ResourcePrefix}{floorType.GetDescription().ToLower()}";
     }
+
+    
 }

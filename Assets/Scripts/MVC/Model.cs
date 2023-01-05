@@ -25,8 +25,8 @@ namespace MVC{
             return JsonConvert.SerializeObject(this, formatting, _jsonSerializerSetting);
         }
 
-        public static T ToModel<T>(string jsonText) where T: Model{
-            return JsonConvert.DeserializeObject<T>(jsonText, _jsonSerializerSetting);
+        public static T FromJsonString<T>(string jsonStr) where T: Model{
+            return JsonConvert.DeserializeObject<T>(jsonStr, _jsonSerializerSetting);
         }
     }
 }

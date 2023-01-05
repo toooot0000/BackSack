@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Models;
+using Models.Stage;
 using MVC;
 using Newtonsoft.Json;
 using UnityEditor;
@@ -58,7 +59,7 @@ namespace StageEditor.Editor{
                 Debug.LogError($"Loading stage FAILED! Can't find the stage file with path of {fileName}");
                 return null;
             }
-            return Model.ToModel<Stage>(textAsset.text);
+            return Model.FromJsonString<Stage>(textAsset.text);
         }
 
         private void Export(Stage stage){

@@ -24,18 +24,18 @@ namespace Utility.Extensions{
         /// </summary>
         /// <param name="vec"></param>
         /// <returns></returns>
-        public static Vector2 Aligned(this Vector2 vec){
-            if (vec.magnitude == 0) return Vector2.zero;
+        public static Vector2Int Aligned(this Vector2 vec){
+            if (vec.magnitude == 0) return Vector2Int.zero;
             vec = vec.Rotated(-45);
             if (vec.x > 0){
                 if (vec.y > 0)
-                    return Vector2.up;
-                return Vector2.right;
+                    return Vector2Int.up;
+                return Vector2Int.right;
             }
 
             if (vec.y > 0)
-                return Vector2.left;
-            return Vector2.down;
+                return Vector2Int.left;
+            return Vector2Int.down;
         }
     }
 }

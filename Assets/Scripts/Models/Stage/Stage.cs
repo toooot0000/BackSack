@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using Models.TileObjects;
 using MVC;
 using UnityEngine;
 
-namespace Models{
+namespace Models.Stage{
 
     public class StageMeta : Model{
         public string Version = "1.0.0";
@@ -37,10 +35,14 @@ namespace Models{
             }
         }
 
-        public Vector3Int GetGridPosition(int x, int y) => new Vector3Int(x - Meta.Width / 2, y - Meta.Height / 2);
+        public Vector2Int GetGridPosition(int x, int y) => new Vector2Int(x - Meta.Width / 2, y - Meta.Height / 2);
+        public Vector2Int GetGridPosition(Vector2Int stagePosition) => GetGridPosition(stagePosition.x, stagePosition.y);
 
-        public ITileObject GetTileObject(Vector2Int position){
-            return Floors[position.x, position.y].TileObject;
+        public Vector2Int GetStagePosition(Vector2Int gridPosition) =>
+            new Vector2Int(gridPosition.x + Meta.Width / 2, gridPosition.y + Meta.Height / 2);
+
+        public Floor GetFloor(Vector2Int stagePosition){
+            return Floors[stagePosition.x, stagePosition.y];
         }
     }
 }

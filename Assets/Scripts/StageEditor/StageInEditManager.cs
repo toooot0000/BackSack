@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Models;
+using Models.Stage;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Utility;
@@ -124,12 +125,12 @@ namespace StageEditor{
         }
 
         private void SetMapFloor(int i, int j, Stage src){
-            var positionInGrid = src.GetGridPosition(i, j);
+            var positionInGrid = src.GetGridPosition(i, j).ToVector3Int();
             floorMap.SetTile(positionInGrid, TypeToFloorTypeToFloorTile[src.Floors[i, j].Type]);
         }
 
         private void SetMapObject(int i, int j, Stage src){
-            var positionInGrid = src.GetGridPosition(i, j);
+            var positionInGrid = src.GetGridPosition(i, j).ToVector3Int();
             switch (src.Floors[i, j].TileObjectType){
                 case TileObjectType.Enemy:
                     objectMap.SetTile(positionInGrid, IdToEnemyTile[src.Floors[i, j].TileObjectId]);
@@ -141,7 +142,7 @@ namespace StageEditor{
         }
 
         private void SetMapGroundEffect(int i, int j, Stage src){
-            var positionInGrid = src.GetGridPosition(i, j);
+            var positionInGrid = src.GetGridPosition(i, j).ToVector3Int();
             var str = src.Floors[i, j].GroundEffectName;
             if (string.IsNullOrEmpty(str)) return;
             groundEffectMap.SetTile(positionInGrid, ClassNameToGroundEffectTiles[str]);
@@ -220,5 +221,9 @@ namespace StageEditor{
         public static Vector3Int GetGridPosition(this Stage stage, int row, int col){
             return new Vector3Int(row - stage.Width/2, col - stage.Height/2);
         }
+    }
+
+    internal static class Vector2IntExtension{
+        public static Vector3Int ToVector3Int(this Vector2Int vec) => new Vector3Int(vec.x, vec.y, 0);
     }
 }
