@@ -5,9 +5,6 @@ using Utility.Extensions;
 namespace Utility.Animation.Tweens{
 
     public abstract class Tween: MonoBehaviour, IAnimator{
-
-        public event Action OnRepeat;
-        public event Action OnFinish;
         public float totalTime;
         public bool repeat = false;
         private float _curTime = 0;
@@ -26,17 +23,14 @@ namespace Utility.Animation.Tweens{
         protected virtual void Update(){
             if (IsPaused) return;
             _curTime += Time.deltaTime;
-            var i = _curTime / totalTime;
-            OnTimerUpdate(i);
-            if (_curTime.AlmostEquals(totalTime) || _curTime > totalTime){
-                if (!repeat){
-                    IsPaused = true;
-                    OnFinish?.Invoke();
-                }
-                else{
-                    _curTime = 0;
-                    OnRepeat?.Invoke();
-                }
+            OnTimerUpdate( _curTime / totalTime);
+            if (!_curTime.AlmostEquals(totalTime) && !(_curTime > totalTime)) return;
+            if (!repeat){
+                IsPaused = true;
+                OnFinish();
+            } else {
+                _curTime = 0;
+                OnRepeat();
             }
         }
 
@@ -68,5 +62,9 @@ namespace Utility.Animation.Tweens{
         public bool IsFinished => !repeat && _curTime.AlmostEquals(totalTime);
 
         protected abstract void OnTimerUpdate(float i);
+
+        protected virtual void OnFinish(){ }
+
+        protected virtual void OnRepeat(){ }
     }
 }

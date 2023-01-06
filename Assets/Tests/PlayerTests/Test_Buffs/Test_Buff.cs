@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Models;
 using Models.Buffs;
-using Models.Damageable;
+using Models.Damages;
 using NUnit.Framework;
 
 namespace Tests.PlayerTests.Test_Buff{

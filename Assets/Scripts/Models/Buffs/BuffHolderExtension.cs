@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Models.Buffs.Triggers;
 
 namespace Models.Buffs{
     public static class BuffHolderExtension{

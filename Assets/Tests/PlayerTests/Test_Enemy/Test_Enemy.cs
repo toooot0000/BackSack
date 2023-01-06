@@ -1,4 +1,5 @@
 ﻿using Models.TileObjects;
+using Models.TileObjects.Enemies;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;

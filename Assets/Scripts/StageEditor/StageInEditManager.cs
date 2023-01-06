@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Models;
-using Models.Stage;
+using Models.Stages;
+using Models.TileObjects;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Utility;

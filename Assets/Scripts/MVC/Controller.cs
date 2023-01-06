@@ -17,6 +17,8 @@ namespace MVC{
             return Controllers.Capacity == 0 ? default : (T)Controllers.First(m => m is T);
         }
     }
+    
+    
 
     public abstract class Controller<TModel, TView>: MonoBehaviour, IController where TModel : IModel where TView: IViewWithType<TModel>{
         private TModel _model;

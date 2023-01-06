@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Models.Buffs;
-using Models.Damageable;
+using Models.Damages;
 using MVC;
 using UnityEngine;
 

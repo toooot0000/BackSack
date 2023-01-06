@@ -1,5 +1,6 @@
 ﻿using Models;
-using Models.Stage;
+using Models.Stages;
+using Models.TileObjects;
 using MVC;
 using NUnit.Framework;
 using UnityEngine;

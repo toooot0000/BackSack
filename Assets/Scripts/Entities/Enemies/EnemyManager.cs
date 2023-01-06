@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Entities.Stages;
 using Models.TileObjects;
+using Models.TileObjects.Enemies;
 using UnityEngine;
 using Utility.Extensions;
 

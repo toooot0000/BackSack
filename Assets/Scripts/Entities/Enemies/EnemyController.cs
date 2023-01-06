@@ -1,5 +1,6 @@
 ﻿using Entities.Stages;
 using Models.TileObjects;
+using Models.TileObjects.Enemies;
 using MVC;
 using UnityEngine;
 

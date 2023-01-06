@@ -5,7 +5,7 @@ using Coroutines;
 using Entities.Players;
 using Entities.Stages;
 using Models;
-using Models.Stage;
+using Models.Stages;
 using Models.TileObjects;
 using MVC;
 using UnityEngine;
@@ -24,10 +24,12 @@ public enum GameState{
 public class GameManager : MonoBehaviour{
     private static GameManager _shared = null;
     public static GameManager Shared => _shared;
-
     public CoroutineManager coroutineManager;
-
     public GameState state = GameState.Pausing;
+    [HideInInspector]
+    public PlayerController player;
+    [HideInInspector]
+    public StageController stage;
 
 
     private bool _isEnd = false;
@@ -50,12 +52,32 @@ public class GameManager : MonoBehaviour{
         PreGameSetUp();
         LoadGame();
         
-        IController.GetController<StageController>().SetModel(Model.FromJsonString<Stage>(Resources.Load<TextAsset>("Stages/stage-test-blank").text));
-        IController.GetController<PlayerController>().SetModel(new Player());
+        stage = IController.GetController<StageController>();
+        stage.SetModel(Model.FromJsonString<Stage>(Resources.Load<TextAsset>("Stages/stage-test-blank").text));
+        player = IController.GetController<PlayerController>();
+        player.SetModel(new Player());
         
         _gameLoop = StartCoroutine(GameLoop());
     }
-    
+
+    private void Update(){
+        if (Input.GetKeyUp(KeyCode.UpArrow)){
+            MovePlayer(Vector2Int.up);
+        } else if (Input.GetKeyUp((KeyCode.LeftArrow))){
+            MovePlayer(Vector2Int.left);
+        } else if (Input.GetKeyUp(KeyCode.DownArrow)){
+            MovePlayer(Vector2Int.down);
+        } else if (Input.GetKeyUp(KeyCode.RightArrow)){
+            MovePlayer(Vector2Int.right);
+        } else if (Input.GetKeyUp(KeyCode.Space)){
+            player.Jump();
+        }
+    }
+
+    private void MovePlayer(Vector2Int direction){
+        player.Move(direction);
+    }
+
     /// <summary>
     /// System setting;
     /// 

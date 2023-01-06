@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Models.Damageable;
 using MVC;
 using UnityEngine;
 using Utility.Loader;
