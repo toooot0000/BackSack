@@ -9,27 +9,28 @@ namespace Utility.Animation.Tweens{
         public bool repeat = false;
         private float _curTime = 0;
         public bool IsPaused{ get; private set; } = true;
-        
-        public float Length{
-            get => totalTime;
-            set => totalTime = value;
-        }
+        public bool IsReversing{ get; private set; } = false;
 
+        public float Length => totalTime;
 
         protected virtual void Start(){
-            _curTime = 0;
+            ResetTime();
         }
 
         protected virtual void Update(){
             if (IsPaused) return;
-            _curTime += Time.deltaTime;
+            _curTime += IsReversing ? -Time.deltaTime : Time.deltaTime;
             OnTimerUpdate( _curTime / totalTime);
-            if (!_curTime.AlmostEquals(totalTime) && !(_curTime > totalTime)) return;
+            if(0 < _curTime && _curTime < totalTime)  return;
             if (!repeat){
                 IsPaused = true;
-                OnFinish();
+                if(IsReversing){
+                    OnReverseComplete();
+                } else{
+                    OnComplete();
+                }
             } else {
-                _curTime = 0;
+                _curTime = IsReversing? totalTime : 0;
                 OnRepeat();
             }
         }
@@ -40,6 +41,10 @@ namespace Utility.Animation.Tweens{
 
         public void Play(){
             IsPaused = false;
+            if(_curTime.AlmostEquals(0)){
+                if(IsReversing) OnReverseComplete();
+                else OnStart();
+            };
         }
 
         public void Stop(){
@@ -49,22 +54,31 @@ namespace Utility.Animation.Tweens{
 
         public void Replay(){
             IsPaused = false;
-            _curTime = 0;
+            ResetTime();
+            OnStart();
         }
 
         public void ResetTime(){
-            _curTime = 0;
+            _curTime = IsReversing? totalTime : 0;
+        }
+
+        public void Reverse(){
+            IsReversing = !IsReversing;
         }
         
         /// <summary>
         /// If Tween is repeating, IsFinished is always false.
         /// </summary>
-        public bool IsFinished => !repeat && _curTime.AlmostEquals(totalTime);
+        public bool IsComplete => !repeat && !IsReversing && _curTime.AlmostEquals(totalTime);
 
+        public bool IsReverseComplete => !repeat && IsReversing && _curTime.AlmostEquals(0);
+        
+        
         protected abstract void OnTimerUpdate(float i);
-
-        protected virtual void OnFinish(){ }
-
+        protected virtual void OnComplete(){ }
         protected virtual void OnRepeat(){ }
+        protected virtual void OnStart(){ }
+        protected virtual void OnReverseStart(){ OnComplete();}
+        protected virtual void OnReverseComplete(){ OnStart(); }
     }
 }

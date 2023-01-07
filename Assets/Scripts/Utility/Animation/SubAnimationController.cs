@@ -27,9 +27,11 @@ namespace Utility.Animation{
             if(parent != null) parent.SubControllers[typeof(T)] = this;
         }
 
-        public float Length{ get; set; }
+        public float Length => CurrentAnimator.Length;
+
         public void Play(){
             var animator = Animators[_nextAnim];
+            UpdateCurrentAnimator(animator);
             if (!_argument.SetUp(animator)) return;
             animator.Play();
         }

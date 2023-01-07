@@ -2,26 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using UnityEngine;
 using Utility.Animation.Tweens;
 
 namespace Utility.Animation{
-
-    // public interface IAnimationControllerUsingTweens<T> where T: Enum{
-    //     [Serializable]
-    //     public struct TweenPair{
-    //         public T type;
-    //         public Tween tween;
-    //     }
-    //     public TweenPair[] TweenPairs{ set; get; }
-    //     public void Play<TAnimator>(T anim, IAnimatorArgument<TAnimator> argument = null) where TAnimator : IAnimator;
-    //     public IEnumerator PlayAndWaitUntilComplete<TAnimator>(T anim, IAnimatorArgument<TAnimator> argument = null)
-    //         where TAnimator : IAnimator;
-    // }
-
-    // public static class AnimationControllerUsingTweensExtension{
-    //     public static void UpdateTweenData<T>(this AnimationController<>)
-    // }
 
     public abstract class AnimationController:  MonoBehaviour{
         public readonly Dictionary<Type, AnimationController> SubControllers = new();
@@ -47,7 +32,7 @@ namespace Utility.Animation{
         
         public TweenPair[] tweenPairs;
         protected readonly Dictionary<T, IAnimator> Animators = new();
-        private IAnimator _currentAnimator = null;
+        protected IAnimator CurrentAnimator = null;
         
         private void Awake(){
             UpdateAnimatorData();
@@ -76,32 +61,56 @@ namespace Utility.Animation{
             }
         }
 
-        public void Play<TEnum, TSub>(TEnum anim, IAnimatorArgumentNonTyped argument) where TEnum : Enum where TSub : SubAnimationController<TEnum>{
+        public void Play<TEnum>(TEnum anim, IAnimatorArgumentNonTyped argument) where TEnum : Enum{
             var type = typeof(TEnum);
             if (!SubControllers.ContainsKey(type)) return;
             var sub = SubControllers[type];
-            if (sub is not TSub typedSub) return;
-            if(_currentAnimator is IAnimatorHandleInterrupt handleInterrupt) handleInterrupt.HandleInterrupt(typedSub);
-            _currentAnimator = typedSub;
+            if (sub is not SubAnimationController<TEnum> typedSub) return;
+            UpdateCurrentAnimator(typedSub);
             var wrappedArg = new SubAnimationController<TEnum>.Argument(anim, argument);
             wrappedArg.SetUp(typedSub);
             typedSub.Play();
+        }
+        
+        public IEnumerator PlayAndWaitUntilComplete<TEnum>(TEnum anim, IAnimatorArgumentNonTyped argument) where TEnum : Enum{
+            Play(anim, argument);
+            yield return new WaitForSeconds(CurrentAnimator.Length);
         }
 
         public void Play<TAnimator>(T anim, IAnimatorArgumentTyped<TAnimator> argument = null) where TAnimator : IAnimator{
             var animator = Animators[anim];
             if (animator is not TAnimator typed) return;
-            if(_currentAnimator is IAnimatorHandleInterrupt handleInterrupt) handleInterrupt.HandleInterrupt(animator);
-            _currentAnimator = animator;
+            UpdateCurrentAnimator(animator);
             argument?.SetUp(typed);
             animator.Play();
         }
-
         public IEnumerator PlayAndWaitUntilComplete<TAnimator>(T anim, IAnimatorArgumentTyped<TAnimator> argument = null) where TAnimator : IAnimator{
             Play(anim, argument);
-            yield return new WaitForSeconds(Animators[anim].Length);
+            yield return new WaitForSeconds(CurrentAnimator.Length);
         }
 
+        public void Play<TAnimator>(IAnimatorArgumentTyped<TAnimator> arg = null) where TAnimator : Tween{
+            try{
+                var first = (TAnimator)Animators.Values.First(t => t is TAnimator);
+                UpdateCurrentAnimator(first);
+                arg?.SetUp(first);
+                first.Play();
+            } catch (Exception e){
+                Debug.LogError($"Can't play animation of type {typeof(TAnimator)}");
+            }
+        }
+        
+        public IEnumerator PlayAndWaitUntilComplete<TAnimator>(IAnimatorArgumentTyped<TAnimator> arg = null) where TAnimator : Tween{
+            Play(arg);
+            yield return new WaitForSeconds(CurrentAnimator.Length);
+        }
+
+        protected void UpdateCurrentAnimator(IAnimator newCurrent){
+            if(CurrentAnimator is IAnimatorHandleInterrupt handleInterrupt) handleInterrupt.HandleInterrupt(newCurrent);
+            CurrentAnimator = newCurrent;
+            
+        }
+        
         private static string GetDescription(T value){
             var field = value.GetType().GetField(value.ToString());
             return Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is not DescriptionAttribute

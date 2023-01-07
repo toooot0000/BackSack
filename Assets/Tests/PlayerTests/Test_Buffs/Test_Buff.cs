@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
+using Components;
+using Components.Buffs;
+using Components.Buffs.Effects;
+using Components.Damages;
 using Models;
-using Models.Buffs;
-using Models.Damages;
 using NUnit.Framework;
 
 namespace Tests.PlayerTests.Test_Buff{
     public class Test_Buff{
-        private class TestBuffHolder: IBuffHolder{
+        private class TestBuffHolder: IBuffHolderModel{
             public int HealthPoint{ get; set; }
             public int ShieldPoint{ get; set; }
             public int DefendPoint{ get; set; }
@@ -14,6 +16,7 @@ namespace Tests.PlayerTests.Test_Buff{
             public void TakeDamage(Damage damage){ }
 
             public List<Buff> Buffs{ get; set; } = new();
+            public void Consume(IBuffEffect effect){ }
         }
 
         class TestBuff : Buff{

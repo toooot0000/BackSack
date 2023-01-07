@@ -1,8 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace MVC{
     public interface IView{ }
-
-    public interface IViewWithType<TModel> : IView where TModel : IModel{ }
 }
 

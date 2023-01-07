@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using System.Linq;
-using Entities.Enemies;
-using Entities.Stages;
-using Entities.TreasureBoxes;
+using Components.Enemies;
+using Components.Stages;
+using Components.TileObjects;
+using Components.TreasureBox;
 using Models;
-using Models.Stages;
-using Models.TileObjects;
-using Models.TileObjects.Enemies;
 using MVC;
 using NUnit.Framework;
 using UnityEngine;

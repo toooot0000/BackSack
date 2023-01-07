@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Components;
+using Components.Players;
+using Components.Stages;
+using Components.TileObjects;
 using Coroutines;
-using Entities.Players;
-using Entities.Stages;
 using Models;
-using Models.Stages;
-using Models.TileObjects;
 using MVC;
 using UnityEngine;
 
@@ -16,19 +16,17 @@ using UnityEngine;
 /// InDialogue => Exploring: dialogue finishes
 /// Any => Pausing: Open UI
 /// </summary>
-public enum GameState{
-    Exploring,
-    Pausing, // => When UI Opened
-}
+
 
 public class GameManager : MonoBehaviour{
     private static GameManager _shared = null;
     public static GameManager Shared => _shared;
     public CoroutineManager coroutineManager;
-    public GameState state = GameState.Pausing;
-    [HideInInspector]
+    public readonly Game Model = new Game();
+    public GameState State => Model.State;
+    
+    
     public PlayerController player;
-    [HideInInspector]
     public StageController stage;
 
 
@@ -53,7 +51,7 @@ public class GameManager : MonoBehaviour{
         LoadGame();
         
         stage = IController.GetController<StageController>();
-        stage.SetModel(Model.FromJsonString<Stage>(Resources.Load<TextAsset>("Stages/stage-test-blank").text));
+        stage.SetModel(MVC.Model.FromJsonString<Stage>(Resources.Load<TextAsset>("Stages/stage-test-blank").text));
         player = IController.GetController<PlayerController>();
         player.SetModel(new Player());
         
@@ -75,7 +73,16 @@ public class GameManager : MonoBehaviour{
     }
 
     private void MovePlayer(Vector2Int direction){
-        player.Move(direction);
+        MoveTileObject(player, direction);
+    }
+
+    private void MoveTileObject(TileObjectController tileObject, Vector2Int direction){
+        if(!tileObject.Move(direction)) return;
+        var curPos = tileObject.GetModel<ITileObjectModel>().CurrentStagePosition;
+        var ground = stage.GetModel().GetFloor(curPos).Ground;
+        if (ground == null) return;
+        var effect = ground.OnTileObjectEnter(tileObject.GetModel<ITileObjectModel>());
+        tileObject.Consume(effect);
     }
 
     /// <summary>

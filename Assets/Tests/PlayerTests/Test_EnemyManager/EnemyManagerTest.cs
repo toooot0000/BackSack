@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Entities.Enemies;
-using Models.TileObjects;
-using Models.TileObjects.Enemies;
+using Components.Enemies;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;

@@ -17,36 +17,29 @@ namespace MVC{
             return Controllers.Capacity == 0 ? default : (T)Controllers.First(m => m is T);
         }
     }
-    
-    
 
-    public abstract class Controller<TModel, TView>: MonoBehaviour, IController where TModel : IModel where TView: IViewWithType<TModel>{
-        private TModel _model;
-        protected TModel Model{
+    public interface IControllerOfView<out T> : IController where T : IView{
+        public T GetView();
+    }
+
+    public abstract class Controller: MonoBehaviour, IController{
+        private IModel _model;
+        protected IModel Model{
             private set{
-                if(this is IBeforeSetModel before) before.BeforeSetModel();
+                BeforeSetModel();
                 _model = value;
-                if(this is IAfterSetMode after) after.AfterSetModel();
+                AfterSetModel();
             }
             get => _model;
         }
-        public TView view;
 
         protected virtual void Awake(){
             IController.RegisterManager(this);
         }
-
-        public void SetModel(TModel model) => Model = model;
-        public virtual TModel GetModel() => Model;
-        public virtual TView GetView() => view;
-    }
-    
-    
-    public interface IBeforeSetModel{
-        void BeforeSetModel();
-    }
-
-    public interface IAfterSetMode{
-        void AfterSetModel();
+        
+        public void SetModel(IModel model) => Model = model;
+        public T GetModel<T>() where T: IModel => (T)Model;
+        protected virtual void BeforeSetModel(){ }
+        protected virtual void AfterSetModel(){ }
     }
 }
