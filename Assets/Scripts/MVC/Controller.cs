@@ -8,18 +8,14 @@ using UnityEngine;
 namespace MVC{
 
     public interface IController{
-        public static readonly List<IController> Controllers = new();
-        public static void RegisterManager(IController controller){
+        private static readonly List<IController> Controllers = new();
+        internal static void RegisterManager(IController controller){
             Controllers.Add(controller);
         }
 
         public static T GetController<T>() where T : IController{
-            return Controllers.Capacity == 0 ? default : (T)Controllers.First(m => m is T);
+            return Controllers.Capacity == 0 ? default : (T)Controllers.FirstOrDefault(m => m is T);
         }
-    }
-
-    public interface IControllerOfView<out T> : IController where T : IView{
-        public T GetView();
     }
 
     public abstract class Controller: MonoBehaviour, IController{

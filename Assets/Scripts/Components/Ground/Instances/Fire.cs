@@ -6,8 +6,6 @@ using Components.Effects;
 using Components.Ground.Reducer;
 using Components.Ground.Triggers;
 using Components.TileObjects;
-using Models;
-using Models.Ground;
 
 namespace Components.Ground.Instances{
     public class Fire : IReducer, IOnTileObjectEnter{
@@ -25,7 +23,7 @@ namespace Components.Ground.Instances{
             };
         }
 
-        public IEffect OnTileObjectEnter(Models.Ground.Ground ground, ITileObjectModel tileObject){
+        public IEffect OnTileObjectEnter(Ground ground, ITileObjectModel tileObject){
             if (tileObject is IBuffHolderModel holder){
                 return new ChangeBuffEffect<BurningBuff>(holder, 2);
             }

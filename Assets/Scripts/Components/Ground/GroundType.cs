@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Models.Ground{
+namespace Components.Ground{
     public enum GroundType{
         [Description("null")]
         Null,

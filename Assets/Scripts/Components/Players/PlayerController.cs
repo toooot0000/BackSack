@@ -12,7 +12,7 @@ using MVC;
 using UnityEngine;
 
 namespace Components.Players{
-    public class PlayerController: ForceMovableController, IDamageable, IBuffHolder{
+    public sealed class PlayerController: ForceMovableController, IDamageable, IBuffHolder{
         public PlayerView view;
         private new Player Model{
             set => SetModel(value);

@@ -4,7 +4,6 @@ using Components.Enemies;
 using Components.Stages;
 using Components.TileObjects;
 using Components.TreasureBox;
-using Models;
 using MVC;
 using NUnit.Framework;
 using UnityEngine;

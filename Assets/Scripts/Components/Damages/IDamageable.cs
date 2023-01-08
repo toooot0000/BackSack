@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Components.Effects;
-using Models;
 using MVC;
 
 namespace Components.Damages{

@@ -11,7 +11,7 @@
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -26,7 +26,7 @@
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -41,7 +41,7 @@
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -56,7 +56,82 @@
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 0,
+          "y": 4,
+          "magnitude": 4.0,
+          "sqrMagnitude": 16
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 0,
+          "y": 5,
+          "magnitude": 5.0,
+          "sqrMagnitude": 25
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 0,
+          "y": 6,
+          "magnitude": 6.0,
+          "sqrMagnitude": 36
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 0,
+          "y": 7,
+          "magnitude": 7.0,
+          "sqrMagnitude": 49
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 0,
+          "y": 8,
+          "magnitude": 8.0,
+          "sqrMagnitude": 64
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -73,7 +148,7 @@
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -85,10 +160,10 @@
           "magnitude": 1.41421354,
           "sqrMagnitude": 2
         },
-        "Type": 3,
+        "Type": 4,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -103,7 +178,7 @@
         "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -115,10 +190,85 @@
           "magnitude": 3.1622777,
           "sqrMagnitude": 10
         },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 1,
+          "y": 4,
+          "magnitude": 4.12310553,
+          "sqrMagnitude": 17
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 1,
+          "y": 5,
+          "magnitude": 5.09901953,
+          "sqrMagnitude": 26
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 1,
+          "y": 6,
+          "magnitude": 6.08276272,
+          "sqrMagnitude": 37
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 1,
+          "y": 7,
+          "magnitude": 7.071068,
+          "sqrMagnitude": 50
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 1,
+          "y": 8,
+          "magnitude": 8.062258,
+          "sqrMagnitude": 65
+        },
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -135,7 +285,7 @@
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -150,7 +300,7 @@
         "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -162,10 +312,10 @@
           "magnitude": 2.828427,
           "sqrMagnitude": 8
         },
-        "Type": 1,
+        "Type": 3,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -177,10 +327,85 @@
           "magnitude": 3.60555124,
           "sqrMagnitude": 13
         },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 2,
+          "y": 4,
+          "magnitude": 4.472136,
+          "sqrMagnitude": 20
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 2,
+          "y": 5,
+          "magnitude": 5.38516474,
+          "sqrMagnitude": 29
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 2,
+          "y": 6,
+          "magnitude": 6.3245554,
+          "sqrMagnitude": 40
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 2,
+          "y": 7,
+          "magnitude": 7.28011,
+          "sqrMagnitude": 53
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 2,
+          "y": 8,
+          "magnitude": 8.246211,
+          "sqrMagnitude": 68
+        },
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -197,7 +422,7 @@
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -212,7 +437,7 @@
         "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -225,9 +450,9 @@
           "sqrMagnitude": 13
         },
         "Type": 0,
-        "TileObjectType": 1,
+        "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -239,10 +464,85 @@
           "magnitude": 4.2426405,
           "sqrMagnitude": 18
         },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 3,
+          "y": 4,
+          "magnitude": 5.0,
+          "sqrMagnitude": 25
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 3,
+          "y": 5,
+          "magnitude": 5.83095169,
+          "sqrMagnitude": 34
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 3,
+          "y": 6,
+          "magnitude": 6.708204,
+          "sqrMagnitude": 45
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 3,
+          "y": 7,
+          "magnitude": 7.615773,
+          "sqrMagnitude": 58
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 3,
+          "y": 8,
+          "magnitude": 8.54400349,
+          "sqrMagnitude": 73
+        },
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -259,7 +559,7 @@
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -272,9 +572,9 @@
           "sqrMagnitude": 17
         },
         "Type": 0,
-        "TileObjectType": 2,
+        "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -289,7 +589,7 @@
         "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -301,10 +601,85 @@
           "magnitude": 5.0,
           "sqrMagnitude": 25
         },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 4,
+          "y": 4,
+          "magnitude": 5.656854,
+          "sqrMagnitude": 32
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 1,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 4,
+          "y": 5,
+          "magnitude": 6.40312433,
+          "sqrMagnitude": 41
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 1,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 4,
+          "y": 6,
+          "magnitude": 7.21110249,
+          "sqrMagnitude": 52
+        },
+        "Type": 0,
+        "TileObjectType": 1,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 4,
+          "y": 7,
+          "magnitude": 8.062258,
+          "sqrMagnitude": 65
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 4,
+          "y": 8,
+          "magnitude": 8.944272,
+          "sqrMagnitude": 80
+        },
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -321,7 +696,7 @@
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -336,7 +711,7 @@
         "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -351,7 +726,7 @@
         "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -363,10 +738,85 @@
           "magnitude": 5.83095169,
           "sqrMagnitude": 34
         },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 1,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 5,
+          "y": 4,
+          "magnitude": 6.40312433,
+          "sqrMagnitude": 41
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 1,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 5,
+          "y": 5,
+          "magnitude": 7.071068,
+          "sqrMagnitude": 50
+        },
+        "Type": 1,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 5,
+          "y": 6,
+          "magnitude": 7.81025,
+          "sqrMagnitude": 61
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 5,
+          "y": 7,
+          "magnitude": 8.602325,
+          "sqrMagnitude": 74
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 5,
+          "y": 8,
+          "magnitude": 9.433981,
+          "sqrMagnitude": 89
+        },
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -383,7 +833,7 @@
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -395,10 +845,10 @@
           "magnitude": 6.08276272,
           "sqrMagnitude": 37
         },
-        "Type": 4,
+        "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -410,10 +860,10 @@
           "magnitude": 6.3245554,
           "sqrMagnitude": 40
         },
-        "Type": 5,
+        "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 1,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -425,10 +875,85 @@
           "magnitude": 6.708204,
           "sqrMagnitude": 45
         },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 1,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 6,
+          "y": 4,
+          "magnitude": 7.21110249,
+          "sqrMagnitude": 52
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 6,
+          "y": 5,
+          "magnitude": 7.81025,
+          "sqrMagnitude": 61
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 6,
+          "y": 6,
+          "magnitude": 8.485281,
+          "sqrMagnitude": 72
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 6,
+          "y": 7,
+          "magnitude": 9.219544,
+          "sqrMagnitude": 85
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 6,
+          "y": 8,
+          "magnitude": 10.0,
+          "sqrMagnitude": 100
+        },
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -445,7 +970,7 @@
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -457,10 +982,10 @@
           "magnitude": 7.071068,
           "sqrMagnitude": 50
         },
-        "Type": 2,
+        "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -472,10 +997,10 @@
           "magnitude": 7.28011,
           "sqrMagnitude": 53
         },
-        "Type": 2,
+        "Type": 0,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 1,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -487,10 +1012,770 @@
           "magnitude": 7.615773,
           "sqrMagnitude": 58
         },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 7,
+          "y": 4,
+          "magnitude": 8.062258,
+          "sqrMagnitude": 65
+        },
+        "Type": 0,
+        "TileObjectType": 1,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 7,
+          "y": 5,
+          "magnitude": 8.602325,
+          "sqrMagnitude": 74
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 7,
+          "y": 6,
+          "magnitude": 9.219544,
+          "sqrMagnitude": 85
+        },
+        "Type": 0,
+        "TileObjectType": 2,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 7,
+          "y": 7,
+          "magnitude": 9.899495,
+          "sqrMagnitude": 98
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 7,
+          "y": 8,
+          "magnitude": 10.630146,
+          "sqrMagnitude": 113
+        },
         "Type": 2,
         "TileObjectType": 0,
         "TileObjectId": 0,
-        "GroundEffectName": "",
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      }
+    ],
+    [
+      {
+        "Position": {
+          "x": 8,
+          "y": 0,
+          "magnitude": 8.0,
+          "sqrMagnitude": 64
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 8,
+          "y": 1,
+          "magnitude": 8.062258,
+          "sqrMagnitude": 65
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 8,
+          "y": 2,
+          "magnitude": 8.246211,
+          "sqrMagnitude": 68
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 8,
+          "y": 3,
+          "magnitude": 8.54400349,
+          "sqrMagnitude": 73
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 8,
+          "y": 4,
+          "magnitude": 8.944272,
+          "sqrMagnitude": 80
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 8,
+          "y": 5,
+          "magnitude": 9.433981,
+          "sqrMagnitude": 89
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 8,
+          "y": 6,
+          "magnitude": 10.0,
+          "sqrMagnitude": 100
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 8,
+          "y": 7,
+          "magnitude": 10.630146,
+          "sqrMagnitude": 113
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 8,
+          "y": 8,
+          "magnitude": 11.3137083,
+          "sqrMagnitude": 128
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      }
+    ],
+    [
+      {
+        "Position": {
+          "x": 9,
+          "y": 0,
+          "magnitude": 9.0,
+          "sqrMagnitude": 81
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 9,
+          "y": 1,
+          "magnitude": 9.055386,
+          "sqrMagnitude": 82
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 9,
+          "y": 2,
+          "magnitude": 9.219544,
+          "sqrMagnitude": 85
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 9,
+          "y": 3,
+          "magnitude": 9.486833,
+          "sqrMagnitude": 90
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 9,
+          "y": 4,
+          "magnitude": 9.848858,
+          "sqrMagnitude": 97
+        },
+        "Type": 3,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 9,
+          "y": 5,
+          "magnitude": 10.29563,
+          "sqrMagnitude": 106
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 9,
+          "y": 6,
+          "magnitude": 10.8166542,
+          "sqrMagnitude": 117
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 9,
+          "y": 7,
+          "magnitude": 11.4017544,
+          "sqrMagnitude": 130
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 9,
+          "y": 8,
+          "magnitude": 12.0415945,
+          "sqrMagnitude": 145
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      }
+    ],
+    [
+      {
+        "Position": {
+          "x": 10,
+          "y": 0,
+          "magnitude": 10.0,
+          "sqrMagnitude": 100
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 10,
+          "y": 1,
+          "magnitude": 10.0498753,
+          "sqrMagnitude": 101
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 10,
+          "y": 2,
+          "magnitude": 10.1980391,
+          "sqrMagnitude": 104
+        },
+        "Type": 0,
+        "TileObjectType": 1,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 10,
+          "y": 3,
+          "magnitude": 10.4403067,
+          "sqrMagnitude": 109
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 10,
+          "y": 4,
+          "magnitude": 10.7703295,
+          "sqrMagnitude": 116
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 10,
+          "y": 5,
+          "magnitude": 11.18034,
+          "sqrMagnitude": 125
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 10,
+          "y": 6,
+          "magnitude": 11.6619034,
+          "sqrMagnitude": 136
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 10,
+          "y": 7,
+          "magnitude": 12.2065554,
+          "sqrMagnitude": 149
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 10,
+          "y": 8,
+          "magnitude": 12.8062487,
+          "sqrMagnitude": 164
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      }
+    ],
+    [
+      {
+        "Position": {
+          "x": 11,
+          "y": 0,
+          "magnitude": 11.0,
+          "sqrMagnitude": 121
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 11,
+          "y": 1,
+          "magnitude": 11.0453606,
+          "sqrMagnitude": 122
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 11,
+          "y": 2,
+          "magnitude": 11.18034,
+          "sqrMagnitude": 125
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 11,
+          "y": 3,
+          "magnitude": 11.4017544,
+          "sqrMagnitude": 130
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 11,
+          "y": 4,
+          "magnitude": 11.7046995,
+          "sqrMagnitude": 137
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 11,
+          "y": 5,
+          "magnitude": 12.083046,
+          "sqrMagnitude": 146
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 11,
+          "y": 6,
+          "magnitude": 12.5299644,
+          "sqrMagnitude": 157
+        },
+        "Type": 0,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 11,
+          "y": 7,
+          "magnitude": 13.0384045,
+          "sqrMagnitude": 170
+        },
+        "Type": 4,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 11,
+          "y": 8,
+          "magnitude": 13.6014709,
+          "sqrMagnitude": 185
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      }
+    ],
+    [
+      {
+        "Position": {
+          "x": 12,
+          "y": 0,
+          "magnitude": 12.0,
+          "sqrMagnitude": 144
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 12,
+          "y": 1,
+          "magnitude": 12.0415945,
+          "sqrMagnitude": 145
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 12,
+          "y": 2,
+          "magnitude": 12.1655254,
+          "sqrMagnitude": 148
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 12,
+          "y": 3,
+          "magnitude": 12.3693171,
+          "sqrMagnitude": 153
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 12,
+          "y": 4,
+          "magnitude": 12.6491108,
+          "sqrMagnitude": 160
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 12,
+          "y": 5,
+          "magnitude": 13.0,
+          "sqrMagnitude": 169
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 12,
+          "y": 6,
+          "magnitude": 13.4164076,
+          "sqrMagnitude": 180
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 12,
+          "y": 7,
+          "magnitude": 13.8924437,
+          "sqrMagnitude": 193
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
+        "ID": null,
+        "Name": null,
+        "Desc": null
+      },
+      {
+        "Position": {
+          "x": 12,
+          "y": 8,
+          "magnitude": 14.422205,
+          "sqrMagnitude": 208
+        },
+        "Type": 2,
+        "TileObjectType": 0,
+        "TileObjectId": 0,
+        "GroundType": 0,
         "ID": null,
         "Name": null,
         "Desc": null
@@ -499,16 +1784,16 @@
   ],
   "Meta": {
     "Version": "1.0.0",
-    "Time": "2023-01-02T23:32:33.3830542-08:00",
+    "Time": "2023-01-08T12:36:25.2023603-08:00",
     "Name": "stage-test-1",
-    "Width": 8,
-    "Height": 4,
+    "Width": 13,
+    "Height": 9,
     "ID": null,
     "Desc": null
   },
   "ID": null,
   "Name": null,
   "Desc": null,
-  "Width": 8,
-  "Height": 4
+  "Width": 13,
+  "Height": 9
 }

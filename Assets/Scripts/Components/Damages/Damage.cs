@@ -1,5 +1,4 @@
-﻿using Models;
-using MVC;
+﻿using MVC;
 
 namespace Components.Damages{
     public class Damage: Model{

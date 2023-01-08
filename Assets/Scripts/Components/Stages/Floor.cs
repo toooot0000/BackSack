@@ -1,4 +1,5 @@
-﻿using Components.TileObjects;
+﻿using Components.Ground;
+using Components.TileObjects;
 using MVC;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -9,10 +10,10 @@ namespace Components.Stages{
         public FloorType Type = FloorType.Block;
         public TileObjectType TileObjectType = TileObjectType.Null;
         public int TileObjectId = 0;
-        public string GroundEffectName = "";
+        public GroundType GroundType = GroundType.Null;
         
         [JsonIgnore]
-        public Models.Ground.Ground Ground = null;
+        public Ground.Ground Ground = null;
         [JsonIgnore]
         public ITileObjectModel TileObject = null;
     }

@@ -1,6 +1,4 @@
 ﻿using Components.Ground.Reducer;
-using Models;
-using Models.Ground;
 
 namespace Components.Ground.Instances{
     public class Grass: IReducer{

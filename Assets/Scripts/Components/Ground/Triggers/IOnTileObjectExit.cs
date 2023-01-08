@@ -3,6 +3,6 @@ using Components.TileObjects;
 
 namespace Components.Ground.Triggers{
     public interface IOnTileObjectExit: IGroundTrigger{
-        public IEffect OnTileObjectExit(Models.Ground.Ground ground, ITileObjectModel tileObject);
+        public IEffect OnTileObjectExit(Ground ground, ITileObjectModel tileObject);
     }
 }

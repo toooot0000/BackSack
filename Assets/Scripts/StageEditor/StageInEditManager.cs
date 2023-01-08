@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Components.Ground;
 using Components.Stages;
 using Components.TileObjects;
-using Models;
+using StageEditor.Tiles;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Utility;
@@ -38,8 +39,10 @@ namespace StageEditor{
             get{
                 if (_typeToFloorTile == null){
                     _typeToFloorTile = new();
-                    foreach (var floor in EnumUtility.GetValues<FloorType>()){
-                        _typeToFloorTile[floor] = Resources.Load<Tile>(floor.GetFloorTileResourcePath());
+
+                    foreach (var o in Resources.LoadAll("Tiles/FloorTiles/")){
+                        var tile = (FloorTile)o;
+                        _typeToFloorTile[tile.type] = tile;
                     }
                 }
                 return _typeToFloorTile;
@@ -54,26 +57,26 @@ namespace StageEditor{
                 if (_idToEnemyTiles == null){
                     _idToEnemyTiles = new();
                     foreach (var obj in Resources.LoadAll(enemyTileResourcePath)){
-                        var tile = (StageTile)obj;
-                        _idToEnemyTiles[IntUtility.ParseString(tile.@params)] = tile;
+                        var tile = (ObjectTile)obj;
+                        _idToEnemyTiles[tile.id] = tile;
                     }
                 }
                 return _idToEnemyTiles;
             }
         }
 
-        private Dictionary<string, Tile> _classNameToGroundEffectTiles = null;
+        private Dictionary<GroundType, Tile> _typeToGroundEffectTiles = null;
 
-        private Dictionary<string, Tile> ClassNameToGroundEffectTiles{
+        private Dictionary<GroundType, Tile> TypeToGroundEffectTiles{
             get{
-                if (_classNameToGroundEffectTiles == null){
-                    _classNameToGroundEffectTiles = new();
+                if (_typeToGroundEffectTiles == null){
+                    _typeToGroundEffectTiles = new();
                     foreach (var obj in Resources.LoadAll(groundEffectTileResourcePath)){
-                        var stageTile = (StageTile)obj;
-                        _classNameToGroundEffectTiles[stageTile.@params] = stageTile;
+                        var stageTile = (GroundTile)obj;
+                        _typeToGroundEffectTiles[stageTile.type] = stageTile;
                     }
                 }
-                return _classNameToGroundEffectTiles;
+                return _typeToGroundEffectTiles;
             }
         }
 
@@ -144,13 +147,13 @@ namespace StageEditor{
 
         private void SetMapGroundEffect(int i, int j, Stage src){
             var positionInGrid = src.GetGridPosition(i, j).ToVector3Int();
-            var str = src.Floors[i, j].GroundEffectName;
-            if (string.IsNullOrEmpty(str)) return;
-            groundEffectMap.SetTile(positionInGrid, ClassNameToGroundEffectTiles[str]);
+            var type = src.Floors[i, j].GroundType;
+            if (type == GroundType.Null) return;
+            groundEffectMap.SetTile(positionInGrid, TypeToGroundEffectTiles[type]);
         }
 
         private bool SetStageFloorType(int i, int j, Stage ret){
-            var tile = floorMap.GetStageTile(i, j);
+            var tile = floorMap.GetTile<FloorTile>(floorMap.GetGridPosition(i, j));
             if(tile == null){
                 ret.Floors[i, j] = new Floor{
                     Position = new Vector2Int(i, j),
@@ -158,50 +161,39 @@ namespace StageEditor{
                 };
                 return false;
             }
-            if (!tile.tileName.StartsWith(StageTile.FloorTilePrefix)){
-                Debug.LogError($"Tile resource not start with prefix! Res name: {tile.tileName}; Prefix: {StageTile.FloorTilePrefix}");
-                return false;
-            }
-            var tileName = tile.tileName;
-            var typeName = tileName.Substring(StageTile.FloorTilePrefix.Length,
-                tileName.Length - StageTile.FloorTilePrefix.Length);
-            try{
-                var type = EnumUtility.GetValue<FloorType>(typeName);
-                ret.Floors[i, j] = new Floor{
-                    Position = new Vector2Int(i, j),
-                    Type = type,
-                };
-            } catch{
-                Debug.LogError($"Stage tile with unknown type name \"{typeName}\"");
-                return false;
-            }
+            ret.Floors[i, j] = new Floor{
+                Position = new Vector2Int(i, j),
+                Type = tile.type,
+            };
             return true;
         }
 
-        private bool SetStageObject(int i, int j, Stage ret){
+        private void SetStageObject(int i, int j, Stage ret){
             // 通过tile 决定类型：tile-player -> Player, tile-enemy-0 -> enemy, tile-chest-x -> chest
-            var tile = objectMap.GetTile<StageTile>(floorMap.GetGridPosition(i, j));
+            var tile = objectMap.GetTile<ObjectTile>(floorMap.GetGridPosition(i, j));
             if (tile == null){
                 ret.Floors[i, j].TileObjectType = TileObjectType.Null;
-                return true;
+                return ;
             }
-            if (tile.tileName.Contains("player")){
-                // TODO
-            } else if (tile.tileName.Contains("enemy")){
-                var param =  IntUtility.ParseString(tile.@params);
-                ret.Floors[i, j].TileObjectType = TileObjectType.Enemy;
-                ret.Floors[i, j].TileObjectId = param;
-            } else if (tile.tileName.Contains("treasure")){
-                ret.Floors[i, j].TileObjectType = TileObjectType.Treasure;
+
+            switch (tile.type){
+                case TileObjectType.Enemy:
+                    ret.Floors[i, j].TileObjectType = TileObjectType.Enemy;
+                    ret.Floors[i, j].TileObjectId = tile.id;
+                    break;
+                case TileObjectType.Treasure:
+                    ret.Floors[i, j].TileObjectType = TileObjectType.Treasure;
+                    break;
+                case TileObjectType.Null:
+                default:
+                    break;
             }
-            return false;
         }
 
-        private bool SetStageGroundEffect(int i, int j, Stage ret){
-            var tile = groundEffectMap.GetTile<StageTile>(floorMap.GetGridPosition(i, j));
-            if (tile == null) return true;
-            ret.Floors[i, j].GroundEffectName = tile.@params;
-            return false;
+        private void SetStageGroundEffect(int i, int j, Stage ret){
+            var tile = groundEffectMap.GetTile<GroundTile>(floorMap.GetGridPosition(i, j));
+            if (tile == null) return ;
+            ret.Floors[i, j].GroundType = tile.type;
         }
     }
 

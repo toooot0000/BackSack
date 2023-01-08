@@ -3,7 +3,6 @@ using Components;
 using Components.Buffs;
 using Components.Buffs.Effects;
 using Components.Damages;
-using Models;
 using NUnit.Framework;
 
 namespace Tests.PlayerTests.Test_Buff{

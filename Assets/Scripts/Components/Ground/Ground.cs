@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Components;
 using Components.Effects;
 using Components.Ground.Instances;
 using Components.Ground.Reducer;
@@ -8,7 +7,7 @@ using Components.TileObjects;
 using MVC;
 using Utility;
 
-namespace Models.Ground{
+namespace Components.Ground{
     public class Ground: Model{
         public int LastTurnNum = 0;
         public ITileObjectModel TileObject = null;
