@@ -3,7 +3,7 @@
 namespace Components.Stages{
     public static partial class FloorTypeExtension{
         public const string ResourcePath = "Tiles/FloorTiles/";
-        public const string ResourcePrefix = "tile-";
+        public const string ResourcePrefix = "";
         public static string GetFloorTileResourcePath(this FloorType floor){
             return $"{ResourcePath}{ResourcePrefix}{floor.GetDescription().ToLower()}";
         }

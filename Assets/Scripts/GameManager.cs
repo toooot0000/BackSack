@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour{
         LoadGame();
         
         stage = IController.GetController<StageController>();
-        stage.SetModel(MVC.Model.FromJsonString<Stage>(Resources.Load<TextAsset>("Stages/stage-test-blank").text));
+        stage.SetModel(MVC.Model.FromJsonString<Stage>(Resources.Load<TextAsset>("Stages/stage-test-1").text));
         player = IController.GetController<PlayerController>();
         player.SetModel(new Player());
         

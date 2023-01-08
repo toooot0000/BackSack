@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 3820308736854903283}
   - component: {fileID: 3820308736854903285}
   - component: {fileID: 3820308736854903284}
+  - component: {fileID: 1259224621664500160}
   m_Layer: 0
   m_Name: EnemyPrefab
   m_TagString: Untagged
@@ -130,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098e809e939d4ee6bedb09149678be4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tweenPairs: []
   spriteRenderer: {fileID: 3820308736215663086}
 --- !u!114 &3820308736854903284
 MonoBehaviour:
@@ -143,4 +145,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bce857b8b02a48028485723cff5f96cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageController: {fileID: 0}
   view: {fileID: 3820308736854903285}
+--- !u!95 &1259224621664500160
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3820308736854903282}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 530542eb5444ec046a4647af9f03b1b6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

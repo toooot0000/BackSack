@@ -10,7 +10,9 @@ namespace Components.Enemies{
         [HideInInspector] public List<EnemyController> enemyControllers = new();  
         
         private EnemyController CreateInstance(){
-            return Instantiate(enemyPrefab, transform).GetComponent<EnemyController>();
+            var ret =  Instantiate(enemyPrefab, transform).GetComponent<EnemyController>();
+            ret.stageController = stageController;
+            return ret;
         }
         public EnemyController AddEnemy(Enemy enemy){
             if (enemy == null) return null;
