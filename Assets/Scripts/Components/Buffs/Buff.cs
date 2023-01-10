@@ -53,9 +53,17 @@ namespace Components.Buffs{
             ret.Layer = layer;
             return ret;
         }
+
+        public static Buff MakeBuff(Type buffType, int layer){
+            var ret = Activator.CreateInstance(buffType);
+            if (ret is not Buff buff) return default;
+            SetUp(buff);
+            buff.Layer = layer;
+            return buff;
+        }
         
         public static Buff MakeBuffByClassName(string className, int layer = 0){
-            const string buffInstancePath = "Models.Buffs.BuffInstances";
+            const string buffInstancePath = "Components.Buffs.Instances";
             var ret = (Buff)Activator.CreateInstance(Type.GetType($"{buffInstancePath}.{className}", true));
             SetUp(ret);
             ret.Layer = layer;

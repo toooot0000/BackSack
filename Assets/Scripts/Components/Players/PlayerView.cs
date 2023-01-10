@@ -1,27 +1,6 @@
-﻿using Components.Buffs.BuffNames;
-using Components.Damages;
-using Components.Damages.DamageNumbers;
-using Components.TileObjects.ForceMovable;
-using Components.TileObjects.Tweens;
-using MVC;
+﻿using Components.TileObjects.BattleObjects;
 
 namespace Components.Players{
 
-    public class PlayerView: ForceMovableView{
-        public DamageNumberGenerator generator;
-        public BuffNameDisplayGenerator buffNameDisplayGenerator;
-
-        public void TakeDamage(Damage damage){
-            generator.AddDamageNumber(damage, transform);
-            Play<Damaged>();
-        }
-
-        public void AddBuff(string buffName){
-            buffNameDisplayGenerator.AddBuffNameDisplay(buffName, true, transform);
-        }
-
-        public void RemoveBuff(string buffName){
-            buffNameDisplayGenerator.AddBuffNameDisplay(buffName, false, transform);
-        }
-    }
+    public class PlayerView: BattleObjectView{ }
 }

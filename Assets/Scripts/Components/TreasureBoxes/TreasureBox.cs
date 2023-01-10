@@ -6,17 +6,20 @@ using UnityEngine;
 
 namespace Components.TreasureBoxes{
     public class TreasureBox: TileObject, ITileObjectView{
+        public new TreasureBoxModel Model{
+            set => base.SetModel(value);
+            get => base.Model as TreasureBoxModel;
+        }
+        
+        protected override void Awake(){
+            base.Awake();
+            base.view = this;
+        }
 
         protected override void AfterSetModel(){
-            transform.position = stage.StagePositionToWorldPosition(GetModel().CurrentStagePosition);
+            transform.position = stage.StagePositionToWorldPosition(Model.CurrentStagePosition);
         }
-
-        protected override ITileObjectModel GetModel() => Model as TreasureBoxModel;
-
-        protected override ITileObjectView GetView() => this;
-        public override IEffectResult[] Consume(IEffect effect){
-            throw new System.NotImplementedException();
-        }
+        
 
         public void MoveToPosition(Vector3 worldPosition){
             throw new System.NotImplementedException();

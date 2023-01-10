@@ -1,9 +1,8 @@
 ﻿using Components.TileObjects.Tweens;
-using MVC;
 using UnityEngine;
 using Utility.Animation;
 
-namespace Components.TileObjects.ForceMovable{
+namespace Components.TileObjects.ForceMovables{
     
 
     public enum TileObjectAnimation{
@@ -11,8 +10,12 @@ namespace Components.TileObjects.ForceMovable{
         Bump,
         Damaged,
     }
+
+    public interface IForceMovableView : ITileObjectView{
+        
+    }
     
-    public class ForceMovableView: AnimationController<TileObjectAnimation>, ITileObjectView{
+    public class ForceMovableView: AnimationController<TileObjectAnimation>, IForceMovableView{
         public void MoveToPosition(Vector3 worldPosition){
             Play(TileObjectAnimation.Move, new Move.Argument(){
                 TargetPosition = worldPosition

@@ -141,5 +141,22 @@ namespace Components.Stages{
             if (ground == null) return null;
             return ground.OnTileObjectEnter(tileObject);
         }
+        
+        /// <summary>
+        /// range.min.x <= ret.x <= range.max.x;
+        /// range.min.y <= ret.y <= range.max.y;
+        /// </summary>
+        /// <param name="range"></param>
+        /// <returns></returns>
+        public IEnumerable<ITileObject> GetTileObjectInRange(RectInt range){
+            var start = range.min;
+            var end = range.max;
+            for (var i = start.x; i <= end.x; i++){
+                for (var j = start.y; j <= end.y; j++){
+                    if (Model.Floors[i, j].TileObject == null) continue;
+                    yield return Model.Floors[i, j].TileObject;
+                }
+            }
+        }
     }
 }

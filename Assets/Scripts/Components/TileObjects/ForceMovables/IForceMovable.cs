@@ -1,8 +1,7 @@
 ﻿using Components.Effects;
 using Components.TileObjects.Effects;
-using MVC;
 
-namespace Components.TileObjects.ForceMovable{
+namespace Components.TileObjects.ForceMovables{
     public interface IForceMovableModel : ITileObjectModel{
         int Weight{ set; get; }
     }

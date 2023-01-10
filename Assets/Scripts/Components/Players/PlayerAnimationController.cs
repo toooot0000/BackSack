@@ -1,8 +1,6 @@
 ﻿using Utility.Animation;
 
 namespace Components.Players{
-    public enum PlayerAnimation{
-        Jump
-    }
+    public enum PlayerAnimation{ }
     public class PlayerAnimationController : SubAnimationController<PlayerAnimation>{ }
 }

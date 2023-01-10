@@ -1,5 +1,6 @@
 ﻿using Components.TileObjects;
-using Components.TileObjects.ForceMovable;
+using Components.TileObjects.BattleObjects;
+using Components.TileObjects.ForceMovables;
 using MVC;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace Components.Enemies{
 
     public enum EnemyAnimation{ }
     
-    public class EnemyView: ForceMovableView{
+    public class EnemyView: BattleObjectView{
         public SpriteRenderer spriteRenderer;
 
         public void SetSprite(Sprite sprite){

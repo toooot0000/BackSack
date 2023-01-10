@@ -37,5 +37,11 @@ namespace Utility.Extensions{
                 return Vector2Int.left;
             return Vector2Int.down;
         }
+        
+        public static bool IsClockwiseLess(this Vector2 vec, Vector2 other){
+            if (vec.magnitude == 0 || other.magnitude == 0) return false;
+            var z = vec.x * other.y - other.x * vec.y;
+            return z < 0;
+        }
     }
 }

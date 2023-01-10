@@ -32,6 +32,8 @@ namespace MVC{
             get => _model;
         }
 
+        public IView view;
+
         protected virtual void Awake(){
             IController.RegisterManager(this);
         }

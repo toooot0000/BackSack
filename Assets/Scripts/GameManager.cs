@@ -1,13 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Components;
+using Components.Attacks;
 using Components.Buffs;
 using Components.Buffs.Triggers;
 using Components.Effects;
+using Components.Items.Instances;
 using Components.Players;
 using Components.Stages;
 using Components.TileObjects;
+using Components.TileObjects.BattleObjects;
 using Coroutines;
 using MVC;
 using UnityEditor.VersionControl;
@@ -73,6 +77,9 @@ public class GameManager : MonoBehaviour{
             MovePlayer(Vector2Int.right);
         } else if (Input.GetKeyUp(KeyCode.Space)){
             _allActionFinished = true;
+        } else if (Input.GetKeyUp(KeyCode.Z)){
+            var attack = player.AttackUsingItem(new Sword(), Vector2Int.right);
+            ProcessAttack(attack);
         }
     }
 
@@ -207,5 +214,22 @@ public class GameManager : MonoBehaviour{
 
     private IEnumerator WaitForAllAnimationComplete(){
         yield return null;
+    }
+
+    public void ProcessAttack(IAttack attack){
+        var attackerPosition = attack.Attacker.GetModel<ITileObjectModel>().CurrentStagePosition;
+        var stageRange = attack.RelativeRange.Select(v => v + attackerPosition).ToArray();
+        
+        // Process attack on other objects;
+        foreach (var relativePosition in stageRange){
+            var obj = stage.GetTileObject(attackerPosition + relativePosition);
+            if (obj == null || !attack.Predicate(obj)) continue;
+            obj.Consume(attack.Effect);
+        }
+        
+        // Update Ground Effects
+        foreach (var stagePosition in stageRange){
+            stage.GetGround(stagePosition).TakeElement(attack.Element, attack.LastTurn);
+        }
     }
 }

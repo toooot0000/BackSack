@@ -1,16 +1,12 @@
 ﻿using System.Collections.Generic;
-using Components.Buffs;
-using Components.Damages;
-using Components.TileObjects;
-using Components.TileObjects.ForceMovable;
+using Components.TileObjects.BattleObjects;
 using MVC;
 using UnityEngine;
 
 namespace Components.Players{
-    public class PlayerModel : Model, IDamageableModel, IForceMovableModel{
+    public class PlayerModel : Model, IBattleObjectModel{
         public Vector2Int CurrentStagePosition{ get; set; }
         public Vector2Int Size{ get; set; }
-        public List<Buff> Buffs{ get; set; }
 
         public int HealthPoint{ get; set; }
         public int ShieldPoint{ get; set; }

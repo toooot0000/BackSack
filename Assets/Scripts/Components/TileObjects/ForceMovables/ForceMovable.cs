@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Components.Effects;
-using Components.Stages;
 using Components.TileObjects.Effects;
-using MVC;
 using UnityEngine;
 using Utility.Extensions;
 
-namespace Components.TileObjects.ForceMovable{
+namespace Components.TileObjects.ForceMovables{
     public abstract class ForceMovable : TileObject, IForceMovable{
 
         public bool CanForcedIntoPosition(Vector2Int stagePosition){
@@ -28,11 +26,12 @@ namespace Components.TileObjects.ForceMovable{
 
         public override IEffectResult[] Consume(IEffect effect){
             _results.Clear();
+            _results.AddRange(base.Consume(effect));
             if (effect is IForceMovement forceMovement) _results.Add(Consume(forceMovement));
             return _results.ToArray();
         }
 
-        private IForceMovableModel m_GetModel() => GetModel() as IForceMovableModel;
-        private ForceMovableView m_GetView() => GetView() as ForceMovableView;
+        private IForceMovableModel m_GetModel() => Model as IForceMovableModel;
+        private ForceMovableView m_GetView() => view as ForceMovableView;
     }
 }

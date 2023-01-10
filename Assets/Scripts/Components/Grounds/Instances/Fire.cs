@@ -23,9 +23,12 @@ namespace Components.Grounds.Instances{
             };
         }
 
-        public IEffect OnTileObjectEnter(Grounds.Ground ground, ITileObject tileObject){
+        public IEffect OnTileObjectEnter(Ground ground, ITileObject tileObject){
             if (tileObject is IBuffHolder holder){
-                return new ChangeBuffEffect<BurningBuff>(holder, 2);
+                return new ChangeBuffEffect<BurningBuff>(holder, 2){
+                    Source = ground,
+                    Target = tileObject
+                };
             }
             return null;
         }

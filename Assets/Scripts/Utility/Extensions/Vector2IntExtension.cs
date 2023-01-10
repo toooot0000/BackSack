@@ -18,5 +18,29 @@ namespace Utility.Extensions{
                 }
             };
         }
+
+        public static Vector2Int Rotate90DegClockwise(this Vector2Int vec){
+            return new(vec.y, -vec.x);
+        }
+        
+        public static Vector2Int Rotate90DegAntiClockwise(this Vector2Int vec){
+            return new(-vec.y, vec.x);
+        }
+
+        public static Vector2Int Rotate180Deg(this Vector2Int vec){
+            return vec * (-1);
+        }
+
+        /// <summary>
+        /// if on a clock, this vec pointing to a earlier time than the other one
+        /// </summary>
+        /// <param name="vec"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public static bool IsClockwiseLess(this Vector2Int vec, Vector2Int other){
+            if (vec.magnitude == 0 || other.magnitude == 0) return false;
+            var z = vec.x * other.y - other.x * vec.y;
+            return z < 0;
+        }
     }
 }

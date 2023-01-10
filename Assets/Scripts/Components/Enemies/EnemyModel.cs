@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using Components.Buffs;
 using Components.Damages;
-using Components.TileObjects.ForceMovable;
+using Components.TileObjects.BattleObjects;
+using Components.TileObjects.ForceMovables;
 using MVC;
 using UnityEngine;
 using Utility.Loader;
 
 namespace Components.Enemies{
-    public class EnemyModel: Model, IForceMovableModel, IDamageableModel{
+    public class EnemyModel: Model, IBattleObjectModel{
         public Vector2Int CurrentStagePosition{ get; set; }
         public Vector2Int Size{ set; get; } = Vector2Int.one;
         public int Weight{ get; set; }
