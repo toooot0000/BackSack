@@ -2,6 +2,6 @@
 
 namespace Components.Buffs.Triggers{
     public interface IOnTakeDamage : IBuffTrigger{
-        IEffect OnTakeDamage(IBuffHolderModel holder);
+        IEffect OnTakeDamage(IBuffHolder holder);
     }
 }

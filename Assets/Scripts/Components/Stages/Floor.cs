@@ -1,4 +1,4 @@
-﻿using Components.Ground;
+﻿using Components.Grounds;
 using Components.TileObjects;
 using MVC;
 using Newtonsoft.Json;
@@ -13,8 +13,8 @@ namespace Components.Stages{
         public GroundType GroundType = GroundType.Null;
         
         [JsonIgnore]
-        public Ground.Ground Ground = null;
+        public Ground Ground = null;
         [JsonIgnore]
-        public ITileObjectModel TileObject = null;
+        public ITileObject TileObject = null;
     }
 }

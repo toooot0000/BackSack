@@ -4,7 +4,7 @@ using MVC;
 
 namespace Components.Levels{
     public class Level: Model{
-        public Stage CurrentStage;
-        public List<Stage> Stages;
+        public StageModel CurrentStageModel;
+        public List<StageModel> Stages;
     }
 }     

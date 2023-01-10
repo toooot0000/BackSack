@@ -18,6 +18,7 @@ namespace Components.Damages.DamageNumbers{
         }
         public AnimationCurve floatingSpeedCurve;
         public TextMeshPro text;
+        public float maxSpd = 0.01f;
 
         private Color StartColor => _damage.Type switch{
             ElementType.Physic => Color.red,
@@ -31,15 +32,14 @@ namespace Components.Damages.DamageNumbers{
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        protected override void Start(){
-            base.Start();
-            text.alpha = 0;
+        protected override void OnTimerUpdate(float i){
+            var spd = floatingSpeedCurve.Evaluate(1 - i);
+            transform.localPosition += Vector3.up * (spd * maxSpd);
+            text.alpha = 1 - spd;
         }
 
-        protected override void OnTimerUpdate(float i){
-            var spd = floatingSpeedCurve.Evaluate(i);
-            transform.localPosition += Vector3.up * spd;
-            text.alpha = 1 - i;
+        protected override void OnComplete(){
+            gameObject.SetActive(false);
         }
     }
 }

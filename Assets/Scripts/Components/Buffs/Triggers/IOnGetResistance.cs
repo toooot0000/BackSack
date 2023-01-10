@@ -2,6 +2,6 @@
 
 namespace Components.Buffs.Triggers{
     public interface IOnGetResistance : IBuffTrigger{
-        IEffect OnGetResistance(IBuffHolderModel holder);
+        IEffect OnGetResistance(IBuffHolder holder);
     }
 }

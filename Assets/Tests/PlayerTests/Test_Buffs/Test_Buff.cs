@@ -3,11 +3,13 @@ using Components;
 using Components.Buffs;
 using Components.Buffs.Effects;
 using Components.Damages;
+using Components.Effects;
+using MVC;
 using NUnit.Framework;
 
 namespace Tests.PlayerTests.Test_Buff{
     public class Test_Buff{
-        private class TestBuffHolder: IBuffHolderModel{
+        private class TestBuffHolder: IBuffHolder{
             public int HealthPoint{ get; set; }
             public int ShieldPoint{ get; set; }
             public int DefendPoint{ get; set; }
@@ -16,6 +18,15 @@ namespace Tests.PlayerTests.Test_Buff{
 
             public List<Buff> Buffs{ get; set; } = new();
             public void Consume(IBuffEffect effect){ }
+            IEffectResult ICanConsume<IBuffEffect>.Consume(IBuffEffect effect){
+                throw new System.NotImplementedException();
+            }
+
+            public IEffectResult[] Consume(IEffect effect){
+                throw new System.NotImplementedException();
+            }
+
+            public T GetModel<T>() where T : IModel => default;
         }
 
         class TestBuff : Buff{

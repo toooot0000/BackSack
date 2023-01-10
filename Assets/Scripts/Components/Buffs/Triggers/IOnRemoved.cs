@@ -2,6 +2,6 @@
 
 namespace Components.Buffs.Triggers{
     public interface IOnRemoved : IBuffTrigger{
-        IEffect OnRemoved(IBuffHolderModel holder);
+        IEffect OnRemoved(IBuffHolder holder);
     }
 }

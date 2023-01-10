@@ -53,9 +53,8 @@ namespace Utility.Animation.Tweens{
         }
 
         public void Replay(){
-            IsPaused = false;
             ResetTime();
-            OnStart();
+            Play();
         }
 
         public void ResetTime(){

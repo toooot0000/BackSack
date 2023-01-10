@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1357
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Game
   m_RootView: {fileID: 9}
   m_MinSize: {x: 875, y: 371}
   m_MaxSize: {x: 10000, y: 10000}
@@ -39,12 +39,12 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1501
+    x: 1181
     y: 0
-    width: 323
+    width: 643
     height: 774
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 142
+  controlID: 100
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 47
+  controlID: 94
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -304,7 +304,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 1003
+  controlID: 26
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 1004
+  controlID: 27
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -348,7 +348,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 361
     y: 0
-    width: 1140
+    width: 820
     height: 774
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
@@ -378,9 +378,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1501
+    x: 1181
     y: 73
-    width: 321
+    width: 641
     height: 753
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -389,15 +389,32 @@ MonoBehaviour:
   m_ViewTransforms:
     m_KeySerializationHelper:
     - {fileID: -4388312478490099593, guid: 24fc449ac20a7b14f86e148885e3568a, type: 2}
+    - {fileID: -2828401620541497422, guid: 530542eb5444ec046a4647af9f03b1b6, type: 2}
     m_ValueSerializationHelper:
-    - e00: 1.601979
+    - e00: 0.41578948
       e01: 0
       e02: 0
-      e03: -1015.075
+      e03: -5.7894745
       e10: 0
-      e11: 1.601979
+      e11: 0.41578948
       e12: 0
-      e13: 28.210186
+      e13: 317.5
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0.41578948
+      e01: 0
+      e02: 0
+      e03: -5.7894745
+      e10: 0
+      e11: 0.41578948
+      e12: 0
+      e13: 317.5
       e20: 0
       e21: 0
       e22: 1
@@ -407,9 +424,9 @@ MonoBehaviour:
       e32: 0
       e33: 1
   m_PreviewAnimator: {fileID: 0}
-  m_AnimatorController: {fileID: 9100000, guid: 24fc449ac20a7b14f86e148885e3568a, type: 2}
+  m_AnimatorController: {fileID: 9100000, guid: 530542eb5444ec046a4647af9f03b1b6, type: 2}
   m_BreadCrumbs:
-  - m_Target: {fileID: -4388312478490099593, guid: 24fc449ac20a7b14f86e148885e3568a, type: 2}
+  - m_Target: {fileID: -2828401620541497422, guid: 530542eb5444ec046a4647af9f03b1b6, type: 2}
     m_ScrollPosition: {x: 0, y: 0}
   stateMachineGraph: {fileID: 0}
   stateMachineGraphGUI: {fileID: 0}
@@ -1329,16 +1346,16 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1911
+    x: 1824
     y: 73
-    width: 648
+    width: 735
     height: 1286
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_Spl:
-    ID: 156
+    ID: 58539
     splitterInitialOffset: 0
     currentActiveSplitter: -1
     realSizes:
@@ -1369,7 +1386,7 @@ MonoBehaviour:
       uniqueId: '[Backsack][suite]'
       name: Backsack
       fullName: Backsack
-      resultStatus: 1
+      resultStatus: 0
       duration: 1.0678341
       messages: 
       output: 
@@ -1385,7 +1402,7 @@ MonoBehaviour:
       uniqueId: '[PlayerTests.dll][suite]'
       name: PlayerTests.dll
       fullName: D:/Projects/Backsack/Library/ScriptAssemblies/PlayerTests.dll
-      resultStatus: 1
+      resultStatus: 0
       duration: 0.8432782
       messages: 
       output: 
@@ -1401,7 +1418,7 @@ MonoBehaviour:
       uniqueId: PlayerTests.dll/[Tests][suite]
       name: Tests
       fullName: Tests
-      resultStatus: 1
+      resultStatus: 0
       duration: 0.8395569
       messages: 
       output: 
@@ -1417,7 +1434,7 @@ MonoBehaviour:
       uniqueId: PlayerTests.dll/Tests/[PlayerTests][suite]
       name: PlayerTests
       fullName: Tests.PlayerTests
-      resultStatus: 1
+      resultStatus: 0
       duration: 0.8378897
       messages: 
       output: 
@@ -1434,7 +1451,7 @@ MonoBehaviour:
       name: Test_Buff
       fullName: Tests.PlayerTests.Test_Buff
       resultStatus: 1
-      duration: 0.0349139
+      duration: 1.24741
       messages: 
       output: 
       stacktrace: 
@@ -1450,7 +1467,7 @@ MonoBehaviour:
       name: Test_Buff
       fullName: Tests.PlayerTests.Test_Buff.Test_Buff
       resultStatus: 1
-      duration: 0.0325329
+      duration: 1.2431977
       messages: 
       output: 
       stacktrace: 
@@ -1466,7 +1483,7 @@ MonoBehaviour:
       name: Test_Buff_normal
       fullName: Tests.PlayerTests.Test_Buff.Test_Buff.Test_Buff_normal
       resultStatus: 1
-      duration: 0.0214539
+      duration: 0.9924842
       messages: 
       output: 
       stacktrace: 
@@ -1483,7 +1500,7 @@ MonoBehaviour:
       name: Test_Coroutines
       fullName: Tests.PlayerTests.Test_Coroutines
       resultStatus: 1
-      duration: 0.1035354
+      duration: 0.1663569
       messages: 
       output: 
       stacktrace: 
@@ -1499,7 +1516,7 @@ MonoBehaviour:
       name: Test_CoroutineManage_MultiDispatch
       fullName: Tests.PlayerTests.Test_Coroutines.Test_CoroutineManage_MultiDispatch
       resultStatus: 1
-      duration: 0.1012071
+      duration: 0.0591991
       messages: 
       output: 
       stacktrace: 
@@ -1515,7 +1532,7 @@ MonoBehaviour:
       name: Test_MultiDispatch
       fullName: Tests.PlayerTests.Test_Coroutines.Test_CoroutineManage_MultiDispatch.Test_MultiDispatch
       resultStatus: 1
-      duration: 0.068494
+      duration: 0.0502868
       messages: 
       output: 
       stacktrace: 
@@ -1532,7 +1549,7 @@ MonoBehaviour:
       name: Test_CoroutineManager
       fullName: Tests.PlayerTests.Test_Coroutines.Test_CoroutineManager
       resultStatus: 1
-      duration: 0.0340101
+      duration: 0.0757609
       messages: 
       output: 
       stacktrace: 
@@ -1548,7 +1565,7 @@ MonoBehaviour:
       name: Test_Cancel
       fullName: Tests.PlayerTests.Test_Coroutines.Test_CoroutineManager.Test_Cancel
       resultStatus: 1
-      duration: 0.0079008
+      duration: 0.0189966
       messages: 
       output: 
       stacktrace: 
@@ -1565,7 +1582,7 @@ MonoBehaviour:
       name: Test_DelayedJ
       fullName: Tests.PlayerTests.Test_Coroutines.Test_CoroutineManager.Test_DelayedJ
       resultStatus: 1
-      duration: 0.0097773
+      duration: 0.0276727
       messages: 
       output: 
       stacktrace: 
@@ -1582,7 +1599,7 @@ MonoBehaviour:
       name: Test_MultipleNormal
       fullName: Tests.PlayerTests.Test_Coroutines.Test_CoroutineManager.Test_MultipleNormal
       resultStatus: 1
-      duration: 0.010074
+      duration: 0.0235081
       messages: 
       output: 
       stacktrace: 
@@ -1599,7 +1616,7 @@ MonoBehaviour:
       name: Test_CoroutineManager_Single
       fullName: Tests.PlayerTests.Test_Coroutines.Test_CoroutineManager_Single
       resultStatus: 1
-      duration: 0.0139631
+      duration: 0.026692
       messages: 
       output: 
       stacktrace: 
@@ -1615,7 +1632,7 @@ MonoBehaviour:
       name: Test_Single
       fullName: Tests.PlayerTests.Test_Coroutines.Test_CoroutineManager_Single.Test_Single
       resultStatus: 1
-      duration: 0.010299
+      duration: 0.0213518
       messages: 
       output: 
       stacktrace: 
@@ -1632,7 +1649,7 @@ MonoBehaviour:
       name: Test_Enemy
       fullName: Tests.PlayerTests.Test_Enemy
       resultStatus: 1
-      duration: 0.0110814
+      duration: 0.0150444
       messages: 
       output: 
       stacktrace: 
@@ -1648,7 +1665,7 @@ MonoBehaviour:
       name: Test_Enemy
       fullName: Tests.PlayerTests.Test_Enemy.Test_Enemy
       resultStatus: 1
-      duration: 0.0091296
+      duration: 0.0107601
       messages: 
       output: 
       stacktrace: 
@@ -1664,7 +1681,7 @@ MonoBehaviour:
       name: Test_MakeEnemy_normal
       fullName: Tests.PlayerTests.Test_Enemy.Test_Enemy.Test_MakeEnemy_normal
       resultStatus: 1
-      duration: 0.0009457
+      duration: 0.0039953
       messages: 
       output: 
       stacktrace: 
@@ -1681,7 +1698,7 @@ MonoBehaviour:
       name: Test_MakeEnemy_WrongId
       fullName: Tests.PlayerTests.Test_Enemy.Test_Enemy.Test_MakeEnemy_WrongId
       resultStatus: 1
-      duration: 0.0028655
+      duration: 0.0031679
       messages: 
       output: 'Invalid Id -1!
 
@@ -1695,77 +1712,11 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1020
       parentUniqueId: PlayerTests.dll/Tests/PlayerTests/Test_Enemy/[PlayerTests][Tests.PlayerTests.Test_Enemy.Test_Enemy][suite]
-    - id: 1028
-      uniqueId: PlayerTests.dll/Tests/PlayerTests/[PlayerTests][Tests.PlayerTests.Test_EnemyManager][suite]
-      name: Test_EnemyManager
-      fullName: Tests.PlayerTests.Test_EnemyManager
-      resultStatus: 1
-      duration: 0.0345554
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1027
-      parentUniqueId: PlayerTests.dll/Tests/[PlayerTests][suite]
-    - id: 1017
-      uniqueId: PlayerTests.dll/Tests/PlayerTests/Test_EnemyManager/[PlayerTests][Tests.PlayerTests.Test_EnemyManager.EnemyManagerTest][suite]
-      name: EnemyManagerTest
-      fullName: Tests.PlayerTests.Test_EnemyManager.EnemyManagerTest
-      resultStatus: 1
-      duration: 0.0290774
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1028
-      parentUniqueId: PlayerTests.dll/Tests/PlayerTests/[PlayerTests][Tests.PlayerTests.Test_EnemyManager][suite]
-    - id: 1018
-      uniqueId: PlayerTests.dll/Tests/PlayerTests/Test_EnemyManager/EnemyManagerTest/[PlayerTests][Tests.PlayerTests.Test_EnemyManager.EnemyManagerTest.Test_AddEnemy_1]
-      name: Test_AddEnemy_1
-      fullName: Tests.PlayerTests.Test_EnemyManager.EnemyManagerTest.Test_AddEnemy_1
-      resultStatus: 1
-      duration: 0.0187378
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1017
-      parentUniqueId: PlayerTests.dll/Tests/PlayerTests/Test_EnemyManager/[PlayerTests][Tests.PlayerTests.Test_EnemyManager.EnemyManagerTest][suite]
-    - id: 1019
-      uniqueId: PlayerTests.dll/Tests/PlayerTests/Test_EnemyManager/EnemyManagerTest/[PlayerTests][Tests.PlayerTests.Test_EnemyManager.EnemyManagerTest.Test_AddEnemy_null]
-      name: Test_AddEnemy_null
-      fullName: Tests.PlayerTests.Test_EnemyManager.EnemyManagerTest.Test_AddEnemy_null
-      resultStatus: 1
-      duration: 0.0079871
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1017
-      parentUniqueId: PlayerTests.dll/Tests/PlayerTests/Test_EnemyManager/[PlayerTests][Tests.PlayerTests.Test_EnemyManager.EnemyManagerTest][suite]
     - id: 1022
       uniqueId: PlayerTests.dll/Tests/PlayerTests/[PlayerTests][Tests.PlayerTests.Test_Stages][suite]
       name: Test_Stages
       fullName: Tests.PlayerTests.Test_Stages
-      resultStatus: 1
+      resultStatus: 0
       duration: 0.8361598
       messages: 
       output: 
@@ -1781,7 +1732,7 @@ MonoBehaviour:
       uniqueId: PlayerTests.dll/Tests/PlayerTests/Test_Stages/[PlayerTests][Tests.PlayerTests.Test_Stages.Test_StageController][suite]
       name: Test_StageController
       fullName: Tests.PlayerTests.Test_Stages.Test_StageController
-      resultStatus: 1
+      resultStatus: 0
       duration: 0.8338257
       messages: 
       output: 
@@ -1797,7 +1748,7 @@ MonoBehaviour:
       uniqueId: PlayerTests.dll/Tests/PlayerTests/Test_Stages/Test_StageController/[PlayerTests][Tests.PlayerTests.Test_Stages.Test_StageController.Test_AfterSetModel_Normal]
       name: Test_AfterSetModel_Normal
       fullName: Tests.PlayerTests.Test_Stages.Test_StageController.Test_AfterSetModel_Normal
-      resultStatus: 1
+      resultStatus: 0
       duration: 0.8076329
       messages: 
       output: '(1, 1): set file object to Enemy
@@ -1816,7 +1767,7 @@ MonoBehaviour:
       uniqueId: PlayerTests.dll/Tests/PlayerTests/Test_Stages/Test_StageController/[PlayerTests][Tests.PlayerTests.Test_Stages.Test_StageController.Test_AfterSetModel_NormalBox]
       name: Test_AfterSetModel_NormalBox
       fullName: Tests.PlayerTests.Test_Stages.Test_StageController.Test_AfterSetModel_NormalBox
-      resultStatus: 1
+      resultStatus: 0
       duration: 0.732765
       messages: 
       output: '(3, 2): set file object to Enemy
@@ -1838,7 +1789,7 @@ MonoBehaviour:
       uniqueId: PlayerTests.dll/Tests/PlayerTests/Test_Stages/[PlayerTests][Tests.PlayerTests.Test_Stages.Test_Stages][suite]
       name: Test_Stages
       fullName: Tests.PlayerTests.Test_Stages.Test_Stages
-      resultStatus: 1
+      resultStatus: 0
       duration: 0.4150679
       messages: 
       output: 
@@ -1854,7 +1805,7 @@ MonoBehaviour:
       uniqueId: PlayerTests.dll/Tests/PlayerTests/Test_Stages/Test_Stages/[PlayerTests][Tests.PlayerTests.Test_Stages.Test_Stages.Test_Normal]
       name: Test_Normal
       fullName: Tests.PlayerTests.Test_Stages.Test_Stages.Test_Normal
-      resultStatus: 1
+      resultStatus: 0
       duration: 0.3477268
       messages: 
       output: 
@@ -1867,19 +1818,24 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1001
       parentUniqueId: PlayerTests.dll/Tests/PlayerTests/Test_Stages/[PlayerTests][Tests.PlayerTests.Test_Stages.Test_Stages][suite]
-    m_ResultText: 'Test_AfterSetModel_NormalBox (0.733s)
+    m_ResultText: 'Test_AddEnemy_1 (0.000s)
 
       ---
 
-      (3, 2):
-      set file object to Enemy
+      Cancelled by user
 
-      (4, 1): set file object to Treasure'
+      ---
+
+      NullReferenceException:
+      Object reference not set to an instance of an object
+
+      Should not be
+      capturing when there is a hotcontrol'
     m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: e89a803e
-      m_LastClickedID: 1048615656
+      m_SelectedIDs: fdf57a49
+      m_LastClickedID: 1232795133
       m_ExpandedIDs: c19123944711ff95f9cfce9a9094feb2069d22bf0b0596c53a9f92d0c2db93dce709f6df0b70a8e14c3948e5e557abf7f61fa2f9c99b1e098137ba2cdf087131f1f36a3e31a00050673bec516db24056e7c569591037506930fa617cffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -2221,36 +2177,36 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/TextMesh Pro/Resources/Fonts & Materials
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/TextMesh Pro/Resources/Fonts & Materials
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Projects\Backsack
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 5e610000
-    m_LastClickedID: 24926
-    m_ExpandedIDs: 000000000a6100000e610000106100001a61000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 244}
+    m_SelectedIDs: 248a0000
+    m_LastClickedID: 35364
+    m_ExpandedIDs: 00000000c2610000c4610000c6610000c861000052620000566200005a6200005e6200009e620000ca6200002e6500008c70000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Resources
+      m_OriginalName: Resources
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 25174
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 8}
     m_SearchString: 
@@ -2264,7 +2220,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000000a6100000c6100000e61000010610000126100001461000016610000186100001a610000
+    m_ExpandedIDs: 00000000c2610000c4610000c6610000c8610000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2292,7 +2248,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c6230000
+    m_ExpandedInstanceIDs: c623000018610000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2308,7 +2264,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 8}
+      m_ClientGUIView: {fileID: 14}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -2351,7 +2307,7 @@ MonoBehaviour:
   m_ObjectsLockedBeforeSerialization: []
   m_InstanceIDsLockedBeforeSerialization: 
   m_PreviewResizer:
-    m_CachedPref: 400
+    m_CachedPref: 197
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
@@ -2392,9 +2348,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: b67b0000
-      m_LastClickedID: 31670
-      m_ExpandedIDs: 0086ffff1c86ffffd6d4ffff8addffff4ee0ffffc4e1ffff42f3ffff2ef5ffff24fbffff3c60000024620000a2620000007a00007a7a0000b67b0000cc7b0000
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 622af9ffae2af9ffb833f9fffc33f9ff4834f9ff803df9ff50f2f9ffcacbfaff24fbfffff4ffffffd8600000ee600000549400009e980000a4980000ba9f0000d69f0000dc9f0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -2440,7 +2396,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 361
     y: 73
-    width: 1138
+    width: 818
     height: 753
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -2665,9 +2621,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 3.630119, y: 4.0925646, z: -0.11787683}
+    m_Target: {x: -1.4867346, y: 8.267954, z: -1.9397988}
     speed: 2
-    m_Value: {x: 3.630119, y: 4.0925646, z: -0.11787683}
+    m_Value: {x: -1.4867346, y: 8.267954, z: -1.9397988}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -2718,9 +2674,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 10.219459
+    m_Target: 27.793348
     speed: 2
-    m_Value: 10.219459
+    m_Value: 27.793348
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -2738,7 +2694,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+  m_LastSceneViewRotation: {x: -0.021307435, y: 0.008095225, z: -0.00017252915, w: -0.99974114}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
@@ -2767,7 +2723,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 361
     y: 73
-    width: 1138
+    width: 818
     height: 753
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -2815,23 +2771,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 1138
+      width: 818
       height: 732
-    m_Scale: {x: 0.59270835, y: 0.59270835}
-    m_Translation: {x: 569, y: 366}
+    m_Scale: {x: 1.1156715, y: 1.1156715}
+    m_Translation: {x: 409.00003, y: 366.00003}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -960
-      y: -617.5044
-      width: 1920
-      height: 1235.0088
+      x: -366.5954
+      y: -328.0536
+      width: 733.19073
+      height: 656.1071
     m_MinimalGUI: 1
-  m_defaultScale: 0.59270835
-  m_LastWindowPixelSize: {x: 1138, y: 753}
+  m_defaultScale: 0.42604166
+  m_LastWindowPixelSize: {x: 818, y: 753}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000

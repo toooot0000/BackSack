@@ -22,5 +22,8 @@ namespace Components.Damages{
         }
         public bool IsShielded => DeductedShieldPoint == 1;
         public bool IsDefended => DeductedDefendPoint > 0;
+        public bool IsTarget(IDamageable controller){
+            throw new System.NotImplementedException();
+        }
     }
 }

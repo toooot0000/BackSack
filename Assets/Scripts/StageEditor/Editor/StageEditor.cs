@@ -50,7 +50,7 @@ namespace StageEditor.Editor{
             }
         }
 
-        private Stage Load(string fileName){
+        private StageModel Load(string fileName){
             if (!fileName.StartsWith(stageResPath)) fileName = $"{stageResPath}{fileName}";
             Debug.Log($"Loading stage file: {fileName}");
             var textAsset = Resources.Load<TextAsset>(fileName);
@@ -58,15 +58,15 @@ namespace StageEditor.Editor{
                 Debug.LogError($"Loading stage FAILED! Can't find the stage file with path of {fileName}");
                 return null;
             }
-            return Model.FromJsonString<Stage>(textAsset.text);
+            return Model.FromJsonString<StageModel>(textAsset.text);
         }
 
-        private void Export(Stage stage){
+        private void Export(StageModel stageModel){
             AssetDatabase.SaveAssets();
-            var filePath = $"{StageSavingPath}{stage.Meta.Name}.json";
+            var filePath = $"{StageSavingPath}{stageModel.Meta.Name}.json";
             Debug.Log($"Export stage data to file: {filePath}");
             if (!Directory.Exists(StageSavingPath)) Directory.CreateDirectory(StageSavingPath);
-            File.WriteAllText(filePath, stage.ToJson(Formatting.Indented));
+            File.WriteAllText(filePath, stageModel.ToJson(Formatting.Indented));
             AssetDatabase.Refresh();
         }
     }

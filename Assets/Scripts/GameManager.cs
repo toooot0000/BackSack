@@ -2,11 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Components;
+using Components.Buffs;
+using Components.Buffs.Triggers;
+using Components.Effects;
 using Components.Players;
 using Components.Stages;
 using Components.TileObjects;
 using Coroutines;
 using MVC;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 
@@ -25,8 +29,8 @@ public class GameManager : MonoBehaviour{
     public GameState State => Model.State;
     
     
-    public PlayerController player;
-    public StageController stage;
+    public Player player;
+    public Stage stage;
 
 
     private bool _isEnd = false;
@@ -49,13 +53,14 @@ public class GameManager : MonoBehaviour{
         PreGameSetUp();
         LoadGame();
         
-        stage = IController.GetController<StageController>();
-        stage.SetModel(MVC.Model.FromJsonString<Stage>(Resources.Load<TextAsset>("Stages/stage-test-1").text));
-        player = IController.GetController<PlayerController>();
-        player.SetModel(new Player());
+        stage = IController.GetController<Stage>();
+        stage.SetModel(MVC.Model.FromJsonString<StageModel>(Resources.Load<TextAsset>("Stages/stage-test-1").text));
+        player = IController.GetController<Player>();
+        player.SetModel(new PlayerModel());
         
         _gameLoop = StartCoroutine(GameLoop());
     }
+
 
     private void Update(){
         if (Input.GetKeyUp(KeyCode.UpArrow)){
@@ -67,7 +72,7 @@ public class GameManager : MonoBehaviour{
         } else if (Input.GetKeyUp(KeyCode.RightArrow)){
             MovePlayer(Vector2Int.right);
         } else if (Input.GetKeyUp(KeyCode.Space)){
-            player.Jump();
+            _allActionFinished = true;
         }
     }
 
@@ -75,13 +80,11 @@ public class GameManager : MonoBehaviour{
         MoveTileObject(player, direction);
     }
 
-    private void MoveTileObject(TileObjectController tileObject, Vector2Int direction){
+    private void MoveTileObject(ITileObject tileObject, Vector2Int direction){
         if(!tileObject.Move(direction)) return;
         var curPos = tileObject.GetModel<ITileObjectModel>().CurrentStagePosition;
-        var ground = stage.GetModel().GetFloor(curPos).Ground;
-        if (ground == null) return;
-        var effect = ground.OnTileObjectEnter(tileObject.GetModel<ITileObjectModel>());
-        tileObject.Consume(effect);
+        var effect = stage.OnTileObjectEnterPosition(tileObject, curPos);
+        if(effect != null) tileObject.Consume(effect);
     }
 
     /// <summary>
@@ -107,30 +110,47 @@ public class GameManager : MonoBehaviour{
         
     }
 
+    private bool _allActionFinished = false;
+    private bool _AdvancePhase(){
+        if (!_allActionFinished) return false;
+        _allActionFinished = false;
+        return true;
+    }
+
     private IEnumerator _GameLoop(){
+        
+        OtherTurnStarts();
+        yield return new WaitUntil(_AdvancePhase);
+        
         // Player turn starts
-        Debug.Log("Game Phase: Player turn starts!");
-        yield return new WaitUntil(() => false);
+        PlayerTurnStarts();
+        yield return new WaitUntil(_AdvancePhase);
+        
         // Player input instruction 
-        Debug.Log("Game Phase: Wait for player instruction");
-        yield return new WaitUntil(() => false);
+        yield return WaitForPlayerInput();
+        
         // Process Player action
-        Debug.Log("Game Phase: Acting player action");
-        yield return new WaitUntil(() => false);
+        PlayerActs();
+        yield return new WaitUntil(_AdvancePhase);
+        
         // Player turn ends
-        Debug.Log("Game Phase: Player turn ends"); 
-        yield return new WaitUntil(() => false);
+        PlayerTurnEnds();
+        yield return new WaitUntil(_AdvancePhase);
         
         // Enemies' turns execute sequentially on the model layer, but performed in parallel on the view layer
-        // Calculate Enemies' turns;
-        Debug.Log("Game Phase: Other objects' turn start & calculate actions");
-        yield return new WaitUntil(() => false);
+        EnemiesTurnStarts();
+        yield return new WaitUntil(_AdvancePhase);
+        
         // Perform actions;
-        Debug.Log("Game Phase: Other objects' actions");
-        yield return new WaitUntil(() => false);
+        EnemiesActs();
+        yield return new WaitUntil(_AdvancePhase);
+        
         // Enemies' turns ends?
-        Debug.Log("Game Phase: Other objects' turn ends");
-        yield return new WaitUntil(() => false);
+        EnemiesTurnEnds();
+        yield return new WaitUntil(_AdvancePhase);
+        
+        OtherTurnEnds();
+        yield return new WaitUntil(_AdvancePhase);
     }
     
     private IEnumerator _BattleLoop(){
@@ -144,6 +164,48 @@ public class GameManager : MonoBehaviour{
     }
 
     private void PlayerTurnStarts(){
+        Debug.Log("Game Phase: Player turn starts!");
+    }
+
+    private void PlayerActs(){
+        Debug.Log("Game Phase: Acting player action");
+    }
+
+    private void PlayerTurnEnds(){
+        Debug.Log("Game Phase: Player turn ends");
+        foreach (var playerBuff in player.GetBuffOfTrigger<IOnTurnEnd>()){
+            var effect = playerBuff.OnTurnEnd(player);
+            player.Consume(effect);
+        }
+    }
+
+    private IEnumerator WaitForPlayerInput(){
+        Debug.Log("Game Phase: Wait for player instruction");
+        yield return new WaitUntil(_AdvancePhase);
+    }
+
+    private void EnemiesTurnStarts(){
+        Debug.Log("Game Phase: Other objects' turn start & calculate actions");
+    }
+
+    private void EnemiesActs(){
+        Debug.Log("Game Phase: Other objects' actions");
+    }
+
+    private void EnemiesTurnEnds(){
+        Debug.Log("Game Phase: Other objects' actions");
+    }
+
+    private void OtherTurnStarts(){
+        Debug.Log("Game Phase: Other Turn Starts");
+    }
+
+    private void OtherTurnEnds(){
+        Debug.Log("Game Phase: Other Turn Ends");
         
+    }
+
+    private IEnumerator WaitForAllAnimationComplete(){
+        yield return null;
     }
 }

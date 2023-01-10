@@ -7,5 +7,5 @@ namespace Components.TileObjects.ForceMovable{
         int Weight{ set; get; }
     }
 
-    public interface IForceMovable : ICanConsume<IForceMovement>{ }
+    public interface IForceMovable : ITileObject, ICanConsume<IForceMovement>{ }
 }

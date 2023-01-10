@@ -4,7 +4,7 @@ using Components.Buffs.Triggers;
 
 namespace Components.Buffs{
     public static class BuffHolderExtension{
-        public static void AddBuffLayer<TBuff>(this IBuffHolderModel holder, int layer) where TBuff : Buff, new(){
+        public static void AddBuffLayer<TBuff>(this IBuffHolder holder, int layer) where TBuff : Buff, new(){
             var buff = holder.GetBuffOfType<TBuff>();
             if (buff == null){
                 buff = Buff.MakeBuff<TBuff>(layer);
@@ -14,14 +14,14 @@ namespace Components.Buffs{
             }
         }
 
-        public static void RemoveBuffLayer<TBuff>(this IBuffHolderModel holder, int layer) where TBuff : Buff, new(){
+        public static void RemoveBuffLayer<TBuff>(this IBuffHolder holder, int layer) where TBuff : Buff, new(){
             var buff = holder.GetBuffOfType<TBuff>();
             if (buff == null) return;
             buff.RemoveLayer(layer);
             if (buff.Layer == 0) holder.Buffs.Remove(buff);
         }
         
-        public static IEnumerable<T> GetBuffOfTrigger<T>(this IBuffHolderModel holder) where T : IBuffTrigger{
+        public static IEnumerable<T> GetBuffOfTrigger<T>(this IBuffHolder holder) where T : IBuffTrigger{
             var allBuffs = holder.Buffs;
             if(allBuffs == null) yield break;
             foreach (var buff in allBuffs){
@@ -30,7 +30,7 @@ namespace Components.Buffs{
             }
         }
 
-        public static T GetBuffOfType<T>(this IBuffHolderModel buffHolder) where T : Buff{
+        public static T GetBuffOfType<T>(this IBuffHolder buffHolder) where T : Buff{
             try{
                 return (T)buffHolder.Buffs.First(b => b is T);
             } catch{
@@ -38,7 +38,7 @@ namespace Components.Buffs{
             }
         }
         
-        public static string BuffsToString(this IBuffHolderModel buffHolder){
+        public static string BuffsToString(this IBuffHolder buffHolder){
             var ret = buffHolder.Buffs.Aggregate("", (current, buff) => $"{current}, {buff}");
             return $"[{ret}]";
         }

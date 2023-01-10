@@ -5,20 +5,20 @@ using Utility.Extensions;
 
 namespace Components.Enemies{
     public class EnemyManager : MonoBehaviour{
-        public StageController stageController;
+        public Stage stage;
         public GameObject enemyPrefab;
-        [HideInInspector] public List<EnemyController> enemyControllers = new();  
+        [HideInInspector] public List<Enemy> enemyControllers = new();  
         
-        private EnemyController CreateInstance(){
-            var ret =  Instantiate(enemyPrefab, transform).GetComponent<EnemyController>();
-            ret.stageController = stageController;
+        private Enemy CreateInstance(){
+            var ret =  Instantiate(enemyPrefab, transform).GetComponent<Enemy>();
+            ret.stage = stage;
             return ret;
         }
-        public EnemyController AddEnemy(Enemy enemy){
-            if (enemy == null) return null;
+        public Enemy AddEnemy(EnemyModel enemyModel){
+            if (enemyModel == null) return null;
             var newEnemy = enemyControllers.FirstNotActiveOrNew(CreateInstance);
-            newEnemy.stageController = stageController;
-            newEnemy.SetModel(enemy);
+            newEnemy.stage = stage;
+            newEnemy.SetModel(enemyModel);
             return newEnemy;
         }
     }

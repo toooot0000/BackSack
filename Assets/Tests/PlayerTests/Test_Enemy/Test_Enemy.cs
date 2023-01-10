@@ -7,7 +7,7 @@ namespace Tests.PlayerTests.Test_Enemy{
     public class Test_Enemy{
         [Test]
         public void Test_MakeEnemy_normal(){
-            var enemy = Enemy.MakeEnemy(0);
+            var enemy = EnemyModel.MakeEnemy(0);
             Assert.NotNull(enemy);
             Assert.NotNull(enemy.ID);
             Assert.AreEqual(0, enemy.ID.Value);
@@ -18,7 +18,7 @@ namespace Tests.PlayerTests.Test_Enemy{
         
         [Test]
         public void Test_MakeEnemy_WrongId(){
-            var enemy = Enemy.MakeEnemy(-1);
+            var enemy = EnemyModel.MakeEnemy(-1);
             Assert.IsNull(enemy);
             LogAssert.Expect(LogType.Error,"Invalid Id -1!");
         }

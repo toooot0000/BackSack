@@ -8,6 +8,9 @@ using UnityEngine;
 namespace MVC{
 
     public interface IController{
+
+        public T GetModel<T>() where T: IModel;
+        
         private static readonly List<IController> Controllers = new();
         internal static void RegisterManager(IController controller){
             Controllers.Add(controller);
@@ -17,7 +20,7 @@ namespace MVC{
             return Controllers.Capacity == 0 ? default : (T)Controllers.FirstOrDefault(m => m is T);
         }
     }
-
+    
     public abstract class Controller: MonoBehaviour, IController{
         private IModel _model;
         protected IModel Model{

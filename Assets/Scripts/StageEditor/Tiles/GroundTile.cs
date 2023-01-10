@@ -1,4 +1,4 @@
-﻿using Components.Ground;
+﻿using Components.Grounds;
 using UnityEditor;
 
 namespace StageEditor.Tiles{

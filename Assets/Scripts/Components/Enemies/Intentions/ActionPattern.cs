@@ -8,12 +8,12 @@ namespace Components.Enemies.Intentions{
         public IEnemyIntention GetNextIntention(IIntentionContext context){
             // TODO
             return new MoveIntention(){
-                Displacement = GetDirectionToPlayer(context.Player, context.Enemy)
+                Displacement = GetDirectionToPlayer(context.PlayerModel, context.EnemyModel)
             };
         }
 
-        private Vector2Int GetDirectionToPlayer(Player player, Enemy enemy){
-            var t = player.CurrentStagePosition - enemy.CurrentStagePosition;
+        private Vector2Int GetDirectionToPlayer(PlayerModel playerModel, EnemyModel enemyModel){
+            var t = playerModel.CurrentStagePosition - enemyModel.CurrentStagePosition;
             return t.Aligned();
         }
     }

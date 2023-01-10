@@ -2,6 +2,6 @@
 
 namespace Components.Buffs.Triggers{
     public interface IOnApplied : IBuffTrigger{
-        IEffect OnApplied(IBuffHolderModel holder);
+        IEffect OnApplied(IBuffHolder holder);
     }
 }
