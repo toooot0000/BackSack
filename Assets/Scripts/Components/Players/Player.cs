@@ -25,7 +25,7 @@ namespace Components.Players{
             base.AfterSetModel();
         }
 
-        public IAttack AttackUsingItem(ItemModel item, Vector2Int direction){
+        public IAttack AttackWithWeapon(WeaponModel item, Vector2Int direction){
             var rotatedRange = item.AttackRange.Select(v => {
                 if (direction == ItemModel.DefaultDirection) return v;
                 if (direction == ItemModel.DefaultDirection * -1) return -v;

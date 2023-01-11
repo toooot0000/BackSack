@@ -6,7 +6,7 @@ using MVC;
 using UnityEngine;
 
 namespace Components.Items.Instances{
-    public class Sword: ItemModel{
+    public class Sword: WeaponModel{
         private class Eff : IDamageEffect{
             public ElementType Element{ get; } = ElementType.Physic;
             public IController Target{ set; get; } = null;

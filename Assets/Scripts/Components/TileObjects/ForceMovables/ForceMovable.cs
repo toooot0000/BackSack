@@ -17,18 +17,20 @@ namespace Components.TileObjects.ForceMovables{
             return Math.Clamp((int)Math.Floor(force.Aligned().magnitude) - weight, 0, 5);
         }
 
-        public virtual IEffectResult Consume(IForceMovement effect){
+        public virtual IEffect Consume(IForceMovement effect){
             // TODO
-            return new EffectResult(effect, this);
+            return null;
         }
 
-        private readonly List<IEffectResult> _results = new();
+        private readonly List<IEffect> _results = new();
 
-        public override IEffectResult[] Consume(IEffect effect){
+        public override IEffect Consume(IEffect effect){
             _results.Clear();
-            _results.AddRange(base.Consume(effect));
+            var baseRet = base.Consume(effect);
+            if(baseRet != null) _results.Add(base.Consume(effect));
             if (effect is IForceMovement forceMovement) _results.Add(Consume(forceMovement));
-            return _results.ToArray();
+            if (_results.Count == 0) return null;
+            return new MultiEffect(_results.ToArray());
         }
 
         private IForceMovableModel m_GetModel() => Model as IForceMovableModel;

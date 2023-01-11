@@ -20,27 +20,29 @@ namespace Components.TileObjects.BattleObjects{
             return null;
         }
 
-        public virtual IEffectResult Consume(IDamageEffect effect){
+        public virtual IEffect Consume(IDamageEffect effect){
             // TODO update model!
             m_GetView().TakeDamage(effect.Damage);
-            return new EffectResult(effect, this);
+            return null;
         }
 
-        public virtual IEffectResult Consume(IBuffEffect buffEffect){
+        public virtual IEffect Consume(IBuffEffect buffEffect){
             buffEffect.Apply();
             if (buffEffect.ChangeNumber > 0){
                 m_GetView().AddBuff(buffEffect.GetDisplayName());
             }
-            return new EffectResult(buffEffect, this);
+            return null;
         }
 
-        private readonly List<IEffectResult> _results = new();
-        public override IEffectResult[] Consume(IEffect effect){
+        private readonly List<IEffect> _results = new();
+        public override IEffect Consume(IEffect effect){
             _results.Clear();
-            _results.AddRange(base.Consume(effect));
+            var baseRet = base.Consume(effect);
+            if(baseRet != null) _results.Add(base.Consume(effect));
             if(effect is IDamageEffect damageEffect) _results.Add(Consume(damageEffect));
             if(effect is IBuffEffect buffEffect) _results.Add(Consume(buffEffect));
-            return _results.ToArray();
+            if (_results.Count == 0) return null;
+            return new MultiEffect(_results.ToArray());
         }
 
         public List<Buff> Buffs{ get; set; } = new();

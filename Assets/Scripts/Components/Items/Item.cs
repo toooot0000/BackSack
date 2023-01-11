@@ -12,11 +12,6 @@ namespace Components.Items{
         public Vector2Int BackpackPosition;
         public string IconPath;
         public Vector2Int RotateDirection = Vector2Int.up;
-
-        public abstract IEnumerable<Vector2Int> AttackRange{ get; }
-        public abstract IEffect Effect{ get; }
-        public abstract Predicate<IController> Predicate{ get; }
-        public abstract int LastTurn{ get; }
     }
 
 }

@@ -48,17 +48,18 @@ namespace Components.TileObjects{
 
         private ITileObjectModel m_GetModel() => Model as ITileObjectModel;
         private ITileObjectView m_GetView() => view as ITileObjectView;
-        public IEffectResult Consume(IMultiEffect effect){
-            var ret = new List<IEffectResult>();
-            foreach (var subEff in effect.Effects){
-                ret.AddRange(Consume(subEff));
+        public IEffect Consume(IMultiEffect effect){
+            var ret = new List<IEffect>();
+            foreach (var subEff in effect.Effects) {
+                var subRet = Consume(subEff);
+                if(subRet != null) ret.Add(Consume(subEff));
             }
-            return new MultiEffectResult(effect, this, ret.ToArray());
+            return new MultiEffect(ret.ToArray());
         }
 
-        public virtual IEffectResult[] Consume(IEffect effect){
-            if (effect is IMultiEffect multi) return new[] { Consume(multi) };
-            return Array.Empty<IEffectResult>();
+        public virtual IEffect Consume(IEffect effect){
+            if (effect is IMultiEffect multi) return Consume(multi);
+            return null;
         }
     }
 }

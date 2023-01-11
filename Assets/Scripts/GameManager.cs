@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour{
         } else if (Input.GetKeyUp(KeyCode.Space)){
             _allActionFinished = true;
         } else if (Input.GetKeyUp(KeyCode.Z)){
-            var attack = player.AttackUsingItem(new Sword(), Vector2Int.right);
+            var attack = player.AttackWithWeapon(new Sword(), Vector2Int.right);
             ProcessAttack(attack);
         }
     }
