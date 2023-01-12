@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour{
         } else if (Input.GetKeyUp(KeyCode.Space)){
             _allActionFinished = true;
         } else if (Input.GetKeyUp(KeyCode.Z)){
-            PropagateEffect(player.UseWeapon(new Sword(), Vector2Int.right));
+            PropagateEffect(player.UseWeapon(new HookLock(), Vector2Int.right));
         }
     }
 

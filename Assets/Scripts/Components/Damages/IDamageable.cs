@@ -10,5 +10,7 @@ namespace Components.Damages{
         Dictionary<ElementType, int> Resistances{ set; get; }
     }
 
-    public interface IDamageable : IController, ICanConsume<IDamageEffect>{ }
+    public interface IDamageable : IController, ICanConsume<IDamageEffect>{
+        IEffect Die();
+    }
 }

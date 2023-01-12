@@ -10,6 +10,7 @@ namespace Components.TileObjects.BattleObjects{
         void TakeDamage(Damage damage);
         void AddBuff(string buffName);
         void Attack(IAttack attack);
+        void Die();
     }
     
     public abstract class BattleObjectView : ForceMovableView, IBattleObjectView{
@@ -26,6 +27,8 @@ namespace Components.TileObjects.BattleObjects{
         }
 
         public abstract void Attack(IAttack attack);
+
+        public abstract void Die();
 
         public void RemoveBuff(string buffName){
             buffNameDisplayGenerator.AddBuffNameDisplay(buffName, false, transform);

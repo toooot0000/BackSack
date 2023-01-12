@@ -29,6 +29,6 @@ namespace Components.Items.Instances{
 
         public override IEffect Effect{ get; } = new Eff();
         public override Predicate<IEffectConsumer> Predicate{ get; } = controller => true;
-        public override int LastTurn{ get; } = 10;
+        public override int TargetNum{ get; } = 0;
     }
 }

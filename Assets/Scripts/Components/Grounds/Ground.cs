@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Components.Damages;
 using Components.Effects;
 using Components.Grounds.Effects;
 using Components.Grounds.Instances;
@@ -12,24 +13,32 @@ using Utility;
 using Utility.Extensions;
 
 namespace Components.Grounds{
+
+    public class Explosion : IEffect, IDamageEffect{
+        public IEffectConsumer Target{ get; set; }
+        public IController Source{ get; set; }
+        public Damage Damage{ get; set; }
+    }
+    
     public class Ground: Controller, IView{
         public Stage stage;
         public SpriteRenderer sprRenderer;
         
         public new GroundModel Model{
-            set{
-                if(base.Model is GroundModel old) old.AfterTypeChanged -= UpdateSprite;
-                SetModel(value);
-                value.AfterTypeChanged += UpdateSprite;
-                UpdateSprite();
-                UpdatePosition();
-            }
+            set => SetModel(value);
             get => base.Model as GroundModel;
         }
 
         private IReducer _reducer;
 
+        protected override void BeforeSetModel(){
+            if(base.Model is GroundModel old) old.AfterTypeChanged -= UpdateSprite;
+        }
+
         protected override void AfterSetModel(){
+            Model.AfterTypeChanged += UpdateSprite;
+            UpdateSprite();
+            UpdatePosition();
             _reducer = Reducers[Model.Type];
         }
         

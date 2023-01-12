@@ -2,6 +2,7 @@
 using Components.Buffs;
 using Components.Buffs.Effects;
 using Components.Buffs.Instances;
+using Components.Damages;
 using Components.Effects;
 using Components.Grounds.Reducer;
 using Components.Grounds.Triggers;
@@ -11,23 +12,25 @@ namespace Components.Grounds.Instances{
     public class Fire : IReducer, IOnTileObjectEnter{
         public IEffect TakeElement(Ground ground, ElementType element){
             switch (element){
-                case ElementType.Fire:
-                    return null;
-                case ElementType.Water:
-                    ground.SetType(GroundType.Null);
-                    return null;
                 case ElementType.Wind:
-                    return null;
-                case ElementType.Earth:
-                    return null;
                 case ElementType.Electric:
-                    return null;
-                case ElementType.Poison:
-                    return null;
+                case ElementType.Fire:
                 case ElementType.Physic:
-                    return null;
                 case ElementType.Real:
                     return null;
+                
+                case ElementType.Water:
+                    ground.SetType(GroundType.Steam);
+                    return null;
+                
+                case ElementType.Earth:
+                case ElementType.Poison:
+                    ground.SetType(GroundType.Null);
+                    return new DamageEffect(ground, null, new Damage(){
+                        Element = ElementType.Fire,
+                        Point = 5
+                    });
+                
                 default:
                     throw new ArgumentOutOfRangeException(nameof(element), element, null);
             }

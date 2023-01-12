@@ -22,7 +22,7 @@ namespace Components.Stages{
 
         private readonly Dictionary<FloorType, Tile> _tiles = new();
 
-        public new StageModel Model{
+        private new StageModel Model{
             set => base.SetModel(value);
             get => base.Model as StageModel;
         }
@@ -172,10 +172,22 @@ namespace Components.Stages{
         public IEnumerable<ITileObject> GetTileObject(Vector2Int stagePosition, Predicate<ITileObject> predicate){
             throw new NotImplementedException();
         }
-
+        
+        
+        /// <summary>
+        /// Stage consume a ground effect at given stage position;
+        /// </summary>
+        /// <param name="groundEffect"></param>
+        /// <param name="stagePosition"></param>
+        /// <returns></returns>
         public IEffect Consume(IGroundEffect groundEffect, Vector2Int stagePosition){
             var ground = GetGround(stagePosition);
-            if (ground != null && ground.Model.Type != GroundType.Null) return ground.TakeElement(groundEffect.Element, groundEffect.LastTurnNum);
+            if (ground != null && ground.Model.Type != GroundType.Null){
+                var explosion =  ground.TakeElement(groundEffect.Element, groundEffect.LastTurnNum);
+                if (explosion == null) return null;
+                explosion.Target = GetTileObject(stagePosition);
+                return explosion.Target?.Consume(explosion);
+            }
             if (groundEffect is not ICreateNewGround createNew) return null;
             if (GetFloorType(stagePosition) != FloorType.Empty) return null;
             if (ground == null){

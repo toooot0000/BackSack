@@ -16,7 +16,7 @@ namespace Components.Damages{
         public int DeductedDefendPoint = 0;
         public int DeductedShieldPoint = 0; // either 0 or 1
         
-        public DamageEffect(IDamageable source, IDamageable target, Damage damage){
+        public DamageEffect(IController source, IEffectConsumer target, Damage damage){
             Source = source;
             Target = target;
             Damage = damage;

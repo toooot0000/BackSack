@@ -8,6 +8,6 @@ namespace Components.Items {
     public abstract class WeaponModel: ItemModel {
         public abstract IEnumerable<Vector2Int> AttackRange{ get; }
         public abstract Predicate<IEffectConsumer> Predicate{ get; }
-        public abstract int LastTurn{ get; }
+        public abstract int TargetNum{ get; }
     }
 }

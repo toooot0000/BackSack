@@ -8,5 +8,9 @@ namespace Components.Players{
         public override void Attack(IAttack attack){
             Debug.Log("Player Attack!");
         }
+
+        public override void Die(){
+            Debug.Log("Player died!");
+        }
     }
 }

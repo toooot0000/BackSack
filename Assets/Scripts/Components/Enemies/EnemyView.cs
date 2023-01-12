@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Components.Enemies{
 
     public enum EnemyAnimation{ }
-    
+
     public class EnemyView: BattleObjectView{
         public SpriteRenderer spriteRenderer;
 
@@ -18,6 +18,10 @@ namespace Components.Enemies{
 
         public override void Attack(IAttack attack){
             throw new System.NotImplementedException();
+        }
+
+        public override void Die(){
+            Debug.Log("Enemy died! Peace out!");
         }
     }
 }

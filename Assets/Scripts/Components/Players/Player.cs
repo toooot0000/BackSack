@@ -43,7 +43,7 @@ namespace Components.Players{
                 return v.Rotate90DegAntiClockwise();
             });
             item.Effect.Source = this;
-            return new Attack(this, rotatedRange.ToArray(), item.Effect, item.Predicate);
+            return new Attack(this, rotatedRange.ToArray(), item.Effect, item.Predicate, item.TargetNum);
         }
     }
 }

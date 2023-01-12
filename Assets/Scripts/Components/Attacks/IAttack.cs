@@ -11,6 +11,7 @@ namespace Components.Attacks{
         Vector2Int[] RelativeRange{ get; }
         IEffect Effect{ get; }
         Predicate<IEffectConsumer> Predicate{ get; }
+        int TargetNum{ get; }
     }
 
 
@@ -19,16 +20,18 @@ namespace Components.Attacks{
             IAttacker attacker, 
             Vector2Int[] relativeRange, 
             IEffect effect, 
-            Predicate<IEffectConsumer> predicate
-        ){
+            Predicate<IEffectConsumer> predicate, 
+            int targetNum){
             Attacker = attacker;
             RelativeRange = relativeRange;
             Effect = effect;
             Predicate = predicate;
+            TargetNum = targetNum;
         }
         public IAttacker Attacker{ get; }
         public Vector2Int[] RelativeRange{ get; }
         public IEffect Effect{ get; }
         public Predicate<IEffectConsumer> Predicate{ get; }
+        public int TargetNum{ get; }
     }
 }

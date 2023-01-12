@@ -5,6 +5,7 @@ using Components.Grounds.Effects;
 using Components.Stages;
 using MVC;
 using UnityEngine;
+using Utility.Extensions;
 
 namespace Components.TileObjects{
     public abstract class TileObject: Controller, ITileObject, ICanConsume<MultiEffect>{
@@ -14,23 +15,39 @@ namespace Components.TileObjects{
             SetStagePosition(m_GetModel().CurrentStagePosition);
         }
 
+        private void UpdateStagePosition(Vector2Int newStagePosition){
+            stage.GetFloor(m_GetModel().CurrentStagePosition).TileObject = null;
+            stage.GetFloor(newStagePosition).TileObject = this;
+            m_GetModel().CurrentStagePosition = newStagePosition;
+        }
+
         public void SetStagePosition(Vector2Int stagePosition){
-            m_GetModel().CurrentStagePosition = stagePosition;
+            UpdateStagePosition(stagePosition);
             m_GetView().SetPosition(stage.StagePositionToWorldPosition(stagePosition));
         }
 
         public Vector2Int GetStagePosition() => m_GetModel().CurrentStagePosition;
         
-        public IEffect Move(Vector2Int direction){
-            var dest = m_GetModel().CurrentStagePosition + direction;
+        public IEffect Move(Vector2Int stagePosition){
+            var dest = m_GetModel().CurrentStagePosition + stagePosition;
             if (!IsPositionSteppable(stage.GetFloorType(dest))){
-                m_GetView().BumpToUnsteppable(direction);
+                m_GetView().BumpToUnsteppable(stagePosition.ToDirection());
                 return null;
             }
-            m_GetModel().CurrentStagePosition = dest;
+            UpdateStagePosition(dest);
             m_GetView().MoveToPosition(stage.StagePositionToWorldPosition(dest));
             
             var ground = stage.GetGround(dest);
+            if (ground == null) return null;
+            var effect = ground.OnTileObjectEnter(this);
+            return Consume(effect);
+        }
+
+        protected IEffect ForcedMoveTo(Vector2Int stagePosition){
+            UpdateStagePosition(stagePosition);
+            m_GetView().MoveToPosition(stage.StagePositionToWorldPosition(stagePosition));
+            
+            var ground = stage.GetGround(stagePosition);
             if (ground == null) return null;
             var effect = ground.OnTileObjectEnter(this);
             return Consume(effect);
@@ -69,10 +86,7 @@ namespace Components.TileObjects{
         
         public virtual IEffect Consume(IEffect effect){
             if (effect is MultiEffect multi) return Consume(multi);
-            if (effect is not IGroundEffect groundEffect) return null;
-            var ground = stage.GetGround(m_GetModel().CurrentStagePosition);
-            if (ground == null) return null;
-            return ground.TakeElement(groundEffect.Element, groundEffect.LastTurnNum);
+            return null;
         }
     }
 }
