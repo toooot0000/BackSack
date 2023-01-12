@@ -10,7 +10,7 @@ using Components.TileObjects;
 
 namespace Components.Grounds.Instances{
     public class Fire : IReducer, IOnTileObjectEnter{
-        public IEffect TakeElement(Ground ground, ElementType element){
+        public IEffectTemplate TakeElement(Ground ground, ElementType element){
             switch (element){
                 case ElementType.Wind:
                 case ElementType.Electric:

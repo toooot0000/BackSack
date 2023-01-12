@@ -88,5 +88,29 @@ namespace Components.TileObjects{
             if (effect is MultiEffect multi) return Consume(multi);
             return null;
         }
+
+        protected static void AddTypedEffectConsumer<TEff>(List<IEffect> ret, IEffect effect,
+            Func<TEff, IEffect> consumer) where TEff: IEffect{
+            if (effect is not TEff typed) return;
+            var side = consumer(typed);
+            if (side == null) return;
+            ret.Add(side);
+        }
+        
+        protected static void AddTypedEffectConsumer<TEff>(List<IEffect> ret, IEffect effect,
+            ICanConsume<TEff> consumer) where TEff: IEffect{
+            if (effect is not TEff typed) return;
+            var side = consumer.Consume(typed);
+            if (side == null) return;
+            ret.Add(side);
+        }
+
+        protected static IEffect MakeSideEffect(List<IEffect> result){
+            return result.Count switch{
+                0 => null,
+                1 => result[0],
+                _ => new MultiEffect(result.ToArray())
+            };
+        }
     }
 }

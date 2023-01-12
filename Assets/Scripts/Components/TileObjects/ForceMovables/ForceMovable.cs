@@ -69,12 +69,18 @@ namespace Components.TileObjects.ForceMovables{
 
         public override IEffect Consume(IEffect effect){
             _results.Clear();
-            var baseRet = base.Consume(effect);
-            if(baseRet != null) _results.Add(base.Consume(effect));
-            if (effect is IForceMovement forceMovement) _results.Add(Consume(forceMovement));
-            if (_results.Count == 0) return null;
-            if (_results.Count == 1) return _results[0];
-            return new MultiEffect(_results.ToArray());
+            // var baseRet = base.Consume(effect);
+            // if(baseRet != null) _results.Add(base.Consume(effect));
+            // if (effect is IForceMovement forceMovement) _results.Add(Consume(forceMovement));
+            AddTypedEffectConsumer<IEffect>(_results, effect, base.Consume);
+            AddTypedEffectConsumer<IForceMovement>(_results, effect, this);
+            return MakeSideEffect(_results);
+
+            // return _results.Count switch{
+            //     0 => null,
+            //     1 => _results[0],
+            //     _ => new MultiEffect(_results.ToArray())
+            // };
         }
         private IForceMovableModel m_GetModel() => Model as IForceMovableModel;
         private ForceMovableView m_GetView() => view as ForceMovableView;

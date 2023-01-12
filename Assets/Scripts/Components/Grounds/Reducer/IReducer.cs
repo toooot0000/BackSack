@@ -2,6 +2,6 @@
 
 namespace Components.Grounds.Reducer{
     public interface IReducer{
-        public IEffect TakeElement(Ground ground, ElementType element);
+        public IEffectTemplate TakeElement(Ground ground, ElementType element);
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Components.Damages;
 using Components.Effects;
 using Components.TileObjects.Effects;
 using MVC;
 using UnityEngine;
 
 namespace Components.Items.Instances{
-    public class HookLock: WeaponModel, IForceMovement{
+    public class HookLock: WeaponModel, IForceMovement, IDamageEffect{
         public override IEffect Effect => this;
 
         public override IEnumerable<Vector2Int> AttackRange{ get; } = new[]{
@@ -20,5 +21,10 @@ namespace Components.Items.Instances{
         public int Force{ get; } = 10;
         public Vector2Int Direction{ get; set; }
         public bool Pulling{ get; } = false;
+
+        public Damage Damage{ get; set; } = new Damage(){
+            Element = ElementType.Physic,
+            Point = 1
+        };
     }
 }

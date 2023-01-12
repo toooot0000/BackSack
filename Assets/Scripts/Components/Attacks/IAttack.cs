@@ -7,7 +7,8 @@ using UnityEngine;
 namespace Components.Attacks{
 
     public interface IAttack {
-        IAttacker Attacker{ get; }
+        IController Attacker{ get; }
+        Vector2Int AttackerPosition{ get; }
         Vector2Int[] RelativeRange{ get; }
         IEffect Effect{ get; }
         Predicate<IEffectConsumer> Predicate{ get; }
@@ -17,7 +18,8 @@ namespace Components.Attacks{
 
     public class Attack : IAttack{
         public Attack(
-            IAttacker attacker, 
+            IController attacker, 
+            Vector2Int attackerPosition,
             Vector2Int[] relativeRange, 
             IEffect effect, 
             Predicate<IEffectConsumer> predicate, 
@@ -27,8 +29,10 @@ namespace Components.Attacks{
             Effect = effect;
             Predicate = predicate;
             TargetNum = targetNum;
+            AttackerPosition = attackerPosition;
         }
-        public IAttacker Attacker{ get; }
+        public IController Attacker{ get; }
+        public Vector2Int AttackerPosition{ get; }
         public Vector2Int[] RelativeRange{ get; }
         public IEffect Effect{ get; }
         public Predicate<IEffectConsumer> Predicate{ get; }

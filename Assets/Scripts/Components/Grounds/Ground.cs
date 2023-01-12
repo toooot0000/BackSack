@@ -71,7 +71,7 @@ namespace Components.Grounds{
             UpdatePosition();
         }
 
-        public IEffect TakeElement(ElementType element, int lastTurn = -1){
+        public IEffectTemplate TakeElement(ElementType element, int lastTurn = -1){
             if (_reducer == null) return null;
             Model.LastTurnNum = lastTurn;
             return _reducer.TakeElement(this, element);

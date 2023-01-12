@@ -3,7 +3,7 @@ using MVC;
 
 namespace Components.Damages{
     public interface IDamageEffect: IEffect{
-        Damage Damage{ set; get; }
+        Damage Damage{ get; }
     }
     
     

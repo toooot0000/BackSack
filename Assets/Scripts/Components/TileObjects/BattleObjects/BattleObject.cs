@@ -38,13 +38,17 @@ namespace Components.TileObjects.BattleObjects{
         private readonly List<IEffect> _results = new();
         public override IEffect Consume(IEffect effect){
             _results.Clear();
-            var baseRet = base.Consume(effect);
-            if(baseRet != null) _results.Add(base.Consume(effect));
-            if(effect is IDamageEffect damageEffect) _results.Add(Consume(damageEffect));
-            if(effect is IBuffEffect buffEffect) _results.Add(Consume(buffEffect));
-            if (_results.Count == 0) return null;
-            if (_results.Count == 1) return _results[0];
-            return new MultiEffect(_results.ToArray());
+            
+            AddTypedEffectConsumer<IEffect>(_results, effect, base.Consume);
+            AddTypedEffectConsumer<IBuffEffect>(_results, effect, this);
+            AddTypedEffectConsumer<IDamageEffect>(_results, effect, this);
+            return MakeSideEffect(_results);
+
+            // return _results.Count switch{
+            //     0 => null,
+            //     1 => _results[0],
+            //     _ => new MultiEffect(_results.ToArray())
+            // };
         }
 
         public List<Buff> Buffs{ get; set; } = new();
@@ -64,7 +68,7 @@ namespace Components.TileObjects.BattleObjects{
             var curTargetNum = 0;
             var forceMovement = attack.Effect as IForceMovement;
             foreach (var relPos in attack.RelativeRange){
-                var stagePos = relPos + attack.Attacker.GetStagePosition();
+                var stagePos = relPos + attack.AttackerPosition;
                 IEffect side;
                 if(attack.Effect is IGroundEffect groundEffect){
                     side = stage.Consume(groundEffect, stagePos);
