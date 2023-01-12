@@ -7,9 +7,11 @@ namespace Components.Damages{
     }
     
     
-    public class DamageEffect : IDamageEffect{
+    public class DamageEffect : IDamageEffect, IEffectTemplate{
         public IEffectConsumer Target{ set; get; } = null;
         public IController Source{ set; get; } = null;
+        public IEffect ToEffect() => this;
+
         public Damage Damage{ set; get; }
         
         public int DeductedHealthPoint = 0;

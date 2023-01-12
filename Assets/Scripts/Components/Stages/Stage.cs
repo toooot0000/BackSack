@@ -186,7 +186,7 @@ namespace Components.Stages{
                 var explosion =  ground.TakeElement(groundEffect.Element, groundEffect.LastTurnNum);
                 if (explosion == null) return null;
                 explosion.Target = GetTileObject(stagePosition);
-                return explosion.Target?.Consume(explosion);
+                return explosion.Target?.Consume(explosion.ToEffect());
             }
             if (groundEffect is not ICreateNewGround createNew) return null;
             if (GetFloorType(stagePosition) != FloorType.Empty) return null;

@@ -33,7 +33,7 @@ namespace Components.Grounds.Instances{
             return null;
         }
 
-        public IEffect TakeElement(Ground ground, ElementType element){
+        public IEffectTemplate TakeElement(Ground ground, ElementType element){
             ground.SetType(TakeElement(element));
             return null;
         }

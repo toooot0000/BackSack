@@ -42,12 +42,12 @@ namespace Components.Players{
                 if (direction.IsClockwiseLess(ItemModel.DefaultDirection)) return v.Rotate90DegAntiClockwise();
                 return v.Rotate90DegAntiClockwise();
             });
-            item.Effect.Source = this;
+            item.EffectTemplate.Source = this;
             return new Attack(
                 this, 
                 GetStagePosition(), 
                 rotatedRange.ToArray(), 
-                item.Effect, 
+                item.EffectTemplate.ToEffect(), 
                 item.Predicate, 
                 item.TargetNum
             );

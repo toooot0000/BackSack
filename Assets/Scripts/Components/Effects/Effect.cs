@@ -10,5 +10,6 @@ namespace Components.Effects{
     public interface IEffectTemplate{
         IEffectConsumer Target{ set; get; }
         IController Source{ set; get; }
+        IEffect ToEffect();
     }
 }
