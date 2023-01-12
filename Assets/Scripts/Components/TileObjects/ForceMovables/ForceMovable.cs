@@ -10,10 +10,6 @@ using Utility.Extensions;
 namespace Components.TileObjects.ForceMovables{
     public abstract class ForceMovable : TileObject, IForceMovable{
 
-        public bool CanForcedIntoPosition(Vector2Int stagePosition){
-            return false; // TODO
-        }
-
         private int GetForceDistance(IForceMovement forceMovement){
             var weight = m_GetModel().Weight;
             var distance =  Math.Clamp(Math.Abs(forceMovement.Force) - weight, 0, 5);
@@ -25,15 +21,26 @@ namespace Components.TileObjects.ForceMovables{
             }
             return distance;
         }
+        
+        protected virtual IEffect ForcedMoveTo(Vector2Int stagePosition){
+            UpdateStagePosition(stagePosition);
+            m_GetView().MoveToPosition(stage.StagePositionToWorldPosition(stagePosition));
+            
+            var ground = stage.GetGround(stagePosition);
+            if (ground == null) return null;
+            var effect = ground.OnTileObjectEnter(this);
+            return Consume(effect);
+        }
 
 
-        public virtual IEffect FallIntoAna(){
+        protected virtual IEffect FallIntoAna(){
             if (this is IDamageable damageable){
                 return damageable.Die();
             }
             return null;
         }
-        public virtual IEffect HitToObstacle(){
+
+        protected virtual IEffect HitToObstacle(){
             return Consume(new DamageEffect(null, this, new Damage(){
                 Element = ElementType.Physic,
                 Point = 3
@@ -59,6 +66,9 @@ namespace Components.TileObjects.ForceMovables{
                         var hitSide = HitToObstacle();
                         if (hitSide == null) return side;
                         return new MultiEffect(new[]{ side, hitSide });
+                    case FloorType.Empty:
+                        // TODO add object collision detection;
+                        break;
                 }
             }
             ForcedMoveTo(m_GetModel().CurrentStagePosition + direction * distance);
@@ -69,18 +79,9 @@ namespace Components.TileObjects.ForceMovables{
 
         public override IEffect Consume(IEffect effect){
             _results.Clear();
-            // var baseRet = base.Consume(effect);
-            // if(baseRet != null) _results.Add(base.Consume(effect));
-            // if (effect is IForceMovement forceMovement) _results.Add(Consume(forceMovement));
             AddTypedEffectConsumer<IEffect>(_results, effect, base.Consume);
             AddTypedEffectConsumer<IForceMovement>(_results, effect, this);
             return MakeSideEffect(_results);
-
-            // return _results.Count switch{
-            //     0 => null,
-            //     1 => _results[0],
-            //     _ => new MultiEffect(_results.ToArray())
-            // };
         }
         private IForceMovableModel m_GetModel() => Model as IForceMovableModel;
         private ForceMovableView m_GetView() => view as ForceMovableView;

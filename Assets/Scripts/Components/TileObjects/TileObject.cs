@@ -15,7 +15,7 @@ namespace Components.TileObjects{
             SetStagePosition(m_GetModel().CurrentStagePosition);
         }
 
-        private void UpdateStagePosition(Vector2Int newStagePosition){
+        protected void UpdateStagePosition(Vector2Int newStagePosition){
             stage.GetFloor(m_GetModel().CurrentStagePosition).TileObject = null;
             stage.GetFloor(newStagePosition).TileObject = this;
             m_GetModel().CurrentStagePosition = newStagePosition;
@@ -43,16 +43,6 @@ namespace Components.TileObjects{
             return Consume(effect);
         }
 
-        protected IEffect ForcedMoveTo(Vector2Int stagePosition){
-            UpdateStagePosition(stagePosition);
-            m_GetView().MoveToPosition(stage.StagePositionToWorldPosition(stagePosition));
-            
-            var ground = stage.GetGround(stagePosition);
-            if (ground == null) return null;
-            var effect = ground.OnTileObjectEnter(this);
-            return Consume(effect);
-        }
-        
         public bool CanMoveToPosition(Vector2Int stagePosition){
             return IsPositionSteppable(stage.GetFloorType(stagePosition)) 
                    && stage.GetTileObject(stagePosition) == null;

@@ -16,7 +16,7 @@ namespace Editor.ConfigDownloader{
                 $"\"{Directory.GetCurrentDirectory()}\\Assets\\Editor\\ConfigDownloader\\DownloadConfig.py\"";
 #elif UNITY_EDITOR_OSX
             var args =
- $"\"{Directory.GetCurrentDirectory()}/Assets/Scripts/Utility/ConfigDownloader/DownloadConfig.py\"";
+ $"\"{Directory.GetCurrentDirectory()}/Assets/Editor/ConfigDownloader/DownloadConfig.py\"";
 #endif
             process.StartInfo = new ProcessStartInfo{
                 FileName = GetPythonPath(),
@@ -28,7 +28,7 @@ namespace Editor.ConfigDownloader{
 #if UNITY_EDITOR_WIN
                 WorkingDirectory = $"{Directory.GetCurrentDirectory()}\\Assets\\"
 #elif UNITY_EDITOR_OSX
-                WorkingDirectory = $"{Directory.GetCurrentDirectory()}/Assets/Scripts/Utility/ConfigDownloader/"
+                WorkingDirectory = $"{Directory.GetCurrentDirectory()}/Assets/"
 #endif
             };
             process.Start();
