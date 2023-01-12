@@ -30,6 +30,7 @@ namespace Components.TileObjects.ForceMovables{
             if(baseRet != null) _results.Add(base.Consume(effect));
             if (effect is IForceMovement forceMovement) _results.Add(Consume(forceMovement));
             if (_results.Count == 0) return null;
+            if (_results.Count == 1) return _results[0];
             return new MultiEffect(_results.ToArray());
         }
 

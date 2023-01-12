@@ -13,7 +13,7 @@ namespace Components.Buffs.Instances{
             var ret = new MultiEffect(new IEffect[]{
                 new DamageEffect(null, damageable, new Damage(){
                     Point = 1,
-                    Type = ElementType.Fire
+                    Element = ElementType.Fire
                 }),
                 new ChangeBuffEffect<BurningBuff>(holder, -1)
             });

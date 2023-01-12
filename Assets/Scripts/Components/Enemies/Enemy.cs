@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Components.Buffs;
 using Components.Buffs.Effects;
 using Components.Damages;
@@ -25,6 +26,10 @@ namespace Components.Enemies{
             base.AfterSetModel();
             var spr = Resources.Load<Sprite>(Model.GetSpriteResourcePath());
             view.SetSprite(spr);
+        }
+
+        public IEffect DoNextAction(){
+            throw new NotImplementedException();
         }
     }
 }

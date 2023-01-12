@@ -20,7 +20,7 @@ namespace Components.Damages.DamageNumbers{
         public TextMeshPro text;
         public float maxSpd = 0.01f;
 
-        private Color StartColor => _damage.Type switch{
+        private Color StartColor => _damage.Element switch{
             ElementType.Physic => Color.red,
             ElementType.Fire => Color.yellow,
             ElementType.Poison => Color.green,

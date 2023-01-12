@@ -9,7 +9,7 @@ using Components.TileObjects;
 
 namespace Components.Grounds.Instances{
     public class Water : IReducer, IOnTileObjectEnter{
-        public GroundType TakeElement(ElementType element){
+        private static GroundType TakeElement(ElementType element){
             return element switch{
                 ElementType.Earth => GroundType.Oil,
                 ElementType.Electric => GroundType.Water,
@@ -30,6 +30,11 @@ namespace Components.Grounds.Instances{
                     Target = tileObject
                 };
             }
+            return null;
+        }
+
+        public IEffect TakeElement(Ground ground, ElementType element){
+            ground.SetType(TakeElement(element));
             return null;
         }
     }

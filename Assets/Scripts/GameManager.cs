@@ -78,8 +78,7 @@ public class GameManager : MonoBehaviour{
         } else if (Input.GetKeyUp(KeyCode.Space)){
             _allActionFinished = true;
         } else if (Input.GetKeyUp(KeyCode.Z)){
-            var attack = player.AttackWithWeapon(new Sword(), Vector2Int.right);
-            ProcessAttack(attack);
+            PropagateEffect(player.UseWeapon(new Sword(), Vector2Int.right));
         }
     }
 
@@ -88,10 +87,7 @@ public class GameManager : MonoBehaviour{
     }
 
     private void MoveTileObject(ITileObject tileObject, Vector2Int direction){
-        if(!tileObject.Move(direction)) return;
-        var curPos = tileObject.GetModel<ITileObjectModel>().CurrentStagePosition;
-        var effect = stage.OnTileObjectEnterPosition(tileObject, curPos);
-        if(effect != null) tileObject.Consume(effect);
+        PropagateEffect(tileObject.Move(direction));
     }
 
     /// <summary>
@@ -216,20 +212,7 @@ public class GameManager : MonoBehaviour{
         yield return null;
     }
 
-    public void ProcessAttack(IAttack attack){
-        var attackerPosition = attack.Attacker.GetModel<ITileObjectModel>().CurrentStagePosition;
-        var stageRange = attack.RelativeRange.Select(v => v + attackerPosition).ToArray();
-        
-        // Process attack on other objects;
-        foreach (var relativePosition in stageRange){
-            var obj = stage.GetTileObject(attackerPosition + relativePosition);
-            if (obj == null || !attack.Predicate(obj)) continue;
-            obj.Consume(attack.Effect);
-        }
-        
-        // Update Ground Effects
-        foreach (var stagePosition in stageRange){
-            stage.GetGround(stagePosition).TakeElement(attack.Element, attack.LastTurn);
-        }
+    private void PropagateEffect(IEffect effect){
+        while (effect != null) effect = effect.Target.Consume(effect);
     }
 }

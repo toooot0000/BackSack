@@ -3,8 +3,7 @@
 namespace Components.Effects{
 
     public interface IEffect{
-        IController Target{ set; get; }
+        IEffectConsumer Target{ set; get; }
         IController Source{ set; get; }
-        ElementType Element{ get; }
     }
 }

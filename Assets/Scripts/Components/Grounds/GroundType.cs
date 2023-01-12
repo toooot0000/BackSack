@@ -16,8 +16,6 @@ namespace Components.Grounds{
         Ice,
         [Description("grass")]
         Grass,
-        [Description("explosion")]
-        Explosion,
         [Description("steam")]
         Steam
     }

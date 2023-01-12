@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Components.Effects;
 using Components.Enemies;
 using Components.Grounds;
+using Components.Grounds.Effects;
 using Components.TileObjects;
 using Components.TreasureBoxes;
 using MVC;
@@ -157,6 +159,22 @@ namespace Components.Stages{
                     yield return Model.Floors[i, j].TileObject;
                 }
             }
+        }
+        
+        /// <summary>
+        /// Moving the target searching procedure here to enable the chance of optimization. 
+        /// </summary>
+        /// <param name="stagePosition"></param>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public IEnumerable<ITileObject> GetTileObject(Vector2Int stagePosition, Predicate<ITileObject> predicate){
+            throw new NotImplementedException();
+        }
+
+        public IEffect Consume(IGroundEffect groundEffect, Vector2Int stagePosition){
+            var ground = GetGround(stagePosition);
+            if (ground == null) return null;
+            return ground.TakeElement(groundEffect.Element, groundEffect.LastTurnNum);
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace Components.Damages{
     public class Damage: Model{
         public int Point;
-        public ElementType Type;
+        public ElementType Element;
         
         public static int GetFinalPoint(Damage damage, IDamageable target){
             return damage.Point; // TODO

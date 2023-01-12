@@ -1,4 +1,5 @@
-﻿using Components.Buffs.BuffNames;
+﻿using Components.Attacks;
+using Components.Buffs.BuffNames;
 using Components.Damages;
 using Components.Damages.DamageNumbers;
 using Components.TileObjects.ForceMovables;
@@ -8,9 +9,10 @@ namespace Components.TileObjects.BattleObjects{
     public interface IBattleObjectView: IForceMovableView{
         void TakeDamage(Damage damage);
         void AddBuff(string buffName);
+        void Attack(IAttack attack);
     }
-
-    public class BattleObjectView : ForceMovableView, IBattleObjectView{
+    
+    public abstract class BattleObjectView : ForceMovableView, IBattleObjectView{
         public DamageNumberGenerator generator;
         public BuffNameDisplayGenerator buffNameDisplayGenerator;
 
@@ -22,6 +24,8 @@ namespace Components.TileObjects.BattleObjects{
         public void AddBuff(string buffName){
             buffNameDisplayGenerator.AddBuffNameDisplay(buffName, true, transform);
         }
+
+        public abstract void Attack(IAttack attack);
 
         public void RemoveBuff(string buffName){
             buffNameDisplayGenerator.AddBuffNameDisplay(buffName, false, transform);

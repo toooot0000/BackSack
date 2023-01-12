@@ -13,7 +13,7 @@ namespace Components.Buffs.Effects{
 
         private IBuffHolder _target;
 
-        public IController Target{
+        public IEffectConsumer Target{
             set{
                 if (value is not IBuffHolder holder) return;
                 _target = holder;

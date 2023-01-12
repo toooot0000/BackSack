@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Components.Attacks;
+using Components.Effects;
 using Components.Items;
-using Components.TileObjects;
 using Components.TileObjects.BattleObjects;
 using UnityEngine;
 using Utility.Extensions;
@@ -25,7 +26,16 @@ namespace Components.Players{
             base.AfterSetModel();
         }
 
-        public IAttack AttackWithWeapon(WeaponModel item, Vector2Int direction){
+        public IEffect UseItem(DisposableModel disposableModel, Vector2Int position){
+            throw new NotImplementedException();
+        }
+
+        public IEffect UseWeapon(WeaponModel weaponModel, Vector2Int direction){
+            var attack = GetAttackWithWeapon(weaponModel, direction);
+            return ProcessAttack(attack);
+        }
+
+        private IAttack GetAttackWithWeapon(WeaponModel item, Vector2Int direction){
             var rotatedRange = item.AttackRange.Select(v => {
                 if (direction == ItemModel.DefaultDirection) return v;
                 if (direction == ItemModel.DefaultDirection * -1) return -v;
@@ -33,7 +43,7 @@ namespace Components.Players{
                 return v.Rotate90DegAntiClockwise();
             });
             item.Effect.Source = this;
-            return new Attack(this, rotatedRange.ToArray(), item.Effect, item.Predicate, item.LastTurn);
+            return new Attack(this, rotatedRange.ToArray(), item.Effect, item.Predicate);
         }
     }
 }

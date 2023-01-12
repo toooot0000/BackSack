@@ -14,11 +14,11 @@ namespace Components.Buffs.Instances{
 
         public IEffect OnConsumeDamageEffect(IBuffHolder holder, IDamageEffect effect){
             if (holder is not IDamageable damageable) return null;
-            switch (effect.Element){
+            switch (effect.Damage.Element){
                 case ElementType.Electric:
                     return new DamageEffect(null, damageable, new Damage(){
                         Point = Layer,
-                        Type = ElementType.Electric
+                        Element = ElementType.Electric
                     });
                 case ElementType.Fire:
                     effect.Damage.Point = 0;

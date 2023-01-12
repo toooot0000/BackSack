@@ -8,7 +8,7 @@ namespace Components.Damages{
     
     
     public class DamageEffect : IDamageEffect{
-        public IController Target{ set; get; } = null;
+        public IEffectConsumer Target{ set; get; } = null;
         public IController Source{ set; get; } = null;
         public Damage Damage{ set; get; }
         
@@ -23,6 +23,6 @@ namespace Components.Damages{
         }
         public bool IsShielded => DeductedShieldPoint == 1;
         public bool IsDefended => DeductedDefendPoint > 0;
-        public ElementType Element => Damage.Type;
+        public ElementType Element => Damage.Element;
     }
 }

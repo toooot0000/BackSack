@@ -31,7 +31,7 @@ namespace Components.Grounds{
         public ITileObject TileObject => Floor.TileObject;
 
         protected override void AfterSetModel(){
-            SetReducer();
+            _reducer = Reducers[Model.Type];
         }
         
         private static Dictionary<GroundType, IReducer> _reducers = null;
@@ -40,7 +40,6 @@ namespace Components.Grounds{
                 _reducers ??= new Dictionary<GroundType, IReducer>(){
                     { GroundType.Null , null},
                     { GroundType.Fire, new Fire() },
-                    { GroundType.Explosion , new Explosion()},
                     { GroundType.Grass , new Grass()},
                     { GroundType.Ice , new Ice()},
                     { GroundType.Oil , new Oil()},
@@ -51,22 +50,27 @@ namespace Components.Grounds{
                 return _reducers;
             }
         }
-        private void SetReducer(){
-            _reducer = Reducers[Model.Type];
-        } 
+        
+
+        public void SetType(GroundType newType){
+            Model.Type = newType;
+            _reducer = _reducers[newType];
+        }
         
         
-        public void TakeElement(ElementType element, int lastTurn){
-            if (_reducer == null) return;
-            Model.Type = _reducer.TakeElement(element);
-            _reducer = Reducers[Model.Type];
-            Model.LastTurnNum = Model.Type == GroundType.Explosion ? 1 : lastTurn; // Explosion only last one turn
+        public IEffect TakeElement(ElementType element, int lastTurn = -1){
+            if (_reducer == null) return null;
+            Model.LastTurnNum = lastTurn;
+            return _reducer.TakeElement(this, element);
         }
 
         public IEffect OnTurnEnd(){
-            Model.LastTurnNum--;
-            if (Model.LastTurnNum == 0){
-                Model.Type = GroundType.Null;
+            if (Model.LastTurnNum > 0){
+                Model.LastTurnNum--;
+                if (Model.LastTurnNum == 0){
+                    Model.Type = GroundType.Null;
+                    _reducer = null;
+                }
             }
             if(_reducer is IOnTurnEnd end) return end.OnTurnEnd(this, TileObject);
             return null;
