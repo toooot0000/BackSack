@@ -2,6 +2,7 @@
 using MVC;
 
 namespace Components.Grounds.Effects{
+
     public interface IGroundEffect: IEffect{
         ElementType Element{ get; }
         int LastTurnNum{ get; }

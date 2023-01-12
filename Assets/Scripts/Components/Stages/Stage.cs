@@ -74,11 +74,11 @@ namespace Components.Stages{
             }
         }
 
-        public ITileObject GetTileObject(Vector2Int stagePosition){
-            return Model.GetFloor(stagePosition).TileObject;
-        }
+        public ITileObject GetTileObject(Vector2Int stagePosition) => Model.GetFloor(stagePosition).TileObject;
 
-#region Helper Functions
+        public Floor GetFloor(Vector2Int stagePosition) => Model.GetFloor(stagePosition);
+
+        #region Helper Functions
 
         public Vector3 GridPositionToWorldPosition(Vector2Int gridPosition){
             return grid.GetCellCenterWorld(new Vector3Int(gridPosition.x, gridPosition.y, 0));
@@ -104,17 +104,20 @@ namespace Components.Stages{
 
 
 #region Ground
-
+        
+        /// <summary>
+        /// Called during stage setup procedure
+        /// </summary>
+        /// <param name="floor"></param>
         private void CreateGround(Floor floor){
             if (floor.GroundType == GroundType.Null) return;
-            var ground = MakeGround(floor.GroundType, floor.Position);
+            var ground = MakeGround(floor.GroundType);
             SetGround(floor.Position, ground);
         }
 
         public void SetGround(Vector2Int stagePosition, Ground ground){
-            var floor = Model.GetFloor(stagePosition);
-            floor.Ground = ground;
-            ground.Floor = floor;
+            ground.SetPosition(stagePosition);
+            GetFloor(stagePosition).Ground = ground;
         }
         
         /// <summary>
@@ -123,22 +126,21 @@ namespace Components.Stages{
         /// <param name="type"></param>
         /// <param name="stagePosition"></param>
         /// <returns></returns>
-        public Ground MakeGround(GroundType type, Vector2Int stagePosition){
+        public Ground MakeGround(GroundType type){
             var ret = Instantiate(groundPrefab, transform).GetComponent<Ground>();
             ret.stage = this;
             ret.Model = new GroundModel(){
                 Type = type,
-                LastTurnNum = 10,
-                Position = stagePosition
+                LastTurnNum = 10
             };
             return ret;
         }
 
-        public Ground GetGround(Vector2Int stagePosition) => Model.GetFloor(stagePosition).Ground;
+        public Ground GetGround(Vector2Int stagePosition) => GetFloor(stagePosition).Ground;
         
 #endregion
         
-        public IEffect OnTileObjectEnterPosition(ITileObject tileObject, Vector2Int position){
+        public IEffect TileObjectEnterPosition(ITileObject tileObject, Vector2Int position){
             var ground = GetGround(position);
             if (ground == null) return null;
             return ground.OnTileObjectEnter(tileObject);
@@ -173,8 +175,17 @@ namespace Components.Stages{
 
         public IEffect Consume(IGroundEffect groundEffect, Vector2Int stagePosition){
             var ground = GetGround(stagePosition);
-            if (ground == null) return null;
-            return ground.TakeElement(groundEffect.Element, groundEffect.LastTurnNum);
+            if (ground != null && ground.Model.Type != GroundType.Null) return ground.TakeElement(groundEffect.Element, groundEffect.LastTurnNum);
+            if (groundEffect is not ICreateNewGround createNew) return null;
+            if (GetFloorType(stagePosition) != FloorType.Empty) return null;
+            if (ground == null){
+                ground = MakeGround(createNew.GroundType);
+                SetGround(stagePosition, ground);
+            } else{
+                ground.SetType(createNew.GroundType);
+            }
+            ground.Model.LastTurnNum = createNew.LastTurnNum;
+            return ground.OnTileObjectEnter(GetTileObject(stagePosition));
         }
     }
 }

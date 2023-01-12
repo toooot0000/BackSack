@@ -15,6 +15,5 @@ namespace Components.TileObjects.Effects{
         public Vector2Int Force{ set; get; }
         public IEffectConsumer Target{ set; get; } = null;
         public IController Source{ set; get; } = null;
-        public ElementType Element => ElementType.Physic;
     }
 }

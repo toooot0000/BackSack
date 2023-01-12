@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Components.Effects;
+using Components.Grounds.Effects;
 using Components.Grounds.Instances;
 using Components.Grounds.Reducer;
 using Components.Grounds.Triggers;
@@ -26,9 +27,7 @@ namespace Components.Grounds{
             get => base.Model as GroundModel;
         }
 
-        public Floor Floor;
         private IReducer _reducer;
-        public ITileObject TileObject => Floor.TileObject;
 
         protected override void AfterSetModel(){
             _reducer = Reducers[Model.Type];
@@ -55,16 +54,22 @@ namespace Components.Grounds{
         public void SetType(GroundType newType){
             Model.Type = newType;
             _reducer = _reducers[newType];
+            UpdateSprite();
         }
-        
-        
+
+        public void SetPosition(Vector2Int stagePosition){
+            Model.Position = stagePosition;
+            UpdatePosition();
+        }
+
         public IEffect TakeElement(ElementType element, int lastTurn = -1){
             if (_reducer == null) return null;
             Model.LastTurnNum = lastTurn;
             return _reducer.TakeElement(this, element);
         }
 
-        public IEffect OnTurnEnd(){
+        public IEffect OnTurnEnd(ITileObject tileObject){
+            if (tileObject == null) return null;
             if (Model.LastTurnNum > 0){
                 Model.LastTurnNum--;
                 if (Model.LastTurnNum == 0){
@@ -72,16 +77,18 @@ namespace Components.Grounds{
                     _reducer = null;
                 }
             }
-            if(_reducer is IOnTurnEnd end) return end.OnTurnEnd(this, TileObject);
+            if(_reducer is IOnTurnEnd end) return end.OnTurnEnd(this, tileObject);
             return null;
         }
 
         public IEffect OnTileObjectEnter(ITileObject tileObject){
+            if (tileObject == null) return null;
             if(_reducer is IOnTileObjectEnter enter) return enter.OnTileObjectEnter(this, tileObject);
             return null;
         }
 
         public IEffect OnTileObjectExit(ITileObject tileObject){
+            if (tileObject == null) return null;
             if (_reducer is IOnTileObjectExit exit) return exit.OnTileObjectExit(this, tileObject);
             return null;
         }
