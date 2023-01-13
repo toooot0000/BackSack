@@ -78,7 +78,8 @@ public class GameManager : MonoBehaviour{
         } else if (Input.GetKeyUp(KeyCode.Space)){
             _allActionFinished = true;
         } else if (Input.GetKeyUp(KeyCode.Z)){
-            PropagateEffect(player.UseWeapon(new HookLock(), Vector2Int.right));
+            // PropagateEffect(player.UseWeapon(new HookLock(), Vector2Int.right));
+            StartCoroutine(PropagateEffectRoutine(player.UseWeapon(new HookLock(), Vector2Int.up)));
         }
     }
 
@@ -214,5 +215,12 @@ public class GameManager : MonoBehaviour{
 
     private void PropagateEffect(IEffect effect){
         while (effect != null) effect = effect.Target.Consume(effect);
+    }
+
+    private IEnumerator PropagateEffectRoutine(IEffect effect){
+        while (effect != null){
+            effect = effect.Target.Consume(effect);
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }

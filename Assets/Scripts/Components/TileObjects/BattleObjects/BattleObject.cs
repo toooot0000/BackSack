@@ -36,19 +36,13 @@ namespace Components.TileObjects.BattleObjects{
         }
 
         private readonly List<IEffect> _results = new();
+
         public override IEffect Consume(IEffect effect){
             _results.Clear();
-            
             AddTypedEffectConsumer<IEffect>(_results, effect, base.Consume);
             AddTypedEffectConsumer<IBuffEffect>(_results, effect, this);
             AddTypedEffectConsumer<IDamageEffect>(_results, effect, this);
             return MakeSideEffect(_results);
-
-            // return _results.Count switch{
-            //     0 => null,
-            //     1 => _results[0],
-            //     _ => new MultiEffect(_results.ToArray())
-            // };
         }
 
         public List<Buff> Buffs{ get; set; } = new();
@@ -90,11 +84,7 @@ namespace Components.TileObjects.BattleObjects{
                 curTargetNum++;
                 if (side != null) effects.Add(side);
             }
-            return effects.Count switch{
-                0 => null,
-                1 => effects[0],
-                _ => new MultiEffect(effects.ToArray())
-            };
+            return MakeSideEffect(effects);
         }
     }
 }

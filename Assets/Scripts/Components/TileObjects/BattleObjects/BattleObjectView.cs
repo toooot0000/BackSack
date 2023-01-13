@@ -14,8 +14,8 @@ namespace Components.TileObjects.BattleObjects{
     }
     
     public abstract class BattleObjectView : ForceMovableView, IBattleObjectView{
-        public DamageNumberGenerator generator;
-        public BuffNameDisplayGenerator buffNameDisplayGenerator;
+        public DamageNumber generator;
+        public BuffNameDisplay buffNameDisplay;
 
         public virtual void TakeDamage(Damage damage){
             generator.AddDamageNumber(damage, transform);
@@ -23,7 +23,7 @@ namespace Components.TileObjects.BattleObjects{
         }
 
         public void AddBuff(string buffName){
-            buffNameDisplayGenerator.AddBuffNameDisplay(buffName, true, transform);
+            buffNameDisplay.AddBuffNameDisplay(buffName, true, transform);
         }
 
         public abstract void Attack(IAttack attack);
@@ -31,7 +31,7 @@ namespace Components.TileObjects.BattleObjects{
         public abstract void Die();
 
         public void RemoveBuff(string buffName){
-            buffNameDisplayGenerator.AddBuffNameDisplay(buffName, false, transform);
+            buffNameDisplay.AddBuffNameDisplay(buffName, false, transform);
         }
     }
 }

@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Utility{
+    [Obsolete]
     public interface ITweenArithmetic<T>{
         T Add(T other);
         T Sub(T other);
         T Mul(float other);
     }
-
+    [Obsolete]
     public struct Tween<T>
         where T : ITweenArithmetic<T>{
         private readonly T _start;
@@ -31,6 +32,8 @@ namespace Utility{
     }
 
     public static class TweenUtility{
+        
+        [Obsolete]
         public static IEnumerator MakeEnumerator<T>(Tween<T> tween, Action<T> callback)
             where T : ITweenArithmetic<T>{
             // return new TweenEnumerator<T>(tween);

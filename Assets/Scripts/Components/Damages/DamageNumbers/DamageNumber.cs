@@ -1,26 +1,19 @@
 ﻿using System;
-using TMPro;
+using Components.Gizmos.ObjectToasts;
 using UnityEngine;
-using Utility.Animation.Tweens;
 
 namespace Components.Damages.DamageNumbers{
-    public class DamageNumber: Tween{
-        private Damage _damage;
-        public Damage Value{
-            set{
-                _damage = value;
-                text.text = $"-{value.Point.ToString()}";
-                text.alpha = 1;
-                text.color = StartColor;
-                transform.localPosition = Vector3.zero;
-                Replay();
-            }
+    public class DamageNumber: MonoBehaviour{
+        public ObjectToaster toaster;
+        public void AddDamageNumber(Damage damage, Transform parent){
+            var startColor = StartColor(damage);
+            toaster.AddToast($"-{damage.Point.ToString()}", parent, new ToastOptions(){
+                Start = startColor,
+                End = startColor
+            });
         }
-        public AnimationCurve floatingSpeedCurve;
-        public TextMeshPro text;
-        public float maxSpd = 0.01f;
-
-        private Color StartColor => _damage.Element switch{
+        
+        private Color StartColor(Damage damage) => damage.Element switch{
             ElementType.Physic => Color.red,
             ElementType.Fire => Color.yellow,
             ElementType.Poison => Color.green,
@@ -31,15 +24,5 @@ namespace Components.Damages.DamageNumbers{
             ElementType.Wind => Color.white,
             _ => throw new ArgumentOutOfRangeException()
         };
-
-        protected override void OnTimerUpdate(float i){
-            var spd = floatingSpeedCurve.Evaluate(1 - i);
-            transform.localPosition += Vector3.up * (spd * maxSpd);
-            text.alpha = 1 - spd;
-        }
-
-        protected override void OnComplete(){
-            gameObject.SetActive(false);
-        }
     }
 }
