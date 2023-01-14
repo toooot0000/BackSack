@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Components;
 using Components.Buffs;
 using Components.Buffs.Triggers;
@@ -10,6 +11,7 @@ using Components.Stages;
 using Components.TileObjects;
 using Coroutines;
 using MVC;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -201,17 +203,22 @@ public class GameManager : MonoBehaviour{
         yield return null;
     }
 
-    private void PropagateEffect(IEffect effect){
-        while (effect != null) effect = effect.Target.Consume(effect);
-    }
-
     private IEnumerator PropagateEffectRoutine(IEffect effect){
         while (effect != null){
-            if (effect is CoroutineEffect coEff){
-                yield return coEff.Coroutine(coEff);
-                effect = coEff.Result;
-            } else{
-                effect = effect.Target.Consume(effect);
+            switch (effect){
+                case CoroutineEffect coEff:
+                    yield return coEff.Coroutine(coEff);
+                    effect = coEff.Result;
+                    break;
+                case MultiEffect multi:
+                    foreach (var sub in multi.Effects){
+                        yield return PropagateEffectRoutine(sub);
+                    }
+                    effect = null;
+                    break;
+                default:
+                    effect = effect.Target?.Consume(effect);
+                    break;
             }
         }
     }
