@@ -30,7 +30,6 @@ namespace Components.Grounds.Instances{
                         Element = ElementType.Fire,
                         Point = 5
                     });
-                
                 default:
                     throw new ArgumentOutOfRangeException(nameof(element), element, null);
             }

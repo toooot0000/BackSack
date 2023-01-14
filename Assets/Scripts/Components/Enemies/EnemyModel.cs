@@ -20,6 +20,8 @@ namespace Components.Enemies{
 
         public string GetSpriteResourcePath() => "Images/Tiles/Enemies/Enemy-slime"; // TODO
 
+        private EnemyModel(){ }
+
         public static EnemyModel MakeEnemy(int id){
             var ret = new EnemyModel(){ID = id};
             if (!ret.StartFieldSetting("enemies")){

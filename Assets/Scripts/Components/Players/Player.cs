@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Components.Attacks;
 using Components.Effects;
 using Components.Items;
+using Components.Items.Animations;
 using Components.TileObjects.BattleObjects;
 using UnityEngine;
 using Utility.Extensions;
@@ -26,31 +30,48 @@ namespace Components.Players{
             base.AfterSetModel();
         }
 
+#region Attack
+
         public IEffect UseItem(DisposableModel disposableModel, Vector2Int position){
             throw new NotImplementedException();
         }
 
-        public IEffect UseWeapon(WeaponModel weaponModel, Vector2Int direction){
+        public CoroutineEffect UseWeapon(WeaponModel weaponModel, Vector2Int direction){
             var attack = GetAttackWithWeapon(weaponModel, direction);
-            return ProcessAttack(attack);
+            if (!attack.Targets.Any()) return null;
+            return attack.ToCoroutineEffect();
         }
 
-        private IAttack GetAttackWithWeapon(WeaponModel item, Vector2Int direction){
-            var rotatedRange = item.AttackRange.Select(v => {
+        private PlayerAttack GetAttackWithWeapon(WeaponModel item, Vector2Int direction){
+            var rotatedRange = item.Range.Select(v => {
                 if (direction == ItemModel.DefaultDirection) return v;
                 if (direction == ItemModel.DefaultDirection * -1) return -v;
                 if (direction.IsClockwiseLess(ItemModel.DefaultDirection)) return v.Rotate90DegAntiClockwise();
                 return v.Rotate90DegAntiClockwise();
-            });
-            item.EffectTemplate.Source = this;
-            return new Attack(
-                this, 
-                GetStagePosition(), 
+            }).Select(v => v + GetStagePosition());
+            return new PlayerAttack(
+                this,
+                direction,
                 rotatedRange.ToArray(), 
-                item.EffectTemplate.ToEffect(), 
-                item.Predicate, 
-                item.TargetNum
+                item
             );
         }
+
+        private readonly Dictionary<int, IAttackAnimator> _animators = new();
+        public IAttackAnimator GetAttackAnimator(IAttack attack){
+            if (attack is not PlayerAttack pAtt) return null;
+            var id = pAtt.ItemModel.ID!.Value;
+            if (_animators.ContainsKey(id)){
+                return _animators[id];
+            }
+            var prefab = Resources.Load<GameObject>(pAtt.ItemModel.AnimatorPrefabPath);
+            if (prefab == null) return null;
+            var ret = Instantiate(prefab, transform).GetComponent<ItemAnimator>();
+            _animators[id] = ret;
+            return ret;
+        }
+        
+
+#endregion
     }
 }

@@ -1,9 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Components;
-using Components.Attacks;
 using Components.Buffs;
 using Components.Buffs.Triggers;
 using Components.Effects;
@@ -11,10 +8,8 @@ using Components.Items.Instances;
 using Components.Players;
 using Components.Stages;
 using Components.TileObjects;
-using Components.TileObjects.BattleObjects;
 using Coroutines;
 using MVC;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 
@@ -26,8 +21,6 @@ using UnityEngine;
 
 
 public class GameManager : MonoBehaviour{
-    private static GameManager _shared = null;
-    public static GameManager Shared => _shared;
     public CoroutineManager coroutineManager;
     public readonly Game Model = new Game();
     public GameState State => Model.State;
@@ -47,11 +40,6 @@ public class GameManager : MonoBehaviour{
     }
 
     private Coroutine _gameLoop = null;
-
-    private void Awake(){
-        if(_shared != null) Destroy(this);
-        _shared = this;
-    }
 
     private void Start(){
         PreGameSetUp();
@@ -79,7 +67,7 @@ public class GameManager : MonoBehaviour{
             _allActionFinished = true;
         } else if (Input.GetKeyUp(KeyCode.Z)){
             // PropagateEffect(player.UseWeapon(new HookLock(), Vector2Int.right));
-            StartCoroutine(PropagateEffectRoutine(player.UseWeapon(new HookLock(), Vector2Int.up)));
+            StartCoroutine(PropagateEffectRoutine(player.UseWeapon(new Sword(), Vector2Int.right)));
         }
     }
 
@@ -88,7 +76,7 @@ public class GameManager : MonoBehaviour{
     }
 
     private void MoveTileObject(ITileObject tileObject, Vector2Int direction){
-        PropagateEffect(tileObject.Move(direction));
+        StartCoroutine(PropagateEffectRoutine(tileObject.Move(direction)));
     }
 
     /// <summary>
@@ -219,8 +207,12 @@ public class GameManager : MonoBehaviour{
 
     private IEnumerator PropagateEffectRoutine(IEffect effect){
         while (effect != null){
-            effect = effect.Target.Consume(effect);
-            yield return new WaitForSeconds(0.1f);
+            if (effect is CoroutineEffect coEff){
+                yield return coEff.Coroutine(coEff);
+                effect = coEff.Result;
+            } else{
+                effect = effect.Target.Consume(effect);
+            }
         }
     }
 }

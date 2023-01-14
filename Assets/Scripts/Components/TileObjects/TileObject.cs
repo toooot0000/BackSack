@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Components.Attacks;
 using Components.Effects;
+using Components.Grounds;
 using Components.Grounds.Effects;
 using Components.Stages;
 using MVC;
@@ -8,7 +10,7 @@ using UnityEngine;
 using Utility.Extensions;
 
 namespace Components.TileObjects{
-    public abstract class TileObject: Controller, ITileObject, ICanConsume<MultiEffect>{
+    public abstract class TileObject : Controller, ITileObject{
         public Stage stage;
 
         protected override void AfterSetModel(){
@@ -27,16 +29,19 @@ namespace Components.TileObjects{
         }
 
         public Vector2Int GetStagePosition() => m_GetModel().CurrentStagePosition;
-        
+        public Vector3 GetWorldPosition() => stage.StagePositionToWorldPosition(GetStagePosition());
+        public Stage GetStage() => stage;
+
         public IEffect Move(Vector2Int stagePosition){
             var dest = m_GetModel().CurrentStagePosition + stagePosition;
             if (!IsPositionSteppable(stage.GetFloorType(dest))){
                 m_GetView().BumpToUnsteppable(stagePosition.ToDirection());
                 return null;
             }
+
             UpdateStagePosition(dest);
             m_GetView().MoveToPosition(stage.StagePositionToWorldPosition(dest));
-            
+
             var ground = stage.GetGround(dest);
             if (ground == null) return null;
             var effect = ground.OnTileObjectEnter(this);
@@ -44,7 +49,7 @@ namespace Components.TileObjects{
         }
 
         public bool CanMoveToPosition(Vector2Int stagePosition){
-            return IsPositionSteppable(stage.GetFloorType(stagePosition)) 
+            return IsPositionSteppable(stage.GetFloorType(stagePosition))
                    && stage.GetTileObject(stagePosition) == null;
         }
 
@@ -62,33 +67,34 @@ namespace Components.TileObjects{
 
         private ITileObjectModel m_GetModel() => Model as ITileObjectModel;
         private ITileObjectView m_GetView() => view as ITileObjectView;
-        
+
         public IEffect Consume(MultiEffect effect){
             var ret = new List<IEffect>();
             foreach (var subEff in effect.Effects){
                 var subRet = Consume(subEff);
-                if(subRet != null) ret.Add(Consume(subEff));
+                if (subRet != null) ret.Add(Consume(subEff));
             }
+
             effect.Effects = ret.ToArray();
             return effect;
         }
-        
-        
+
+
         public virtual IEffect Consume(IEffect effect){
             if (effect is MultiEffect multi) return Consume(multi);
             return null;
         }
 
         protected static void AddTypedEffectConsumer<TEff>(List<IEffect> ret, IEffect effect,
-            Func<TEff, IEffect> consumer) where TEff: IEffect{
+            Func<TEff, IEffect> consumer) where TEff : IEffect{
             if (effect is not TEff typed) return;
             var side = consumer(typed);
             if (side == null) return;
             ret.Add(side);
         }
-        
+
         protected static void AddTypedEffectConsumer<TEff>(List<IEffect> ret, IEffect effect,
-            ICanConsume<TEff> consumer) where TEff: IEffect{
+            ICanConsume<TEff> consumer) where TEff : IEffect{
             if (effect is not TEff typed) return;
             var side = consumer.Consume(typed);
             if (side == null) return;
@@ -101,6 +107,17 @@ namespace Components.TileObjects{
                 1 => result[0],
                 _ => new MultiEffect(result.ToArray())
             };
+        }
+
+        public IEnumerable<ITileObject> SearchTargets(IAttack attack){
+            var curCount = 0;
+            foreach (var stagePos in attack.TargetPositions){
+                var target = stage.GetTileObject(stagePos);
+                if (target == null || !attack.TargetPredicate(target)) continue;
+                if (attack.TargetNum > 0 && curCount >= attack.TargetNum) yield break;
+                curCount++;
+                yield return target;
+            }
         }
     }
 }

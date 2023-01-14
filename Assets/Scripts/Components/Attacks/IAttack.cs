@@ -1,41 +1,43 @@
 ﻿using System;
-using Components.Damages;
+using System.Collections.Generic;
 using Components.Effects;
+using Components.Grounds;
+using Components.TileObjects;
 using MVC;
 using UnityEngine;
 
 namespace Components.Attacks{
 
-    public interface IAttack {
-        IController Attacker{ get; }
-        Vector2Int AttackerPosition{ get; }
-        Vector2Int[] RelativeRange{ get; }
-        IEffect Effect{ get; }
-        Predicate<IEffectConsumer> Predicate{ get; }
+    public interface IAttack: IModel{
+        IAttacker Attacker{ get; }
+        Vector2Int[] TargetPositions{ get; }
+        IEffectTemplate EffectTemplate{ get; }
+        Predicate<ITileObject> TargetPredicate{ get; }
         int TargetNum{ get; }
+        IEnumerable<ITileObject> Targets{ get; }
     }
 
 
     public class Attack : IAttack{
         public Attack(
-            IController attacker, 
-            Vector2Int attackerPosition,
+            IAttacker attacker,
             Vector2Int[] relativeRange, 
-            IEffect effect, 
-            Predicate<IEffectConsumer> predicate, 
-            int targetNum){
-            Attacker = attacker;
-            RelativeRange = relativeRange;
-            Effect = effect;
-            Predicate = predicate;
+            IEffectTemplate effect, 
+            Predicate<ITileObject> predicate, 
+            int targetNum, IEnumerable<ITileObject> targets){
+            TargetPositions = relativeRange;
+            EffectTemplate = effect;
+            TargetPredicate = predicate;
             TargetNum = targetNum;
-            AttackerPosition = attackerPosition;
+            Targets = targets;
+            Attacker = attacker;
         }
-        public IController Attacker{ get; }
-        public Vector2Int AttackerPosition{ get; }
-        public Vector2Int[] RelativeRange{ get; }
-        public IEffect Effect{ get; }
-        public Predicate<IEffectConsumer> Predicate{ get; }
+
+        public IAttacker Attacker{ get; }
+        public Vector2Int[] TargetPositions{ get; }
+        public IEffectTemplate EffectTemplate{ get; }
+        public Predicate<ITileObject> TargetPredicate{ get; }
         public int TargetNum{ get; }
+        public IEnumerable<ITileObject> Targets{ get; }
     }
 }

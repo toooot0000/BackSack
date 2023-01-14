@@ -1,4 +1,5 @@
-﻿using Components.Attacks;
+﻿using System;
+using Components.Attacks;
 using Components.TileObjects;
 using Components.TileObjects.BattleObjects;
 using Components.TileObjects.ForceMovables;
@@ -14,10 +15,6 @@ namespace Components.Enemies{
 
         public void SetSprite(Sprite sprite){
             spriteRenderer.sprite = sprite;
-        }
-
-        public override void Attack(IAttack attack){
-            throw new System.NotImplementedException();
         }
 
         public override void Die(){

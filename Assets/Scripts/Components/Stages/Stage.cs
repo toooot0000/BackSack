@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Components.Effects;
 using Components.Enemies;
 using Components.Grounds;
@@ -104,7 +105,9 @@ namespace Components.Stages{
 
 
 #region Ground
-        
+
+        private List<Ground> _grounds = new();
+
         /// <summary>
         /// Called during stage setup procedure
         /// </summary>
@@ -127,12 +130,17 @@ namespace Components.Stages{
         /// <param name="stagePosition"></param>
         /// <returns></returns>
         public Ground MakeGround(GroundType type){
+            foreach (var ground in _grounds.Where(ground => !ground.gameObject.activeSelf)){
+                ground.gameObject.SetActive(true);
+                return ground;
+            }
             var ret = Instantiate(groundPrefab, transform).GetComponent<Ground>();
             ret.stage = this;
             ret.Model = new GroundModel(){
                 Type = type,
                 LastTurnNum = 10
             };
+            _grounds.Add(ret);
             return ret;
         }
 

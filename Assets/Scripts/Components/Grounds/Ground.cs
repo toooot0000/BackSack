@@ -73,8 +73,11 @@ namespace Components.Grounds{
 
         public IEffectTemplate TakeElement(ElementType element, int lastTurn = -1){
             if (_reducer == null) return null;
+            
             Model.LastTurnNum = lastTurn;
-            return _reducer.TakeElement(this, element);
+            var ret = _reducer.TakeElement(this, element);
+            if(Model.Type == GroundType.Null) gameObject.SetActive(false);
+            return ret;
         }
 
         public IEffect OnTurnEnd(ITileObject tileObject){

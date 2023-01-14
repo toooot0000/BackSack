@@ -21,6 +21,9 @@ namespace Components.TileObjects.ForceMovables{
             }
             return distance;
         }
+
+        private int GetRemainForce(int movedDistance, IForceMovement forceMovement) =>
+            forceMovement.Pulling ? 0 : forceMovement.Force - m_GetModel().Weight - movedDistance;
         
         protected virtual IEffect ForcedMoveTo(Vector2Int stagePosition){
             UpdateStagePosition(stagePosition);
@@ -53,6 +56,7 @@ namespace Components.TileObjects.ForceMovables{
             var direction = effect.Direction;
             for (var i = 1; i <= distance; i++){
                 var curPos = m_GetModel().CurrentStagePosition + direction * i;
+                IEffect side;
                 switch (stage.GetFloorType(curPos)){
                     case FloorType.Ana:
                         ForcedMoveTo(curPos);
@@ -61,14 +65,24 @@ namespace Components.TileObjects.ForceMovables{
                     case FloorType.Stair:
                     case FloorType.Block:
                     case FloorType.Gate:
-                        var side = ForcedMoveTo(curPos - direction);
+                        side = ForcedMoveTo(curPos - direction);
                         if (side == null) return HitToObstacle();
                         var hitSide = HitToObstacle();
                         if (hitSide == null) return side;
                         return new MultiEffect(new[]{ side, hitSide });
                     case FloorType.Empty:
-                        // TODO add object collision detection;
-                        break;
+                        var tileObject = stage.GetTileObject(curPos);
+                        if (tileObject == null || tileObject == effect.Source) continue;
+                        side = ForcedMoveTo(curPos - direction);
+                        var remainForce = GetRemainForce(i - 1, effect);
+                        if (remainForce == 0) return side;
+                        if (side == null) return null;
+                        return new MultiEffect(new[]{
+                            side, new ForceMovement(remainForce, effect.Pulling){
+                                Source = effect.Source,
+                                Target = tileObject
+                            }
+                        });
                 }
             }
             ForcedMoveTo(m_GetModel().CurrentStagePosition + direction * distance);

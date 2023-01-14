@@ -24,11 +24,18 @@ namespace Components.Items.Instances{
 
             public GroundType GroundType{ get; } = GroundType.Water;
         }
+
+        public Sword(){
+            ID = 1;
+            Name = "Sword";
+            Desc = "Sth Sth!";
+        }
         
-        public override IEnumerable<Vector2Int> AttackRange{ get; } =
+        public override IEnumerable<Vector2Int> Range{ get; } =
             new[]{ Vector2Int.right, new Vector2Int(1, 1), new Vector2Int(1, -1) };
 
         public override IEffectTemplate EffectTemplate{ get; } = new Eff();
+        public override string AnimatorPrefabPath{ get; } = "Prefabs/ItemAnimators/SwordAnim";
         public override Predicate<IEffectConsumer> Predicate{ get; } = controller => true;
         public override int TargetNum{ get; } = 0;
     }
