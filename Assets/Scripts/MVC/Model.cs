@@ -8,13 +8,13 @@ using UnityEngine;
 
 namespace MVC{
 
-    public interface IModel{ }
+    public interface IModel{
+        int? ID{ get; }
+    }
     
     [Serializable]
     public abstract class Model: IModel{
-        public int? ID = null;
-        public string Name;
-        public string Desc;
+        public int? ID{ get; set; } = null;
 
         private static JsonSerializerSettings _jsonSerializerSetting = new JsonSerializerSettings{
             MissingMemberHandling = MissingMemberHandling.Ignore,

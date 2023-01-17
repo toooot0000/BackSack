@@ -12,7 +12,6 @@ namespace Components.Players{
         public int ShieldPoint{ get; set; }
         public int DefendPoint{ get; set; }
         public Dictionary<ElementType, int> Resistances{ get; set; }
-
         public int Weight{ get; set; }
     }
 }

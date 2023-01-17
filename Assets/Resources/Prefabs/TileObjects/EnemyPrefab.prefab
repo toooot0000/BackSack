@@ -266,6 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stage: {fileID: 0}
   view: {fileID: 3820308736854903285}
+  enemyFolder: Enemies
 --- !u!114 &2143575102004380387
 MonoBehaviour:
   m_ObjectHideFlags: 0

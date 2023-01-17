@@ -4,11 +4,12 @@ using Components.Damages;
 using Components.Effects;
 using Components.Stages;
 using Components.TileObjects.Effects;
+using Components.TileObjects.Movables;
 using UnityEngine;
 using Utility.Extensions;
 
 namespace Components.TileObjects.ForceMovables{
-    public abstract class ForceMovable : TileObject, IForceMovable{
+    public abstract class ForceMovable : Movable, IForceMovable{
 
         private int GetForceDistance(IForceMovement forceMovement){
             var weight = m_GetModel().Weight;
@@ -25,17 +26,6 @@ namespace Components.TileObjects.ForceMovables{
         private int GetRemainForce(int movedDistance, IForceMovement forceMovement) =>
             forceMovement.Pulling ? 0 : forceMovement.Force - m_GetModel().Weight - movedDistance;
         
-        protected virtual IEffect ForcedMoveTo(Vector2Int stagePosition){
-            UpdateStagePosition(stagePosition);
-            m_GetView().MoveToPosition(stage.StagePositionToWorldPosition(stagePosition));
-            
-            var ground = stage.GetGround(stagePosition);
-            if (ground == null) return null;
-            var effect = ground.OnTileObjectEnter(this);
-            return Consume(effect);
-        }
-
-
         protected virtual IEffect FallIntoAna(){
             if (this is IDamageable damageable){
                 return damageable.Die();
@@ -59,13 +49,13 @@ namespace Components.TileObjects.ForceMovables{
                 IEffect side;
                 switch (stage.GetFloorType(curPos)){
                     case FloorType.Ana:
-                        ForcedMoveTo(curPos);
+                        MoveTo(curPos);
                         return FallIntoAna();
                     case FloorType.Pillar:
                     case FloorType.Stair:
                     case FloorType.Block:
                     case FloorType.Gate:
-                        side = ForcedMoveTo(curPos - direction);
+                        side = MoveTo(curPos - direction);
                         if (side == null) return HitToObstacle();
                         var hitSide = HitToObstacle();
                         if (hitSide == null) return side;
@@ -73,7 +63,7 @@ namespace Components.TileObjects.ForceMovables{
                     case FloorType.Empty:
                         var tileObject = stage.GetTileObject(curPos);
                         if (tileObject == null || tileObject == effect.Source) continue;
-                        side = ForcedMoveTo(curPos - direction);
+                        side = MoveTo(curPos - direction);
                         var remainForce = GetRemainForce(i - 1, effect);
                         if (remainForce == 0) return side;
                         if (side == null) return null;
@@ -85,16 +75,15 @@ namespace Components.TileObjects.ForceMovables{
                         });
                 }
             }
-            ForcedMoveTo(m_GetModel().CurrentStagePosition + direction * distance);
+            MoveTo(m_GetModel().CurrentStagePosition + direction * distance);
             return null;
         }
 
         private readonly List<IEffect> _results = new();
 
         public override IEffect Consume(IEffect effect){
-            _results.Clear();
-            AddTypedEffectConsumer<IEffect>(_results, effect, base.Consume);
-            AddTypedEffectConsumer<IForceMovement>(_results, effect, this);
+            CallConsumer<IEffect>(_results, effect, base.Consume);
+            CallConsumer<IForceMovement>(_results, effect, this);
             return MakeSideEffect(_results);
         }
         private IForceMovableModel m_GetModel() => Model as IForceMovableModel;

@@ -8,13 +8,8 @@ using UnityEngine;
 
 namespace Components.Items.Instances{
     public class Hooklock: WeaponModel, IForceMovement, IDamageEffect, IEffectTemplate{
-        public Hooklock(){
-            ID = 0;
-            Name = "Hooklock";
-            Desc = "Blah blah!";
-        }
+        public Hooklock(){ ID = 1; }
         public override IEffectTemplate EffectTemplate => this;
-        public override string AnimatorPrefabPath{ get; } = "Prefabs/ItemAnimators/HooklockAnim";
 
         public override IEnumerable<Vector2Int> Range{ get; } = new[]{
             Vector2Int.right, new Vector2Int(2, 0), new Vector2Int(3, 0)

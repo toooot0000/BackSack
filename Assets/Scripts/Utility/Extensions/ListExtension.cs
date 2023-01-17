@@ -18,5 +18,9 @@ namespace Utility.Extensions{
             }
             return list[i];
         }
+
+        public static void AddIfNotNull<T>(this List<T> list, T nullable){
+            if(nullable != null) list.Add(nullable);
+        }
     }
 }

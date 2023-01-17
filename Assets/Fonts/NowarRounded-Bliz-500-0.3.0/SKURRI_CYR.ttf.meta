@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 938b5c66b43f5e24b9c7cc447a85d69f
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Nowar Rounded CN UI
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 13082dac0fe53e64a84d66b5bfeb069e, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

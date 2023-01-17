@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
 namespace Components.Items{
-    public abstract class DisposableModel: ItemModel{
-    }
+    public abstract class DisposableModel: ItemModel{ }
 }

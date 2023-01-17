@@ -6,8 +6,7 @@ using Components.Effects;
 namespace Components.Buffs.Instances{
     
     public class BurningBuff: Buff, IOnTurnEnd{
-        protected override string GetBuffName() => "burning";
-
+        
         public IEffect OnTurnEnd(IBuffHolder holder){
             if (holder is not IDamageable damageable) return null;
             var ret = new MultiEffect(new IEffect[]{
@@ -19,5 +18,7 @@ namespace Components.Buffs.Instances{
             });
             return ret;
         }
+
+        public BurningBuff() : base(1){ }
     }
 }

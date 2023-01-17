@@ -5,7 +5,6 @@ using Components.Effects;
 
 namespace Components.Buffs.Instances{
     public class WetBuff: Buff, IOnTurnEnd, IOnConsumeDamage{
-        protected override string GetBuffName() => "wet";
 
 
         public IEffect OnTurnEnd(IBuffHolder holder){
@@ -35,5 +34,7 @@ namespace Components.Buffs.Instances{
                     return null;
             }
         }
+
+        public WetBuff() : base(2){ }
     }
 }

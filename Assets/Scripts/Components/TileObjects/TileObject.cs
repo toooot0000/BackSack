@@ -32,27 +32,6 @@ namespace Components.TileObjects{
         public Vector3 GetWorldPosition() => stage.StagePositionToWorldPosition(GetStagePosition());
         public Stage GetStage() => stage;
 
-        public IEffect Move(Vector2Int stagePosition){
-            var dest = m_GetModel().CurrentStagePosition + stagePosition;
-            if (!IsPositionSteppable(stage.GetFloorType(dest))){
-                m_GetView().BumpToUnsteppable(stagePosition.ToDirection());
-                return null;
-            }
-
-            UpdateStagePosition(dest);
-            m_GetView().MoveToPosition(stage.StagePositionToWorldPosition(dest));
-
-            var ground = stage.GetGround(dest);
-            if (ground == null) return null;
-            var effect = ground.OnTileObjectEnter(this);
-            return Consume(effect);
-        }
-
-        public bool CanMoveToPosition(Vector2Int stagePosition){
-            return IsPositionSteppable(stage.GetFloorType(stagePosition))
-                   && stage.GetTileObject(stagePosition) == null;
-        }
-
         public virtual bool IsPositionSteppable(FloorType floor){
             return floor switch{
                 FloorType.Empty => true,
@@ -85,7 +64,7 @@ namespace Components.TileObjects{
             return null;
         }
 
-        protected static void AddTypedEffectConsumer<TEff>(List<IEffect> ret, IEffect effect,
+        protected static void CallConsumer<TEff>(List<IEffect> ret, IEffect effect,
             Func<TEff, IEffect> consumer) where TEff : IEffect{
             if (effect is not TEff typed) return;
             var side = consumer(typed);
@@ -93,7 +72,7 @@ namespace Components.TileObjects{
             ret.Add(side);
         }
 
-        protected static void AddTypedEffectConsumer<TEff>(List<IEffect> ret, IEffect effect,
+        protected static void CallConsumer<TEff>(List<IEffect> ret, IEffect effect,
             ICanConsume<TEff> consumer) where TEff : IEffect{
             if (effect is not TEff typed) return;
             var side = consumer.Consume(typed);
@@ -102,11 +81,7 @@ namespace Components.TileObjects{
         }
 
         protected static IEffect MakeSideEffect(List<IEffect> result){
-            return result.Count switch{
-                0 => null,
-                1 => result[0],
-                _ => new MultiEffect(result.ToArray())
-            };
+            return IEffect.MakeSideEffect(result);
         }
 
         public IEnumerable<ITileObject> SearchTargets(IAttack attack){

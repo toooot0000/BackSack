@@ -1,0 +1,28 @@
+fileFormatVersion: 2
+guid: fdabab3cd32a4294e8aca67316a7b2d7
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Nowar Rounded TW
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 1dcdc9a87555b074ba4e6029b125b7ad, type: 3}
+  - {fileID: 12800000, guid: 95740f6901790534da14c92274b15822, type: 3}
+  - {fileID: 12800000, guid: 0b3c81361f310ac4eba4744b5546c6ee, type: 3}
+  - {fileID: 12800000, guid: d1fe789ba0cf68041881105ae085ea1b, type: 3}
+  - {fileID: 12800000, guid: fa20080ebddcca041a7a59808f72bebb, type: 3}
+  - {fileID: 12800000, guid: eb2a2765c6f0fe748aeed84cb7fc9ba9, type: 3}
+  - {fileID: 12800000, guid: 4579d71bfbd2aa64a884f3ba05f9aadd, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

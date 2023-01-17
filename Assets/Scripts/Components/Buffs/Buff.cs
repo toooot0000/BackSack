@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using MVC;
 using UnityEngine;
 using Utility.Loader;
+using Utility.Loader.Attributes;
 
 namespace Components.Buffs{
-    public abstract class Buff: Model{
+    
+    [Table("buffs")]
+    public abstract class Buff: SelfSetUpModel{
         public int Layer;
+        [Key("icon")]
         public string IconPath;
+        [Key("display_name")]
         public string DisplayName;
 
         public event ModelDelegate<Buff> OnBuffLayerRemoved;
         public event ModelDelegate<Buff> OnBuffLayerAdded;
         public event ModelDelegate<Buff> OnBuffCanceled;
-        
-        
-        /// <summary>
-        /// USE FACTORY FUNCTIONS
-        /// </summary>
-        protected Buff(){ }
-        
+
         public void RemoveLayer(int layerNum){
             Layer = Math.Max(0, Layer - layerNum);
             if (Layer == 0){
@@ -49,7 +48,6 @@ namespace Components.Buffs{
         
         public static T MakeBuff<T>(int layer) where T : Buff, new(){
             var ret = new T();
-            SetUp(ret);
             ret.Layer = layer;
             return ret;
         }
@@ -57,7 +55,6 @@ namespace Components.Buffs{
         public static Buff MakeBuff(Type buffType, int layer){
             var ret = Activator.CreateInstance(buffType);
             if (ret is not Buff buff) return default;
-            SetUp(buff);
             buff.Layer = layer;
             return buff;
         }
@@ -65,46 +62,15 @@ namespace Components.Buffs{
         public static Buff MakeBuffByClassName(string className, int layer = 0){
             const string buffInstancePath = "Components.Buffs.Instances";
             var ret = (Buff)Activator.CreateInstance(Type.GetType($"{buffInstancePath}.{className}", true));
-            SetUp(ret);
             ret.Layer = layer;
             return ret;
         }
         
         #endregion
-        
-        
-        #region Set up from the buff name
 
-        private static Dictionary<string, int> _nameToId = null;
-        public static Dictionary<string, int> NameToId{
-            get{
-                if (_nameToId == null){
-                    MakeNameToIdDict();                    
-                }
-                return _nameToId;
-            }
+        protected Buff(int id){
+            ID = id;
+            this.SetUp();
         }
-
-        private static void MakeNameToIdDict(){
-            _nameToId = new();
-            var table = ConfigLoader.GetTable("Configs/buffs");
-            foreach (var pair in table){
-                _nameToId[(pair.Value["name"] as string)!] = pair.Key;
-            }
-        }
-        
-        
-        protected abstract string GetBuffName();
-        private static void SetUp(Buff buff){
-            buff.ID = NameToId[buff.GetBuffName()];
-            buff.StartFieldSetting("buffs");
-            buff.Name = buff.GetField<string>("name");
-            buff.Desc = buff.GetField<string>("desc");
-            buff.IconPath = buff.GetField<string>("icon");
-            buff.DisplayName = buff.GetField<string>("display_name");
-            buff.EndFieldSetting();
-        }
-
-        #endregion
     }
 }

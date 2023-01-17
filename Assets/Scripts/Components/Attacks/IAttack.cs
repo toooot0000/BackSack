@@ -8,12 +8,15 @@ using UnityEngine;
 
 namespace Components.Attacks{
 
-    public interface IAttack: IModel{
+    public interface IAttack{
         IAttacker Attacker{ get; }
         Vector2Int[] TargetPositions{ get; }
         IEffectTemplate EffectTemplate{ get; }
         Predicate<ITileObject> TargetPredicate{ get; }
         int TargetNum{ get; }
+        /// <summary>
+        /// passEffect和动画中使用
+        /// </summary>
         IEnumerable<ITileObject> Targets{ get; }
     }
 

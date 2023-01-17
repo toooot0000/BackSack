@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 7f305ca7338d85643aa40ce960cf1e2a
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Nowar Rounded CN Wc
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 922be1f00c0c982419c3b253ac1004d5, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

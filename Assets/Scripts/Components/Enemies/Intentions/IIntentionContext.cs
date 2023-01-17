@@ -4,14 +4,17 @@ using Components.Stages;
 namespace Components.Enemies.Intentions{
 
     public interface IIntentionContext{
-        public StageModel StageModel{ get; }
-        public PlayerModel PlayerModel{ get; }
-        public EnemyModel EnemyModel{ get; }
+        public Stage Stage{ get; }
+        public Player Player{ get; }
     }
 
     public class IntentionContext: IIntentionContext{
-        public StageModel StageModel{ set; get; }
-        public PlayerModel PlayerModel{ set; get; }
-        public EnemyModel EnemyModel{ set; get; }
+        public IntentionContext(Stage stage, Player player){
+            Stage = stage;
+            Player = player;
+        }
+        
+        public Stage Stage{ get; }
+        public Player Player{ get; }
     }
 }

@@ -1,0 +1,41 @@
+fileFormatVersion: 2
+guid: bedbf4949838b5546a0e90239436c427
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Nowar Rounded CN UI
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: ed991a4ba72a5b84a9c33baaa70242d5, type: 3}
+  - {fileID: 12800000, guid: 4e24556ad8211e94693f588266c68729, type: 3}
+  - {fileID: 12800000, guid: 157a2b3fb969fbb41921362c849d85c0, type: 3}
+  - {fileID: 12800000, guid: 27d073358772afc4fb01358ed4f9c796, type: 3}
+  - {fileID: 12800000, guid: f64105d0ffdb00546a3ffcad099e77ce, type: 3}
+  - {fileID: 12800000, guid: 992ac8b34213fec4f890755480f8568b, type: 3}
+  - {fileID: 12800000, guid: e3f13ca865c2b0546bea3b6a7d01018e, type: 3}
+  - {fileID: 12800000, guid: 857510b5c03b00048b829d5be1038fd1, type: 3}
+  - {fileID: 12800000, guid: 37d73f463c4c0ae438c9b8dbc8742026, type: 3}
+  - {fileID: 12800000, guid: 152af8466485e3e4b8971d94aac5d438, type: 3}
+  - {fileID: 12800000, guid: c54b650ef73b6e34c8e903dcbedff582, type: 3}
+  - {fileID: 12800000, guid: 13082dac0fe53e64a84d66b5bfeb069e, type: 3}
+  - {fileID: 12800000, guid: e30bbdb1652193e498ef5fc351ddcfac, type: 3}
+  - {fileID: 12800000, guid: 167069fb455d5f8429abe9fbf7d4ecef, type: 3}
+  - {fileID: 12800000, guid: 0a81a6124e4302d4cbd706750b698bf5, type: 3}
+  - {fileID: 12800000, guid: b8f6f9296cc575140b4101e98334c278, type: 3}
+  - {fileID: 12800000, guid: 7b610fac3f435b64784e8989093d6586, type: 3}
+  - {fileID: 12800000, guid: 938b5c66b43f5e24b9c7cc447a85d69f, type: 3}
+  - {fileID: 12800000, guid: 3b60b6f87b7121642995a76ffab6eaf1, type: 3}
+  - {fileID: 12800000, guid: c8115497a522c3f4a8b34039c41f75e2, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

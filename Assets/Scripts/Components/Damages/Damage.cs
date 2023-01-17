@@ -1,7 +1,7 @@
 ﻿using MVC;
 
 namespace Components.Damages{
-    public class Damage: Model{
+    public class Damage{
         public int Point;
         public ElementType Element;
         

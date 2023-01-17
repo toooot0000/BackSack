@@ -3,7 +3,7 @@ using UnityEngine;
 using Utility;
 
 namespace UI{
-    public delegate void UINormalEvent(UIBase ui);
+    public delegate void UINormalEvent(UIWindow uiWindow);
 
     public class UIManager : MonoBehaviour{
 
@@ -11,7 +11,7 @@ namespace UI{
         private const string ResourcesFolder = "Prefabs/UIs/";
         
         public static UIManager Shared;
-        private readonly List<UIBase> _uiList = new();
+        private readonly List<UIWindow> _uiList = new();
         private readonly List<UIComponent> _uiComponents = new();
         public GameObject uiContainer;
 
@@ -24,7 +24,7 @@ namespace UI{
             Shared = this;
         }
 
-        private UIBase OpenUI(string uiPrefabName){
+        private UIWindow OpenUI(string uiPrefabName){
             
             // Find the ui already opened
             var cur = _uiList.Find(uiBase => uiBase.name == uiPrefabName);
@@ -41,7 +41,7 @@ namespace UI{
                 return null;
             }
             ui = Instantiate(ui, uiContainer.transform);
-            cur = ui.GetComponent<UIBase>();
+            cur = ui.GetComponent<UIWindow>();
             if (cur == null){
                 Debug.LogError($"UI prefab doesn't have UIBase component! PrefabName = {uiPrefabName}");
                 return null;
@@ -57,16 +57,16 @@ namespace UI{
             return cur;
         }
 
-        public T OpenUI<T>(string uiPrefabName, IUISetUpOptions<T> arg = null) where T : UIBase{
+        public T OpenUI<T>(string uiPrefabName, IUISetUpOptions<T> arg = null) where T : UIWindow{
             var ret = OpenUI(uiPrefabName) as T;
             if (ret == null) return null;
             arg?.ApplyOptions(ret);
             return ret;
         }
 
-        public void RemoveUI(UIBase ui){
-            OnCloseUI?.Invoke(ui);
-            _uiList.Remove(ui);
+        private void RemoveUI(UIWindow uiWindow){
+            OnCloseUI?.Invoke(uiWindow);
+            _uiList.Remove(uiWindow);
         }
         
         public void RegisterComponent(UIComponent component){
@@ -85,7 +85,7 @@ namespace UI{
             }
         }
 
-        public T GetUI<T>() where T : UIBase{
+        public T GetUI<T>() where T : UIWindow{
             return _uiList.Find(b => b.GetType() == typeof(T)) as T;
         }
 

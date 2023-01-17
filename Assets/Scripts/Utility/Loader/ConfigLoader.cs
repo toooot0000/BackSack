@@ -87,15 +87,18 @@ namespace Utility.Loader{
             return ret.ToArray();
         }
 
-        public static TableEntry TryGetValue(string filename, int id){
+        public static TableEntry TryGetEntry(string filename, int id){
             var table = GetTable(filename);
             if (table == null) return null;
             if (!table.ContainsKey(id)){
                 Debug.LogError($"Wrong id in table '{filename}', id = {id}");
                 return null;
             }
-
             return table[id];
+        }
+
+        public static object TryGetValue(string filename, int id, string key){
+            return TryGetEntry(filename, id)?[key];
         }
 
         public static object GetConfig(string configKey){
@@ -139,6 +142,16 @@ namespace Utility.Loader{
 
         public static T GetField<T>(this Model model, string key, Func<T, T> converter = null){
             return GetField<T, T>(model, key, converter ?? (arg => arg) );
+        }
+
+        public static T GetField<TSrc, T>(this Model model, string tableName, string key, Func<TSrc, T> converter){
+            if (model.ID == null) return default;
+            var ret = (TSrc)ConfigLoader.TryGetEntry(tableName, model.ID.Value)[key];
+            return converter.Invoke(ret);
+        }
+
+        public static T GetField<T>(this Model model, string tableName, string key, Func<T, T> converter = null){
+            return GetField<T, T>(model, tableName, key, converter ?? (x => x));
         }
 
         public static bool StartFieldSetting(this Model model, string tableName){

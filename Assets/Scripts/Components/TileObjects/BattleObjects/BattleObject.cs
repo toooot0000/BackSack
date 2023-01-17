@@ -35,10 +35,9 @@ namespace Components.TileObjects.BattleObjects{
         private readonly List<IEffect> _results = new();
 
         public override IEffect Consume(IEffect effect){
-            _results.Clear();
-            AddTypedEffectConsumer<IEffect>(_results, effect, base.Consume);
-            AddTypedEffectConsumer<IBuffEffect>(_results, effect, this);
-            AddTypedEffectConsumer<IDamageEffect>(_results, effect, this);
+            CallConsumer<IEffect>(_results, effect, base.Consume);
+            CallConsumer<IBuffEffect>(_results, effect, this);
+            CallConsumer<IDamageEffect>(_results, effect, this);
             return MakeSideEffect(_results);
         }
 

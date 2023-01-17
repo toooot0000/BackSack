@@ -19,6 +19,10 @@ namespace MVC{
         public static T GetController<T>() where T : IController{
             return Controllers.Capacity == 0 ? default : (T)Controllers.FirstOrDefault(m => m is T);
         }
+
+        public static IEnumerable<T> GetControllers<T>() where T : IController{
+            return Controllers.Capacity == 0 ? default : Controllers.OfType<T>();
+        }
     }
     
     public abstract class Controller: MonoBehaviour, IController{

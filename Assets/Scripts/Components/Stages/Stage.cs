@@ -55,7 +55,7 @@ namespace Components.Stages{
         private void CreateTileObject(Floor floor){
             switch (floor.TileObjectType){
                 case TileObjectType.Enemy:
-                    var enemy = EnemyModel.MakeEnemy(floor.TileObjectId);
+                    var enemy = new EnemyModel(floor.TileObjectId);
                     enemy.CurrentStagePosition = floor.Position;
                     floor.TileObject = enemyManager.AddEnemy(enemy);
                     Debug.Log($"{floor.Position.ToString()}: set file object to Enemy");

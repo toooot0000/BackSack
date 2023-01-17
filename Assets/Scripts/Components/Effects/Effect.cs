@@ -6,12 +6,19 @@ namespace Components.Effects{
     public interface IEffect{
         IEffectConsumer Target{ get; }
         IController Source{ get; }
+        /// <summary>
+        /// NOTE: Will clear the result list!!!
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
         public static IEffect MakeSideEffect(List<IEffect> result){
-            return result.Count switch{
+            var ret = result.Count switch{
                 0 => null,
                 1 => result[0],
                 _ => new MultiEffect(result.ToArray())
             };
+            result.Clear();
+            return ret;
         }
     }
 
