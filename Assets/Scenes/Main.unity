@@ -1165,11 +1165,11 @@ GameObject:
   - component: {fileID: 1336642775}
   - component: {fileID: 1336642773}
   - component: {fileID: 1336642768}
-  - component: {fileID: 1336642777}
   - component: {fileID: 1336642767}
   - component: {fileID: 1336642772}
   - component: {fileID: 1336642771}
   - component: {fileID: 1336642778}
+  - component: {fileID: 1336642781}
   - component: {fileID: 1336642780}
   - component: {fileID: 1336642779}
   m_Layer: 0
@@ -1212,6 +1212,8 @@ MonoBehaviour:
     tween: {fileID: 1336642771}
   - type: 2
     tween: {fileID: 1336642778}
+  - type: 3
+    tween: {fileID: 1336642781}
   generator: {fileID: 1336642780}
   buffNameDisplay: {fileID: 1336642779}
 --- !u!212 &1336642769
@@ -1415,22 +1417,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &1336642777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1336642766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe6da61dc2bc4691905ad7348de7c1dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tweenPairs:
-  - type: 0
-    tween: {fileID: 0}
-  parent: {fileID: 1336642768}
 --- !u!114 &1336642778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1496,6 +1482,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toaster: {fileID: 964869541}
+--- !u!114 &1336642781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336642766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef66bd5d5854ba6abf02280fcdb1347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalTime: 0.2
+  repeat: 0
+  root: {fileID: 1336642766}
 --- !u!1 &1835505931
 GameObject:
   m_ObjectHideFlags: 0

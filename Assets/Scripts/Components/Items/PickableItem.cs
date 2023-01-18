@@ -29,9 +29,8 @@ namespace Components.Items{
         public int Number = 1;
         
         public IEffectTemplate OnSteppedOver(){
-            return new ItemChange(Model, Number){
-                Source = this
-            };
+            Destroy(this);
+            return new ItemChange(Model, Number);
         }
     }
 }

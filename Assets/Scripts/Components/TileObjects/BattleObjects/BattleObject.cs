@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Components.Attacks;
 using Components.Buffs;
 using Components.Buffs.Effects;
@@ -14,15 +15,22 @@ namespace Components.TileObjects.BattleObjects{
     
     public abstract class BattleObject: ForceMovable, IDamageable, IBuffHolder {
         public virtual IEffect Consume(IDamage effect){
-            // TODO update model!
             m_GetModel().HealthPoint -= effect.Point;
             m_GetView().TakeDamage(effect);
+            if (m_GetModel().HealthPoint <= 0){
+                return Die();
+            }
             return null;
         }
 
         public virtual IEffect Die(){
-            m_GetView().Die();
-            return null;
+            return new CoroutineEffect(DieCoroutine);
+        }
+
+        private IEnumerator DieCoroutine(CoroutineEffect effect){
+            yield return m_GetView().Die();
+            Destroy(this);
+            effect.Result = null;
         }
 
         public virtual IEffect Consume(IBuffEffect buffEffect){

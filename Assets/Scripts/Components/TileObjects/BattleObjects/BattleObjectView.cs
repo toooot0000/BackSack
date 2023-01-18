@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Components.Attacks;
 using Components.Buffs.BuffNames;
 using Components.Damages;
@@ -10,7 +11,7 @@ namespace Components.TileObjects.BattleObjects{
     public interface IBattleObjectView: IForceMovableView{
         void TakeDamage(IDamage damage);
         void AddBuff(string buffName);
-        void Die();
+        IEnumerator Die();
     }
     
     public abstract class BattleObjectView : ForceMovableView, IBattleObjectView{
@@ -24,7 +25,10 @@ namespace Components.TileObjects.BattleObjects{
         public void AddBuff(string buffName){
             buffNameDisplay.AddBuffNameDisplay(buffName, true, transform);
         }
-        public abstract void Die();
+
+        public virtual IEnumerator Die(){
+            yield return PlayAndWaitUntilComplete<Die>();
+        }
 
         public void RemoveBuff(string buffName){
             buffNameDisplay.AddBuffNameDisplay(buffName, false, transform);

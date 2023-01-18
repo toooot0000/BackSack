@@ -118,6 +118,5 @@ namespace Utility.Animation{
                 ? value.ToString()
                 : attribute.Description;
         }
-
     }
 }

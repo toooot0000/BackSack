@@ -16,9 +16,5 @@ namespace Components.Enemies{
         public void SetSprite(Sprite sprite){
             spriteRenderer.sprite = sprite;
         }
-
-        public override void Die(){
-            Debug.Log("Enemy died! Peace out!");
-        }
     }
 }

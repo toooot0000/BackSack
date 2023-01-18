@@ -94,5 +94,10 @@ namespace Components.TileObjects{
                 yield return target;
             }
         }
+
+        public static void Destroy(TileObject tileObject){
+            tileObject.stage.GetFloor(tileObject.GetStagePosition()).TileObject = null;
+            tileObject.gameObject.SetActive(false);
+        }
     }
 }

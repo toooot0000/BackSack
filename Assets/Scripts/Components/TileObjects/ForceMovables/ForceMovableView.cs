@@ -3,14 +3,6 @@ using UnityEngine;
 using Utility.Animation;
 
 namespace Components.TileObjects.ForceMovables{
-    
-
-    public enum TileObjectAnimation{
-        Move,
-        Bump,
-        Damaged,
-    }
-
     public interface IForceMovableView : ITileObjectView{
         
     }

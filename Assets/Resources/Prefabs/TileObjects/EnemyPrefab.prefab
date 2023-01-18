@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 2143575102004380387}
   - component: {fileID: 3606365367790461436}
   - component: {fileID: 8224613565629424233}
+  - component: {fileID: 8191374208860477717}
   - component: {fileID: 634402281130581179}
   - component: {fileID: 5300717904746344059}
   m_Layer: 0
@@ -249,6 +250,8 @@ MonoBehaviour:
     tween: {fileID: 8224613565629424233}
   - type: 2
     tween: {fileID: 2143575102004380387}
+  - type: 3
+    tween: {fileID: 8191374208860477717}
   generator: {fileID: 634402281130581179}
   buffNameDisplay: {fileID: 5300717904746344059}
   spriteRenderer: {fileID: 3820308736215663086}
@@ -392,6 +395,21 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxDistance: 0.3
+--- !u!114 &8191374208860477717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3820308736854903282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef66bd5d5854ba6abf02280fcdb1347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalTime: 0.2
+  repeat: 0
+  root: {fileID: 3820308736854903282}
 --- !u!114 &634402281130581179
 MonoBehaviour:
   m_ObjectHideFlags: 0

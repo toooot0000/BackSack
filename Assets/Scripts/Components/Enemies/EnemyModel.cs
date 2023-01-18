@@ -19,6 +19,13 @@ namespace Components.Enemies{
         public int DefendPoint{ get; set; }
         public Dictionary<ElementType, int> Resistances{ get; set; }
 
+        [Key("sprite_path")] 
+        public string SprPath;
+        
+        [Key("core_path")]
+        public string CorePath;
+        
+        
         public string GetSpriteResourcePath() => "Images/Tiles/Enemies/Enemy-slime"; // TODO
 
         public EnemyModel(int id){

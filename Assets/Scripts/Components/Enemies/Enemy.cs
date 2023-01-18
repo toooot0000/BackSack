@@ -28,7 +28,7 @@ namespace Components.Enemies{
             get{
                 if (_core != null) return _core;
                 var id = Model.ID!.Value.ToString();
-                var prefab = Resources.Load<GameObject>($"{enemyFolder}/{id}/{id}");
+                var prefab = Resources.Load<GameObject>(Model.CorePath);
                 if (prefab == null) return null;
                 _core = Instantiate(prefab, transform);
                 return _core;
@@ -42,7 +42,7 @@ namespace Components.Enemies{
 
         protected override void AfterSetModel(){
             base.AfterSetModel();
-            var spr = Resources.Load<Sprite>(Model.GetSpriteResourcePath());
+            var spr = Resources.Load<Sprite>(Model.SprPath);
             view.SetSprite(spr);
         }
 
@@ -54,6 +54,8 @@ namespace Components.Enemies{
         public void ShowIntention(SelectMap selectMap){
             ActionPattern.GetIntention(this, Context).Label(selectMap);
         }
+
+        public bool IsActive => gameObject.activeSelf;
 
         private IActionPattern ActionPattern{
             get{

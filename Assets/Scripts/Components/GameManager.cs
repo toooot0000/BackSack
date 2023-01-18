@@ -79,6 +79,7 @@ namespace Components{
                 StartCoroutine(EnemiesActs());
             } else if (Input.GetKeyUp(KeyCode.V)){
                 foreach (var enemy in IController.GetControllers<IAutomate>()){
+                    if(!enemy.IsActive) continue;
                     enemy.ShowIntention(selectMap);
                 }
             } else if (Input.GetKeyUp(KeyCode.B)){

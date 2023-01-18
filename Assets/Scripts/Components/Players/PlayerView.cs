@@ -5,10 +5,5 @@ using UnityEngine;
 
 namespace Components.Players{
 
-    public class PlayerView: BattleObjectView{
-
-        public override void Die(){
-            Debug.Log("Player died!");
-        }
-    }
+    public class PlayerView: BattleObjectView{ }
 }
