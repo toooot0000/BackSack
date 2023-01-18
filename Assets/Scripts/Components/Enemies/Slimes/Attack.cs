@@ -23,17 +23,18 @@ namespace Components.Enemies.Slimes{
 
         public void Label(SelectMap map){
             foreach (var targetPosition in TargetPositions){
-                map.AddNewTile(new SelectMapTileOptions(targetPosition, Color.red));
+                map.AddNewTile(new SelectMapTileOptions(
+                    targetPosition, 
+                    Color.red,
+                    SelectMapIcon.Attack
+                ));
             }
         }
 
         public IAttacker Attacker => _enemy;
         public Vector2Int[] TargetPositions{ get; private set; }
 
-        public IEffectTemplate EffectTemplate{ get; } = new DamageEffect(null, null, new Damage(){
-            Element = ElementType.Physic,
-            Point = 1
-        });
+        public IEffectTemplate EffectTemplate{ get; } = new Damage(null, null, 1, ElementType.Physic);
         public Predicate<ITileObject> TargetPredicate{ get; } = c => true;
         public int TargetNum{ get; } = 1;
 

@@ -10,10 +10,7 @@ namespace Components.Buffs.Instances{
         public IEffect OnTurnEnd(IBuffHolder holder){
             if (holder is not IDamageable damageable) return null;
             var ret = new MultiEffect(new IEffect[]{
-                new DamageEffect(null, damageable, new Damage(){
-                    Point = 1,
-                    Element = ElementType.Fire
-                }),
+                new Damage(null, damageable, 1, ElementType.Physic),
                 new ChangeBuffEffect<BurningBuff>(holder, -1)
             });
             return ret;

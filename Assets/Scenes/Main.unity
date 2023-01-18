@@ -626,7 +626,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stage: {fileID: 2042807071}
-  tilePrefab: {fileID: 0}
+  tilePrefab: {fileID: 5307826229338221308, guid: fc750c2ab69fad34fb36c0b3cf706b56, type: 3}
+  sprites:
+  - icon: 0
+    sprite: {fileID: 0}
+  - icon: 1
+    sprite: {fileID: 21300000, guid: 4908509d04457134e906c19181ef5d33, type: 3}
+  - icon: 2
+    sprite: {fileID: 21300000, guid: 6982c2a7dcf0f424e8232860415a4f83, type: 3}
 --- !u!1 &574339725
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,6 +823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1336642767}
   stage: {fileID: 2042807071}
+  selectMap: {fileID: 556860017}
 --- !u!114 &1035943762
 MonoBehaviour:
   m_ObjectHideFlags: 0

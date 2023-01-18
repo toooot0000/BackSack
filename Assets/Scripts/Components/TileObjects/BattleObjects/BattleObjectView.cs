@@ -8,7 +8,7 @@ using Components.TileObjects.Tweens;
 
 namespace Components.TileObjects.BattleObjects{
     public interface IBattleObjectView: IForceMovableView{
-        void TakeDamage(Damage damage);
+        void TakeDamage(IDamage damage);
         void AddBuff(string buffName);
         void Die();
     }
@@ -17,7 +17,7 @@ namespace Components.TileObjects.BattleObjects{
         public DamageNumber generator;
         public BuffNameDisplay buffNameDisplay;
 
-        public virtual void TakeDamage(Damage damage){
+        public virtual void TakeDamage(IDamage damage){
             generator.AddDamageNumber(damage, transform);
             Play<Damaged>();
         }

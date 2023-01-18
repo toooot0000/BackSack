@@ -4,23 +4,20 @@ using Components.Damages;
 using Components.Effects;
 
 namespace Components.Buffs.Instances{
-    public class WetBuff: Buff, IOnTurnEnd, IOnConsumeDamage{
+    public class WetBuff: Buff, IOnTurnEnd, IBeforeConsumeDamage{
 
 
         public IEffect OnTurnEnd(IBuffHolder holder){
             return new ChangeBuffEffect<WetBuff>(holder, -1);
         }
 
-        public IEffect OnConsumeDamageEffect(IBuffHolder holder, IDamageEffect effect){
+        public IEffect BeforeConsumeDamage(IBuffHolder holder, IDamage effect){
             if (holder is not IDamageable damageable) return null;
-            switch (effect.Damage.Element){
+            switch (effect.Element){
                 case ElementType.Electric:
-                    return new DamageEffect(null, damageable, new Damage(){
-                        Point = Layer,
-                        Element = ElementType.Electric
-                    });
+                    return new Damage(null, damageable, Layer, ElementType.Electric);
                 case ElementType.Fire:
-                    effect.Damage.Point = 0;
+                    effect.Point = 0;
                     return new ChangeBuffEffect<WetBuff>(holder, -1);
                 case ElementType.Wind:
                     return new ChangeBuffEffect<WetBuff>(holder, -Layer);

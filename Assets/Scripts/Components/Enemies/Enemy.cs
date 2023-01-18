@@ -51,6 +51,10 @@ namespace Components.Enemies{
             return intention?.DoAction();
         }
 
+        public void ShowIntention(SelectMap selectMap){
+            ActionPattern.GetIntention(this, Context).Label(selectMap);
+        }
+
         private IActionPattern ActionPattern{
             get{
                 if (_pattern != null) return _pattern;

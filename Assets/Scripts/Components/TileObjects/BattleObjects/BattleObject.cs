@@ -13,9 +13,10 @@ namespace Components.TileObjects.BattleObjects{
     public interface IBattleObjectModel: IForceMovableModel, IDamageableModel{ }
     
     public abstract class BattleObject: ForceMovable, IDamageable, IBuffHolder {
-        public virtual IEffect Consume(IDamageEffect effect){
+        public virtual IEffect Consume(IDamage effect){
             // TODO update model!
-            m_GetView().TakeDamage(effect.Damage);
+            m_GetModel().HealthPoint -= effect.Point;
+            m_GetView().TakeDamage(effect);
             return null;
         }
 
@@ -37,7 +38,7 @@ namespace Components.TileObjects.BattleObjects{
         public override IEffect Consume(IEffect effect){
             CallConsumer<IEffect>(_results, effect, base.Consume);
             CallConsumer<IBuffEffect>(_results, effect, this);
-            CallConsumer<IDamageEffect>(_results, effect, this);
+            CallConsumer<IDamage>(_results, effect, this);
             return MakeSideEffect(_results);
         }
 

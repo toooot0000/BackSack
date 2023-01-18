@@ -7,7 +7,7 @@ using MVC;
 using UnityEngine;
 
 namespace Components.Items.Instances{
-    public class Hooklock: WeaponModel, IForceMovement, IDamageEffect, IEffectTemplate{
+    public class Hooklock: WeaponModel, IForceMovement, IDamage, IEffectTemplate{
         public Hooklock(){ ID = 1; }
         public override IEffectTemplate EffectTemplate => this;
 
@@ -24,9 +24,7 @@ namespace Components.Items.Instances{
         public Vector2Int Direction{ get; set; }
         public bool Pulling{ get; } = true;
 
-        public Damage Damage{ get; set; } = new Damage(){
-            Element = ElementType.Physic,
-            Point = 1
-        };
+        public int Point{ set; get; } = 1;
+        public ElementType Element{ get; } = ElementType.Physic;
     }
 }

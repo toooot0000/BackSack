@@ -26,10 +26,9 @@ namespace Components.Grounds.Instances{
                 case ElementType.Earth:
                 case ElementType.Poison:
                     ground.SetType(GroundType.Null);
-                    return new DamageEffect(ground, null, new Damage(){
-                        Element = ElementType.Fire,
-                        Point = 5
-                    });
+                    return new Explosion(){
+                        Source = ground
+                    };
                 default:
                     throw new ArgumentOutOfRangeException(nameof(element), element, null);
             }

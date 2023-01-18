@@ -14,10 +14,17 @@ using Utility.Extensions;
 
 namespace Components.Grounds{
 
-    public class Explosion : IEffect, IDamageEffect{
+    public class Explosion : IDamage, IEffectTemplate{
+        public Explosion(){
+            Point = 5;
+            Element = ElementType.Fire;
+        }
         public IEffectConsumer Target{ get; set; }
         public IController Source{ get; set; }
-        public Damage Damage{ get; set; }
+        public IEffect ToEffect() => this;
+
+        public int Point{ set; get; }
+        public ElementType Element{ get; }
     }
     
     public class Ground: Controller, IView{

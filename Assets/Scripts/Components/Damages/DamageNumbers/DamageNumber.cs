@@ -5,15 +5,15 @@ using UnityEngine;
 namespace Components.Damages.DamageNumbers{
     public class DamageNumber: MonoBehaviour{
         public ObjectToaster toaster;
-        public void AddDamageNumber(Damage damage, Transform parent){
-            var startColor = StartColor(damage);
+        public void AddDamageNumber(IDamage damage, Transform parent){
+            var startColor = StartColor(damage.Element);
             toaster.AddToast($"-{damage.Point.ToString()}", parent, new ToastOptions(){
                 Start = startColor,
                 End = startColor
             });
         }
         
-        private Color StartColor(Damage damage) => damage.Element switch{
+        private Color StartColor(ElementType damage) => damage switch{
             ElementType.Physic => Color.red,
             ElementType.Fire => Color.yellow,
             ElementType.Poison => Color.green,

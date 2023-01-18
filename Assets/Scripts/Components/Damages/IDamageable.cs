@@ -7,10 +7,9 @@ namespace Components.Damages{
         int HealthPoint{ set; get; }
         int ShieldPoint{ set; get; }
         int DefendPoint{ set; get; }
-        Dictionary<ElementType, int> Resistances{ set; get; }
     }
 
-    public interface IDamageable : IController, ICanConsume<IDamageEffect>{
+    public interface IDamageable : IController, ICanConsume<IDamage>{
         IEffect Die();
     }
 }

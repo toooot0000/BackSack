@@ -7,7 +7,7 @@ using Utility.Extensions;
 namespace Components.SelectMaps{
 
     public class SelectMapTileOptions{
-        public readonly Sprite Icon;
+        public readonly SelectMapIcon Icon;
         public readonly Color Color;
         public readonly Action OnClick;
         public readonly Vector2Int StagePosition;
@@ -15,7 +15,7 @@ namespace Components.SelectMaps{
         public SelectMapTileOptions(
             Vector2Int stagePosition,
             Color color = default,
-            Sprite icon = null,
+            SelectMapIcon icon = SelectMapIcon.Null,
             Action onClick = null
         ){
             StagePosition = stagePosition;
@@ -24,18 +24,45 @@ namespace Components.SelectMaps{
             OnClick = onClick;
         }
     }
+
+    public enum SelectMapIcon{
+        Null,
+        Move,
+        Attack,
+    }
     
     public class SelectMap: MonoBehaviour{
         public Stage stage;
         public GameObject tilePrefab;
         
+        [Serializable]
+        public struct Pair{
+            public SelectMapIcon icon;
+            public Sprite sprite;
+        }
+
+        public Pair[] sprites;
+        
         private readonly List<SelectMapTile> _tiles = new();
         private readonly Stack<List<SelectMapTileOptions>> _stack = new();
+
+        private Dictionary<SelectMapIcon, Sprite> _sprites;
+        public Dictionary<SelectMapIcon, Sprite> Sprites{
+            get{
+                if (_sprites == null){
+                    _sprites = new();
+                    foreach (var pair in sprites){
+                        _sprites[pair.icon] = pair.sprite;
+                    }
+                }
+                return _sprites;
+            }
+        }
 
         public SelectMapTile AddNewTile(SelectMapTileOptions options){
             var newTile = _tiles.FirstNotActiveOrNew(Make);
             newTile.SetUp(options);
-            if (_stack.Peek() == null){
+            if (_stack.Count == 0 || _stack.Peek() == null){
                 _stack.Push(new());
             }
             _stack.Peek().Add(options);
@@ -45,6 +72,7 @@ namespace Components.SelectMaps{
         private SelectMapTile Make(){
             var ret = Instantiate(tilePrefab, transform).GetComponent<SelectMapTile>();
             ret.stage = stage;
+            ret.map = this;
             return ret;
         }
 

@@ -7,6 +7,7 @@ using Components.Effects;
 using Components.Enemies;
 using Components.Items.Instances;
 using Components.Players;
+using Components.SelectMaps;
 using Components.Stages;
 using Components.TileObjects;
 using Components.TileObjects.Automate;
@@ -29,6 +30,7 @@ namespace Components{
     
         public Player player;
         public Stage stage;
+        public SelectMap selectMap;
 
 
         private bool _isEnd = false;
@@ -75,6 +77,10 @@ namespace Components{
                 StartCoroutine(PropagateEffect(player.UseWeapon(new Hooklock(), Vector2Int.right)));
             } else if (Input.GetKeyUp(KeyCode.C)){
                 StartCoroutine(EnemiesActs());
+            } else if (Input.GetKeyUp(KeyCode.V)){
+                foreach (var enemy in IController.GetControllers<IAutomate>()){
+                    enemy.ShowIntention(selectMap);
+                }
             }
         }
 

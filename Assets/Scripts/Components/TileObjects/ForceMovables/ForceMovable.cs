@@ -34,10 +34,7 @@ namespace Components.TileObjects.ForceMovables{
         }
 
         protected virtual IEffect HitToObstacle(){
-            return Consume(new DamageEffect(null, this, new Damage(){
-                Element = ElementType.Physic,
-                Point = 3
-            }));
+            return Consume(new Damage(null, this, 3, ElementType.Physic));
         }
 
         public virtual IEffect Consume(IForceMovement effect){

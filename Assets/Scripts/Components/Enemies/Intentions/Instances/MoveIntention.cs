@@ -14,7 +14,11 @@ namespace Components.Enemies.Intentions.Instances{
         }
 
         public void Label(SelectMap map){
-            map.AddNewTile(new SelectMapTileOptions(Direction, Color.cyan));
+            map.AddNewTile(new SelectMapTileOptions(
+                Direction + _enemy.GetStagePosition(), 
+                Color.cyan,
+                SelectMapIcon.Move
+            ));
         }
     }
 }

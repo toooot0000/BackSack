@@ -11,18 +11,14 @@ using Utility.Loader.Attributes;
 
 namespace Components.Items.Instances{
     public class Sword: WeaponModel{
-        private class Eff : IEffectTemplate, IDamageEffect, ICreateNewGround{
+        private class Eff : IEffectTemplate, IDamage, ICreateNewGround{
+            public int Point{ set; get; } = 1;
             public ElementType Element{ get; } = ElementType.Water;
             public bool Create{ get; } = true;
             public int LastTurnNum{ get; } = 10;
             public IEffectConsumer Target{ set; get; } = null;
             public IController Source{ set; get; } = null;
             public IEffect ToEffect() => this;
-
-            public Damage Damage{ set; get; } = new Damage(){
-                Point = 1,
-                Element = ElementType.Water
-            };
 
             public GroundType GroundType{ get; } = GroundType.Water;
         }
