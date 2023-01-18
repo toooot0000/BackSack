@@ -93,7 +93,7 @@ namespace Components.SelectMaps{
             }
             var i = 0;
             foreach (var options in _stack.Peek()){
-                if(i < _tiles.Count) _tiles.Add(Make());
+                if(i >= _tiles.Count) _tiles.Add(Make());
                 else _tiles[i].gameObject.SetActive(true);
                 _tiles[i].SetUp(options);
                 i++;

@@ -81,6 +81,10 @@ namespace Components{
                 foreach (var enemy in IController.GetControllers<IAutomate>()){
                     enemy.ShowIntention(selectMap);
                 }
+            } else if (Input.GetKeyUp(KeyCode.B)){
+                selectMap.Stash();
+            } else if (Input.GetKeyUp(KeyCode.N)){
+                selectMap.Pop();
             }
         }
 
