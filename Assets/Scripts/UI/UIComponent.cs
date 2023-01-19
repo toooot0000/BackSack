@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace UI{
     public abstract class UIComponent: MonoBehaviour{
+
         private void Awake(){
             UIManager.Shared.RegisterComponent(this);
         }

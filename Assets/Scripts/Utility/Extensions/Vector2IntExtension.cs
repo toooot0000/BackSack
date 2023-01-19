@@ -42,5 +42,9 @@ namespace Utility.Extensions{
             var z = vec.x * other.y - other.x * vec.y;
             return z < 0;
         }
+
+        public static Vector3Int ToVector3Int(this Vector2Int vec){
+            return new Vector3Int(vec.x, vec.y, 0);
+        }
     }
 }

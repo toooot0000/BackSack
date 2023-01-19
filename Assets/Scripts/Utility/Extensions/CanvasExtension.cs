@@ -11,7 +11,7 @@ namespace Utility.Extensions{
         /// <returns></returns>
         public static Vector2 WorldToCanvas(this Canvas canvas, Vector3 worldPosition, Camera camera = null){
             if (camera == null){
-                camera = Camera.main;
+                camera = Camera.main!;
             }
 
             var viewportPosition = camera.WorldToViewportPoint(worldPosition);

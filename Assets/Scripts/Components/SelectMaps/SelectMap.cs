@@ -99,5 +99,17 @@ namespace Components.SelectMaps{
                 i++;
             }
         }
+
+        public void HideAll(){
+            foreach (var selectMapTile in _tiles){
+                selectMapTile.gameObject.SetActive(false);
+            }
+        }
+
+        public void ShowAll(){
+            foreach (var tile in _tiles){
+                tile.gameObject.SetActive(true);
+            }
+        }
     }
 }

@@ -1,7 +1,8 @@
-﻿using UI.Common;
+﻿using Components.UI.Common;
+using UI;
 
-namespace UI.BackPacks{
-    public class CompBackPack: UIComponent{
+namespace Components.UI.Details{
+    public class DetailPanel: UIComponent{
         public EdgeHider hider;
 
         public override void Hide(){

@@ -12,7 +12,9 @@ using Components.Stages;
 using Components.TileObjects;
 using Components.TileObjects.Automate;
 using Components.TileObjects.Movables;
+using Components.UI.BackPacks;
 using MVC;
+using UI;
 using UnityEngine;
 
 namespace Components{
@@ -31,6 +33,7 @@ namespace Components{
         public Player player;
         public Stage stage;
         public SelectMap selectMap;
+        public BackPack backPack; 
 
 
         private bool _isEnd = false;
@@ -86,6 +89,8 @@ namespace Components{
                 selectMap.Stash();
             } else if (Input.GetKeyUp(KeyCode.N)){
                 selectMap.Pop();
+            } else if (Input.GetKeyUp(KeyCode.M)){
+                backPack.AddBlock(new Sword(), Vector2Int.one);
             }
         }
 

@@ -10,6 +10,7 @@ using Components.TileObjects;
 using Components.TreasureBoxes;
 using MVC;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 using Utility;
 
@@ -20,6 +21,7 @@ namespace Components.Stages{
         public EnemyManager enemyManager;
         public GameObject treasureBoxPrefab;
         public GameObject groundPrefab;
+        public ClickHandler clickHandler;
 
         private readonly Dictionary<FloorType, Tile> _tiles = new();
 
@@ -30,6 +32,7 @@ namespace Components.Stages{
 
         protected override void Awake(){
             base.Awake();
+            clickHandler.Action = OnClickStagePosition;
             foreach (var floor in EnumUtility.GetValues<FloorType>()){
                 _tiles[floor] = Resources.Load<Tile>(floor.GetFloorTileResourcePath());
             }
@@ -91,6 +94,11 @@ namespace Components.Stages{
 
         public Vector3 StagePositionToWorldPosition(Vector2Int stagePosition){
             return GridPositionToWorldPosition(StagePositionToGridPosition(stagePosition));
+        }
+
+        public Vector2Int WorldPositionToStagePosition(Vector3 worldPosition){
+            var cell = grid.WorldToCell(worldPosition);
+            return GridPositionToStagePosition(new Vector2Int(cell.x, cell.y));
         }
         
         public bool IsPositionInStage(Vector2Int stagePosition){
@@ -206,6 +214,10 @@ namespace Components.Stages{
             }
             ground.Model.LastTurnNum = createNew.LastTurnNum;
             return ground.OnTileObjectEnter(GetTileObject(stagePosition));
+        }
+
+        private void OnClickStagePosition(Vector2Int stagePosition){
+            Debug.Log($"Click Position: {stagePosition.ToString()}");
         }
     }
 }

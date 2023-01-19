@@ -3,7 +3,7 @@ using UnityEngine;
 using Utility;
 
 namespace UI{
-    public delegate void UINormalEvent(UIWindow uiWindow);
+    public delegate void UIWindowDelegate(UIWindow uiWindow);
 
     public class UIManager : MonoBehaviour{
 
@@ -11,13 +11,13 @@ namespace UI{
         private const string ResourcesFolder = "Prefabs/UIs/";
         
         public static UIManager Shared;
-        private readonly List<UIWindow> _uiList = new();
-        private readonly List<UIComponent> _uiComponents = new();
-        public GameObject uiContainer;
+        private readonly List<UIWindow> _windows = new();
+        private readonly List<UIComponent> _components = new();
+        public GameObject windowContainer;
 
-        public event UINormalEvent OnLoadUI; // right after load a ui;
-        public event UINormalEvent OnOpenUI; // Right after ui is opened;
-        public event UINormalEvent OnCloseUI; // Right after ui is closed;
+        public event UIWindowDelegate OnLoad; // right after load a ui;
+        public event UIWindowDelegate OnOpen; // Right after ui is opened;
+        public event UIWindowDelegate OnClose; // Right after ui is closed;
 
         private void Awake(){
             if (Shared) Destroy(this);
@@ -27,10 +27,10 @@ namespace UI{
         private UIWindow OpenUI(string uiPrefabName){
             
             // Find the ui already opened
-            var cur = _uiList.Find(uiBase => uiBase.name == uiPrefabName);
+            var cur = _windows.Find(uiBase => uiBase.name == uiPrefabName);
             if (cur != null){
-                _uiList.Remove(cur);
-                _uiList.Add(cur);
+                _windows.Remove(cur);
+                _windows.Add(cur);
                 return cur;
             }
 
@@ -40,19 +40,19 @@ namespace UI{
                 Debug.LogError($"Unable to find UI resource: {uiPrefabName}");
                 return null;
             }
-            ui = Instantiate(ui, uiContainer.transform);
+            ui = Instantiate(ui, windowContainer.transform);
             cur = ui.GetComponent<UIWindow>();
             if (cur == null){
                 Debug.LogError($"UI prefab doesn't have UIBase component! PrefabName = {uiPrefabName}");
                 return null;
             }
-            OnLoadUI?.Invoke(cur);
+            OnLoad?.Invoke(cur);
 
-            _uiList.Add(cur);
+            _windows.Add(cur);
             cur.OnClose += RemoveUI;
             StartCoroutine(CoroutineUtility.Delayed(() => {
                 cur.Open();
-                OnOpenUI?.Invoke(cur);
+                OnOpen?.Invoke(cur);
             }));
             return cur;
         }
@@ -65,32 +65,32 @@ namespace UI{
         }
 
         private void RemoveUI(UIWindow uiWindow){
-            OnCloseUI?.Invoke(uiWindow);
-            _uiList.Remove(uiWindow);
+            OnClose?.Invoke(uiWindow);
+            _windows.Remove(uiWindow);
         }
         
         public void RegisterComponent(UIComponent component){
-            _uiComponents.Add(component);
+            _components.Add(component);
         }
 
         public void HideAllComponents(){
-            foreach (var comp in _uiComponents){
+            foreach (var comp in _components){
                 comp.Hide();
             }
         }
 
         public void ShowAllComponents(){
-            foreach (var comp in _uiComponents){
+            foreach (var comp in _components){
                 comp.Show();
             }
         }
 
         public T GetUI<T>() where T : UIWindow{
-            return _uiList.Find(b => b.GetType() == typeof(T)) as T;
+            return _windows.Find(b => b.GetType() == typeof(T)) as T;
         }
 
         public T GetUIComponent<T>() where T : UIComponent{
-            return _uiComponents.Find(b => b.GetType() == typeof(T)) as T;
+            return _components.Find(b => b.GetType() == typeof(T)) as T;
         }
     }
 }

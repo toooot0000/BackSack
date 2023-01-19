@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Utility.Extensions;
 
-namespace UI.Common{
+namespace Components.UI.Common{
 
     public enum EdgeHiderDirection{
         Up,

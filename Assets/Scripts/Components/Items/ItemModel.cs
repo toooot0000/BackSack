@@ -14,7 +14,6 @@ namespace Components.Items{
         
         public static readonly Vector2Int DefaultDirection = Vector2Int.right;
         public Vector2Int[] TakeUpRange;
-        public Vector2Int BackpackPosition;
         
         [Key("icon")]
         public string IconPath;

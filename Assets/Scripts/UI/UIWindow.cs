@@ -38,7 +38,7 @@ namespace UI{
             OnClose?.Invoke(this);
         }
 
-        public event UINormalEvent OnOpen;
-        public event UINormalEvent OnClose;
+        public event UIWindowDelegate OnOpen;
+        public event UIWindowDelegate OnClose;
     }
 }

@@ -23,8 +23,11 @@ namespace Components.Items.Instances{
             public GroundType GroundType{ get; } = GroundType.Water;
         }
 
-        public Sword(){ ID = 1; }
-        
+        public Sword(){
+            ID = 1;
+            TakeUpRange = new[]{ Vector2Int.zero, Vector2Int.right, Vector2Int.down };
+        }
+
         public override IEnumerable<Vector2Int> Range{ get; } =
             new[]{ Vector2Int.right, new Vector2Int(1, 1), new Vector2Int(1, -1) };
 
