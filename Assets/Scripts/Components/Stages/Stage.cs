@@ -84,21 +84,21 @@ namespace Components.Stages{
 
         #region Helper Functions
 
-        public Vector3 GridPositionToWorldPosition(Vector2Int gridPosition){
+        public Vector3 GridToWorldPosition(Vector2Int gridPosition){
             return grid.GetCellCenterWorld(new Vector3Int(gridPosition.x, gridPosition.y, 0));
         }
 
-        public Vector2Int StagePositionToGridPosition(Vector2Int stagePosition) => Model.GetGridPosition(stagePosition);
+        public Vector2Int StageToGridPosition(Vector2Int stagePosition) => Model.GetGridPosition(stagePosition);
 
-        public Vector2Int GridPositionToStagePosition(Vector2Int gridPosition) => Model.GetStagePosition(gridPosition);
+        public Vector2Int GridToStagePosition(Vector2Int gridPosition) => Model.GetStagePosition(gridPosition);
 
-        public Vector3 StagePositionToWorldPosition(Vector2Int stagePosition){
-            return GridPositionToWorldPosition(StagePositionToGridPosition(stagePosition));
+        public Vector3 StageToWorldPosition(Vector2Int stagePosition){
+            return GridToWorldPosition(StageToGridPosition(stagePosition));
         }
 
-        public Vector2Int WorldPositionToStagePosition(Vector3 worldPosition){
+        public Vector2Int WorldToStagePosition(Vector3 worldPosition){
             var cell = grid.WorldToCell(worldPosition);
-            return GridPositionToStagePosition(new Vector2Int(cell.x, cell.y));
+            return GridToStagePosition(new Vector2Int(cell.x, cell.y));
         }
         
         public bool IsPositionInStage(Vector2Int stagePosition){

@@ -10,7 +10,7 @@ namespace Components.TileObjects.Movables{
         public IEffect Move(Vector2Int direction){
             var dest = m_GetModel().CurrentStagePosition + direction;
             if (CanMoveToPosition(dest)) return MoveTo(dest);
-            m_GetView().BumpToUnsteppable(direction.ToDirection());
+            m_GetView().BumpToUnsteppable(direction.AlignedDirection());
             return null;
         }
 
@@ -18,7 +18,7 @@ namespace Components.TileObjects.Movables{
         
         protected IEffect MoveTo(Vector2Int stagePosition){
             UpdateStagePosition(stagePosition);
-            m_GetView().MoveToPosition(stage.StagePositionToWorldPosition(stagePosition));
+            m_GetView().MoveToPosition(stage.StageToWorldPosition(stagePosition));
             if (stage.GetTileObject(stagePosition) is IStepOverAble stepOverAble){
                 var template = stepOverAble.OnSteppedOver();
                 template.Target = this;

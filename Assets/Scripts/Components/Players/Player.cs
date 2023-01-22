@@ -26,29 +26,24 @@ namespace Components.Players{
         }
 
         protected override void AfterSetModel(){
-            Model.CurrentStagePosition = stage.GridPositionToStagePosition(Vector2Int.zero);
+            Model.CurrentStagePosition = stage.GridToStagePosition(Vector2Int.zero);
             base.AfterSetModel();
         }
 
 #region Attack
 
-        public IEffect UseItem(DisposableModel disposableModel, Vector2Int position){
+        public IEffect UseItemWithPosition(DisposableModel disposableModel, Vector2Int position){
             throw new NotImplementedException();
         }
 
-        public CoroutineEffect UseWeapon(WeaponModel weaponModel, Vector2Int direction){
+        public CoroutineEffect UseItemWithDirection(ItemModel weaponModel, Vector2Int direction){
             var attack = GetAttackWithWeapon(weaponModel, direction);
             if (!attack.Targets.Any()) return null;
             return attack.ToCoroutineEffect();
         }
 
-        private PlayerAttack GetAttackWithWeapon(WeaponModel item, Vector2Int direction){
-            var rotatedRange = item.Range.Select(v => {
-                if (direction == ItemModel.DefaultDirection) return v;
-                if (direction == ItemModel.DefaultDirection * -1) return -v;
-                if (direction.IsClockwiseLess(ItemModel.DefaultDirection)) return v.Rotate90DegAntiClockwise();
-                return v.Rotate90DegAntiClockwise();
-            }).Select(v => v + GetStagePosition());
+        private PlayerAttack GetAttackWithWeapon(ItemModel item, Vector2Int direction){
+            var rotatedRange = item.Range.Rotate(direction).Select(v => v + GetStagePosition());
             return new PlayerAttack(
                 this,
                 direction,

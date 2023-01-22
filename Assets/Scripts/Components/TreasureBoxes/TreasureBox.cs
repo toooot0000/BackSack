@@ -17,7 +17,7 @@ namespace Components.TreasureBoxes{
         }
 
         protected override void AfterSetModel(){
-            transform.position = stage.StagePositionToWorldPosition(Model.CurrentStagePosition);
+            transform.position = stage.StageToWorldPosition(Model.CurrentStagePosition);
         }
         
 

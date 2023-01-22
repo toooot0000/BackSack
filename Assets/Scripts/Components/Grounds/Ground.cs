@@ -136,7 +136,7 @@ namespace Components.Grounds{
         }
 
         private void UpdatePosition(){
-            transform.position = stage.StagePositionToWorldPosition(Model.Position);
+            transform.position = stage.StageToWorldPosition(Model.Position);
         }
     }
 }

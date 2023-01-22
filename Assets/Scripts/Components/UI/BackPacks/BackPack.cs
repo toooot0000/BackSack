@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Components.Items;
 using Components.UI.Common;
-using UI;
 using UnityEngine;
 using Utility.Extensions;
 
@@ -20,14 +19,19 @@ namespace Components.UI.BackPacks{
             return ret;
         }
 
-        public void AddBlock(ItemModel item, Vector2Int stagePosition){
+        public void AddBlock(ItemModel item, Vector2Int stagePosition, Vector2Int? direction = null){
+            if(direction == null) direction = Vector2Int.right;
             var block = _blocks.FirstNotActiveOrNew(MakeNew);
             block.Item = item;
             block.transform.position = grid.StageToWorldPosition(stagePosition);
+            var angle = Vector2.Angle(direction.Value, Vector2.right);
+            block.transform.rotation = Quaternion.Euler(0, 0, angle);
+            block.backPack = this;
         }
 
         public void OnBlockClicked(ItemBlock block){
-            
+            Debug.Log($"Use item: {block.Item}");
+            GameManager.Shared.StartSelectDirection(block.Item);
         } 
 
         public override void Hide(){

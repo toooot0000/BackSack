@@ -8,12 +8,12 @@ namespace Components.Enemies.Slimes{
             var dis = GetTileObjectDistance(enemy, context.Player);
             if (dis.magnitude <= 1){
                 return new Attack(enemy){
-                    Direction = dis.ToDirection(),
+                    Direction = dis.AlignedDirection(),
                     AttackAnimator = enemy.ExtendedView as SlimeView 
                 };
             }
             return new MoveIntention(enemy){
-                Direction = dis.ToDirection()
+                Direction = dis.AlignedDirection()
             };
         }
     }

@@ -36,7 +36,7 @@ namespace Tests.PlayerTests.Test_Stages{
             Assert.That(stage.Floors[1,1].TileObject != null);
             var enemy = stage.Floors[1, 1].TileObject;
             Assert.That(enemy, Is.InstanceOf<EnemyModel>());
-            var expectedPosition = stageManager.StagePositionToWorldPosition(new(1, 1));
+            var expectedPosition = stageManager.StageToWorldPosition(new(1, 1));
             Assert.That(expectedPosition == enemyManager.enemyControllers.First().transform.position);
             Assert.That(enemyManager.transform.childCount > 0);
         }

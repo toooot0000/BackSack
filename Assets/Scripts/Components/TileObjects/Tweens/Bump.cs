@@ -13,7 +13,7 @@ namespace Components.TileObjects.Tweens{
                 var direction = Direction;
                 if (direction.magnitude.AlmostEquals(0)) return;
                 animator._originPosition = animator.transform.position;
-                var aligned = direction.Aligned();
+                var aligned = direction.AlignedDirection();
                 animator._currentDirection = new Vector3(aligned.x, aligned.y, 0);
                 animator.ResetTime();
             }

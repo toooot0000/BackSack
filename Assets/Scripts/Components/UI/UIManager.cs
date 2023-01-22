@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utility;
 
-namespace UI{
+namespace Components.UI{
     public delegate void UIWindowDelegate(UIWindow uiWindow);
 
     public class UIManager : MonoBehaviour{

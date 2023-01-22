@@ -34,11 +34,11 @@ namespace Components.Attacks{
                 if(forceMovement != null){
                     if (forceMovement.Pulling){
                         forceMovement.Direction =
-                            (attack.Attacker.GetStagePosition() - effectConsumer.GetStagePosition()).ToDirection();
+                            (attack.Attacker.GetStagePosition() - effectConsumer.GetStagePosition()).AlignedDirection();
                     }
                     else{
                         forceMovement.Direction =
-                            (effectConsumer.GetStagePosition() - attack.Attacker.GetStagePosition()).ToDirection();
+                            (effectConsumer.GetStagePosition() - attack.Attacker.GetStagePosition()).AlignedDirection();
                     }
                 }
                 var side = effectConsumer.Consume(eff);

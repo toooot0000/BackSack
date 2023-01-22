@@ -22,7 +22,7 @@ namespace Components.SelectMaps{
             icon.sprite = map.Sprites[options.Icon];
             outline.color = options.Color;
             icon.color = options.Color;
-            transform.position = stage.StagePositionToWorldPosition(options.StagePosition);
+            transform.position = stage.StageToWorldPosition(options.StagePosition);
         }
 
         private void OnMouseUpAsButton(){

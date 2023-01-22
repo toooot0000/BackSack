@@ -25,11 +25,11 @@ namespace Components.TileObjects{
 
         public void SetStagePosition(Vector2Int stagePosition){
             UpdateStagePosition(stagePosition);
-            m_GetView().SetPosition(stage.StagePositionToWorldPosition(stagePosition));
+            m_GetView().SetPosition(stage.StageToWorldPosition(stagePosition));
         }
 
         public Vector2Int GetStagePosition() => m_GetModel().CurrentStagePosition;
-        public Vector3 GetWorldPosition() => stage.StagePositionToWorldPosition(GetStagePosition());
+        public Vector3 GetWorldPosition() => stage.StageToWorldPosition(GetStagePosition());
         public Stage GetStage() => stage;
 
         public virtual bool IsPositionSteppable(FloorType floor){

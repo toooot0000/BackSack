@@ -13,7 +13,7 @@ namespace Components.Enemies.Intentions{
     public class ActionPattern: MonoBehaviour, IActionPattern{
         public virtual IEnemyIntention GetIntention(Enemy enemy, IIntentionContext context){
             return new MoveIntention(enemy){
-                Direction = GetTileObjectDistance(context.Player, enemy).ToDirection()
+                Direction = GetTileObjectDistance(context.Player, enemy).AlignedDirection()
             };
         }
 

@@ -24,7 +24,7 @@ namespace Utility.Extensions{
         /// </summary>
         /// <param name="vec"></param>
         /// <returns></returns>
-        public static Vector2Int Aligned(this Vector2 vec){
+        public static Vector2Int AlignedDirection(this Vector2 vec){
             if (vec.magnitude == 0) return Vector2Int.zero;
             vec = vec.Rotated(-45);
             if (vec.x > 0){
@@ -36,6 +36,11 @@ namespace Utility.Extensions{
             if (vec.y > 0)
                 return Vector2Int.left;
             return Vector2Int.down;
+        }
+
+        public static Vector2 Aligned(this Vector2 vec){
+            var dir = AlignedDirection(vec);
+            return vec.magnitude * new Vector2(dir.x, dir.y);
         }
         
         public static bool IsClockwiseLess(this Vector2 vec, Vector2 other){

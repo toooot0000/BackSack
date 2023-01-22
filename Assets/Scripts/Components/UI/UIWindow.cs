@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Utility;
 
-namespace UI{
+namespace Components.UI{
 
     public interface IUISetUpOptions<in T> where T: UIWindow{
         void ApplyOptions(T window);

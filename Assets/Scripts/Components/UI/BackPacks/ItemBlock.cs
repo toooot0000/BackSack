@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Components.Items;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Utility.Extensions;
 
@@ -20,21 +21,31 @@ namespace Components.UI.BackPacks{
         public Transform tileRoot;
         public Transform bridgeRoot;
 
+        public BackPack backPack; 
+
 
         public ItemModel Item{
             set{
                 _item = value;
                 icon.sprite = Resources.Load<Sprite>(value.IconPath);
+                var size = grid.GetCellSize();
+                var minLen = Mathf.Min(size.x, size.y) - padding * 2 - 10;
+                ((RectTransform)icon.transform).sizeDelta = new Vector2(minLen, minLen);
                 Reload();
             }
+            get => _item;
         }
 
         private ItemTile MakeNewTile(){
-            return Instantiate(tilePrefab, tileRoot).GetComponent<ItemTile>();
+            var ret = Instantiate(tilePrefab, tileRoot).GetComponent<ItemTile>();
+            ret.block = this;
+            return ret;
         }
 
         private ItemBridge MakeNewBridge(){
-            return Instantiate(bridgePrefab, bridgeRoot).GetComponent<ItemBridge>();
+            var ret = Instantiate(bridgePrefab, bridgeRoot).GetComponent<ItemBridge>();
+            ret.block = this;
+            return ret;
         }
 
 
@@ -104,10 +115,20 @@ namespace Components.UI.BackPacks{
                     var trans = (tile.downBridge.transform as RectTransform)!;
                     trans.rotation = Quaternion.Euler(0, 0, 90);
                     trans.localPosition = tilePosition - new Vector3(0, cellSize.y/2, 0);
-                    trans.sizeDelta = new Vector2(padding*2f + 15, tileSize.y);
+                    trans.sizeDelta = new Vector2(padding*2f + 15, tileSize.x);
                 } else if(tile.downBridge != null) 
                     tile.downBridge.gameObject.SetActive(false);
             }
+        }
+
+        public void OnLongTouched(){
+            Debug.Log("Block Long Touched!");
+            // backPack.OnBlockClicked(this);
+        }
+
+        public void OnClicked(){
+            Debug.Log("Block Clicked!");
+            backPack.OnBlockClicked(this);
         }
     }
 }

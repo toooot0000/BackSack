@@ -1,14 +1,9 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Components.Stages{
-    
-    [RequireComponent(typeof(Collider2D))]
-    public class ClickHandler: MonoBehaviour, IPointerDownHandler, IPointerUpHandler{
+namespace Components.UI.Common{
+    public abstract class LongTouchDetector: MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerMoveHandler{
         public float longTouchTime = 0.5f;
-        public Stage stage;
-        public Action<Vector2Int> Action = null;
         public Camera cmr;
         
         private float _curTime = 0;
@@ -19,15 +14,12 @@ namespace Components.Stages{
             if (!_countDown) return;
             _curTime -= Time.deltaTime;
             if (!(_curTime <= 0)) return;
-            Action?.Invoke(GetStagePosition());
+            OnLongTouch();
             _countDown = false;
         }
 
-        private Vector2Int GetStagePosition(){
-            var worldPosition = cmr!.ScreenToWorldPoint(_mousePosition);
-            return stage.WorldToStagePosition(worldPosition);
-        }
-        
+        protected abstract void OnLongTouch();
+
         public void OnPointerUp(PointerEventData eventData){
             _countDown = false;
         }
@@ -36,6 +28,10 @@ namespace Components.Stages{
             _curTime = longTouchTime;
             _countDown = true;
             _mousePosition = eventData.position;
+        }
+
+        public void OnPointerMove(PointerEventData eventData){
+            if (_countDown) _countDown = false;
         }
     }
 }

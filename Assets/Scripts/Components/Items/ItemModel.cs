@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Components.Attacks;
 using Components.Effects;
 using Components.Items.Animations;
 using MVC;
 using UnityEngine;
+using Utility.Extensions;
 using Utility.Loader.Attributes;
 using Object = UnityEngine.Object;
 
@@ -27,5 +29,21 @@ namespace Components.Items{
         public abstract Predicate<IEffectConsumer> Predicate{ get; }
         public virtual Func<IEffectConsumer, List<IEffectConsumer>> Reducer{ get; } = null;
         public abstract int TargetNum{ get; } // TargetNum == 0: 锁定目标范围内所有敌人
+    }
+
+
+    public static class EnumerableExtensions{
+        public static IEnumerable<Vector2Int> Rotate(this IEnumerable<Vector2Int> src, Vector2Int direction){
+            if (direction == ItemModel.DefaultDirection){
+                return src;
+            }
+            if(direction == ItemModel.DefaultDirection * -1){
+                return src.Select(v => -v);
+            }
+            if (direction.IsClockwiseLess(ItemModel.DefaultDirection)){
+                return src.Select(v => v.Rotate90DegAntiClockwise());
+            }
+            return src.Select(v => v.Rotate90DegClockwise());
+        }
     }
 }

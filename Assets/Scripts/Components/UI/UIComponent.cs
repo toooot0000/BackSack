@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace UI{
+namespace Components.UI{
     public abstract class UIComponent: MonoBehaviour{
 
-        private void Awake(){
+        protected virtual void Awake(){
             UIManager.Shared.RegisterComponent(this);
         }
         public abstract void Hide();

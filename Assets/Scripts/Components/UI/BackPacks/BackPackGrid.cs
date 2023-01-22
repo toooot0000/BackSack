@@ -14,11 +14,16 @@ namespace Components.UI.BackPacks{
         }
 
         public void ResizeAll(){
-            var size = (transform as RectTransform)!.rect.size;
-            grid.cellSize = new Vector3(size.x / gridWidth, size.y / gridHeight);
-            var localPosition = grid.transform.localPosition;
-            if ((gridWidth & 1) == 1) localPosition.x -= grid.cellSize.x / 2;
-            if ((gridHeight & 1) == 1) localPosition.y -= grid.cellSize.y / 2;
+            var oriSize = (transform as RectTransform)!.rect.size;
+            var size = new Vector2(oriSize.x / gridWidth, oriSize.y / gridHeight);
+            var minLen = Mathf.Min(size.x, size.y);
+            var rectTrans = (grid.transform as RectTransform)!;
+            rectTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, minLen * gridWidth);
+            rectTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, minLen * gridHeight);
+            grid.cellSize = new Vector3(minLen, minLen);
+            var localPosition = rectTrans.localPosition;
+            if ((gridWidth & 1) == 1) localPosition.x -= minLen / 2;
+            if ((gridHeight & 1) == 1) localPosition.y -= minLen / 2;
             grid.transform.localPosition = localPosition;
         }
         
