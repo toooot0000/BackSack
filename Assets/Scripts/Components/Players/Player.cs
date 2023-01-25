@@ -6,6 +6,7 @@ using System.Linq;
 using Components.Attacks;
 using Components.BackPacks;
 using Components.Effects;
+using Components.Grounds.Effects;
 using Components.Items;
 using Components.Items.Animations;
 using Components.TileObjects.BattleObjects;
@@ -41,7 +42,7 @@ namespace Components.Players{
 
         public CoroutineEffect UseItemWithDirection(ItemModel weaponModel, Direction direction){
             var attack = GetAttackWithWeapon(weaponModel, direction);
-            if (!attack.Targets.Any()) return null;
+            if (!attack.Targets.Any() && attack.EffectTemplate is not ICreateNewGround) return null;
             return attack.ToCoroutineEffect();
         }
 
