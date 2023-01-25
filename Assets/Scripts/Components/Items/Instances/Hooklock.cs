@@ -5,6 +5,7 @@ using Components.Effects;
 using Components.TileObjects.Effects;
 using MVC;
 using UnityEngine;
+using Utility.Extensions;
 
 namespace Components.Items.Instances{
     public class Hooklock: WeaponModel, IForceMovement, IDamage, IEffectTemplate{
@@ -21,7 +22,7 @@ namespace Components.Items.Instances{
         public IController Source{ get; set; }
         public IEffect ToEffect() => this;
         public int Force{ get; } = 10;
-        public Vector2Int Direction{ get; set; }
+        public Direction Direction{ get; set; }
         public bool Pulling{ get; } = true;
 
         public int Point{ set; get; } = 1;

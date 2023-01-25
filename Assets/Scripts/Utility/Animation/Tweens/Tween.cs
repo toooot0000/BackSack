@@ -20,7 +20,7 @@ namespace Utility.Animation.Tweens{
         protected virtual void Update(){
             if (IsPaused) return;
             _curTime += IsReversing ? -Time.deltaTime : Time.deltaTime;
-            OnTimerUpdate( _curTime / totalTime);
+            OnTimerUpdate( Mathf.Clamp(_curTime / totalTime, 0, 1));
             if(0 < _curTime && _curTime < totalTime)  return;
             if (!repeat){
                 IsPaused = true;
@@ -64,8 +64,10 @@ namespace Utility.Animation.Tweens{
         public void Reverse(){
             IsReversing = !IsReversing;
         }
-        
-        /// <summary>
+
+        public float CurrentTime => _curTime;
+
+            /// <summary>
         /// If Tween is repeating, IsFinished is always false.
         /// </summary>
         public bool IsComplete => !repeat && !IsReversing && _curTime.AlmostEquals(totalTime);

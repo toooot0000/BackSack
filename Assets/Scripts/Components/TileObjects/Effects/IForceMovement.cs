@@ -2,6 +2,7 @@
 using Components.TileObjects.ForceMovables;
 using MVC;
 using UnityEngine;
+using Utility.Extensions;
 
 namespace Components.TileObjects.Effects{
     public interface IForceMovement: IEffect {
@@ -12,7 +13,7 @@ namespace Components.TileObjects.Effects{
         /// <summary>
         /// Moving direction; set when searching enemy;
         /// </summary>
-        Vector2Int Direction{ set; get; }
+        Direction Direction{ set; get; }
         /// <summary>
         /// Pulling or pushing?
         /// </summary>
@@ -26,7 +27,7 @@ namespace Components.TileObjects.Effects{
         }
         public int Force{ get; }
         
-        public Vector2Int Direction{ get; set; }
+        public Direction Direction{ get; set; }
         public bool Pulling{ get; }
         public IEffectConsumer Target{ set; get; } = null;
         public IController Source{ set; get; } = null;

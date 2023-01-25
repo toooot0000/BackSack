@@ -1,19 +1,17 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Tilemaps;
-using Utility.Extensions;
+﻿using UnityEngine;
+using Utility;
 
-namespace Components.UI.BackPacks{
+namespace Components.BackPacks.UI.Panels{
     public class BackPackGrid: MonoBehaviour{
         public Grid grid;
-        public int gridWidth;
-        public int gridHeight;
+        public Bindable<int> gridWidth;
+        public Bindable<int> gridHeight;
 
         private void Start(){
-            ResizeAll();
+            Resize();
         }
 
-        public void ResizeAll(){
+        public void Resize(){
             var oriSize = (transform as RectTransform)!.rect.size;
             var size = new Vector2(oriSize.x / gridWidth, oriSize.y / gridHeight);
             var minLen = Mathf.Min(size.x, size.y);

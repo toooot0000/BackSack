@@ -24,22 +24,22 @@ namespace Utility.Extensions{
         /// </summary>
         /// <param name="vec"></param>
         /// <returns></returns>
-        public static Vector2Int AlignedDirection(this Vector2 vec){
-            if (vec.magnitude == 0) return Vector2Int.zero;
+        public static Direction AlignedDirection(this Vector2 vec){
+            if (vec.magnitude == 0) return Direction.Null;
             vec = vec.Rotated(-45);
             if (vec.x > 0){
                 if (vec.y > 0)
-                    return Vector2Int.up;
-                return Vector2Int.right;
+                    return Direction.Up;
+                return Direction.Right;
             }
 
             if (vec.y > 0)
-                return Vector2Int.left;
-            return Vector2Int.down;
+                return Direction.Left;
+            return Direction.Down;
         }
 
         public static Vector2 Aligned(this Vector2 vec){
-            var dir = AlignedDirection(vec);
+            var dir = AlignedDirection(vec).ToVector2Int();
             return vec.magnitude * new Vector2(dir.x, dir.y);
         }
         

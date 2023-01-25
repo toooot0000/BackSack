@@ -1,9 +1,11 @@
-﻿using Components.TileObjects.Tweens;
+﻿using Components.TileObjects.Movables;
+using Components.TileObjects.Tweens;
 using UnityEngine;
 using Utility.Animation;
+using Utility.Extensions;
 
 namespace Components.TileObjects.ForceMovables{
-    public interface IForceMovableView : ITileObjectView{
+    public interface IForceMovableView : IMovableView{
         
     }
     
@@ -18,9 +20,9 @@ namespace Components.TileObjects.ForceMovables{
             transform.position = targetPosition;
         }
 
-        public void BumpToUnsteppable(Vector2Int direction){
+        public void BumpToUnsteppable(Direction direction){
             Play(TileObjectAnimation.Bump, new Bump.Argument(){
-                Direction = direction
+                Direction = direction.ToVector2Int()
             });
         }
     }

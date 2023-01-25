@@ -508,6 +508,7 @@ MonoBehaviour:
   hider: {fileID: 275498371}
   blockPrefab: {fileID: 254976274665475377, guid: ef35557da41603f4b9e67d28c979f5a9, type: 3}
   grid: {fileID: 2103806615}
+  backPack: {fileID: 1336642782}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,7 +955,7 @@ MonoBehaviour:
   player: {fileID: 1336642767}
   stage: {fileID: 2042807071}
   selectMap: {fileID: 556860017}
-  backPack: {fileID: 275498372}
+  backPackPanel: {fileID: 275498372}
   directionSelectManager: {fileID: 1401290933}
 --- !u!114 &1035943762
 MonoBehaviour:
@@ -1085,7 +1086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3218e3bc03038df4fa2f6783f90cdb18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowContainer: {fileID: 0}
+  windowContainer: {fileID: 1958484796}
 --- !u!1 &1082848017
 GameObject:
   m_ObjectHideFlags: 0
@@ -1463,6 +1464,7 @@ GameObject:
   - component: {fileID: 1336642781}
   - component: {fileID: 1336642780}
   - component: {fileID: 1336642779}
+  - component: {fileID: 1336642782}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1788,6 +1790,18 @@ MonoBehaviour:
   totalTime: 0.2
   repeat: 0
   root: {fileID: 1336642766}
+--- !u!114 &1336642782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336642766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f8e35d1906401ebd003e5402d4fd49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1401290930
 GameObject:
   m_ObjectHideFlags: 0
@@ -2195,8 +2209,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 2103806614}
-  gridWidth: 4
-  gridHeight: 3
 --- !u!1001 &2856480127206993718
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,8 +1,7 @@
-﻿using Components.UI.Common;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Components.UI.BackPacks{
+namespace Components.BackPacks.UI.Panels{
     public class ItemTile: MonoBehaviour, IPointerClickHandler{
         public ItemBridge rightBridge;
         public ItemBridge downBridge;

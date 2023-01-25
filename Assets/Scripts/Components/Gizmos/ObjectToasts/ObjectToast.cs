@@ -14,12 +14,19 @@ namespace Components.Gizmos.ObjectToasts{
         private Vector3 _endPosition;
         private Color _startColor;
         private Color _endColor;
+        private ObjectToast _prev;
+
+        public float TargetPosition => _prev == null || !_prev.gameObject.activeSelf
+            ? initDistance
+            : _prev.transform.localPosition.y + ((RectTransform)_prev.transform).sizeDelta.y; 
         
-        public void Show(string message, Color start, Color end){
-            _startPosition = Vector3.zero;
-            _endPosition = new Vector3(0, initDistance, 0);
+        public void Show(string message, Color start, Color end, ObjectToast prev = null){
+            var position = transform.position;
+            _startPosition = new Vector3(0, 0, position.z);
+            _endPosition = new Vector3(0, initDistance, position.z);
             _startColor = start;
             _endColor = end;
+            _prev = prev;
             text.text = message;
             Replay();
         }
@@ -34,6 +41,7 @@ namespace Components.Gizmos.ObjectToasts{
         }
 
         protected override void OnTimerUpdate(float i){
+            _endPosition.y = TargetPosition;
             transform.localPosition = Vector3.Lerp(_startPosition, _endPosition, floatingCurve.Evaluate(i));
             text.color = Color.Lerp(_startColor, _endColor, colorCurve.Evaluate(i));
             text.alpha = alphaCurve.Evaluate(i);

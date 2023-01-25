@@ -3,6 +3,7 @@ using Components.Stages;
 using Components.TileObjects;
 using MVC;
 using UnityEngine;
+using Utility.Extensions;
 
 namespace Components.TreasureBoxes{
     public class TreasureBox: TileObject, ITileObjectView{
@@ -25,7 +26,7 @@ namespace Components.TreasureBoxes{
             throw new System.NotImplementedException();
         }
 
-        public void BumpToUnsteppable(Vector2Int direction){
+        public void BumpToUnsteppable(Direction direction){
             throw new System.NotImplementedException();
         }
 

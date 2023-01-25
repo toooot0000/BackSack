@@ -40,7 +40,7 @@ namespace Components.TileObjects.ForceMovables{
         public virtual IEffect Consume(IForceMovement effect){
             var distance = GetForceDistance(effect);
             if (distance == 0) return null;
-            var direction = effect.Direction;
+            var direction = effect.Direction.ToVector2Int();
             for (var i = 1; i <= distance; i++){
                 var curPos = m_GetModel().CurrentStagePosition + direction * i;
                 IEffect side;

@@ -7,10 +7,10 @@ using Utility.Extensions;
 namespace Components.TileObjects.Movables{
     public class Movable: TileObject, IMovable{
         
-        public IEffect Move(Vector2Int direction){
-            var dest = m_GetModel().CurrentStagePosition + direction;
+        public IEffect Move(Direction direction){
+            var dest = m_GetModel().CurrentStagePosition + direction.ToVector2Int();
             if (CanMoveToPosition(dest)) return MoveTo(dest);
-            m_GetView().BumpToUnsteppable(direction.AlignedDirection());
+            m_GetView().BumpToUnsteppable(direction);
             return null;
         }
 
@@ -42,6 +42,6 @@ namespace Components.TileObjects.Movables{
         }
         
         private ITileObjectModel m_GetModel() => Model as ITileObjectModel;
-        private ITileObjectView m_GetView() => view as ITileObjectView;
+        private IMovableView m_GetView() => view as IMovableView;
     }
 }

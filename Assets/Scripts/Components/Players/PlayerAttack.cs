@@ -16,7 +16,7 @@ namespace Components.Players{
     public class PlayerAttack : IAttack{
         public PlayerAttack(
             Player attacker,
-            Vector2Int direction,
+            Direction direction,
             Vector2Int[] targetPositions,
             ItemModel item
         ){
@@ -29,7 +29,7 @@ namespace Components.Players{
             Direction = direction;
         }
 
-        public readonly Vector2Int Direction;
+        public readonly Direction Direction;
         
         public readonly ItemModel ItemModel;
 

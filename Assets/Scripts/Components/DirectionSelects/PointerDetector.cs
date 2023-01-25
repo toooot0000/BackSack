@@ -8,9 +8,8 @@ namespace Components.DirectionSelects{
     [RequireComponent(typeof(Collider2D))]
     public class PointerDetector: MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerMoveHandler{
 
-        public event Action<Vector2Int> DirectionConfirmed;
-        public event Action<Vector2Int> DirectionChanged;
-        public event Action<Vector2Int> DirectionInit; 
+        public event Action<Direction> DirectionConfirmed;
+        public event Action<Direction> DirectionChanged;
 
         private Collider2D _collider2D;
         public Camera main;
@@ -53,7 +52,7 @@ namespace Components.DirectionSelects{
             _curDir = newDir;
         }
 
-        private Vector2Int _curDir;
+        private Direction _curDir;
 
         public void OnPointerMove(PointerEventData eventData){
             if (!_isDown) return;

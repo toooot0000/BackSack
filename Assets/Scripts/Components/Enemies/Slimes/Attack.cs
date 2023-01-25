@@ -8,6 +8,7 @@ using Components.Enemies.Intentions;
 using Components.SelectMaps;
 using Components.TileObjects;
 using UnityEngine;
+using Utility.Extensions;
 
 namespace Components.Enemies.Slimes{
     public class Attack: IEnemyIntention, IEnemyAttack{
@@ -44,11 +45,11 @@ namespace Components.Enemies.Slimes{
         public IAttackAnimator AttackAnimator;
         public IAttackAnimator GetAnimator() => AttackAnimator;
 
-        private Vector2Int _dir;
-        public Vector2Int Direction{
+        private Direction _dir;
+        public Direction Direction{
             set{
                 _dir = value;
-                TargetPositions = new[]{ value + _enemy.GetStagePosition() };
+                TargetPositions = new[]{ value.ToVector2Int() + _enemy.GetStagePosition() };
             }
             get => _dir;
         }

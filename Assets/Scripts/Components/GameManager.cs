@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Components.BackPacks.UI.Panels;
 using Components.Buffs;
 using Components.Buffs.Triggers;
 using Components.DirectionSelects;
@@ -15,9 +16,9 @@ using Components.TileObjects;
 using Components.TileObjects.Automate;
 using Components.TileObjects.Movables;
 using Components.UI;
-using Components.UI.BackPacks;
 using MVC;
 using UnityEngine;
+using Utility.Extensions;
 
 namespace Components{
     /// <summary>
@@ -38,7 +39,7 @@ namespace Components{
         public Player player;
         public Stage stage;
         public SelectMap selectMap;
-        public BackPack backPack;
+        public BackPackPanel backPackPanel;
         public DirectionSelectManager directionSelectManager;
 
 
@@ -86,9 +87,9 @@ namespace Components{
             } else if (Input.GetKeyUp(KeyCode.Space)){
                 _allActionFinished = true;
             } else if (Input.GetKeyUp(KeyCode.Z)){
-                StartCoroutine(PropagateEffect(player.UseItemWithDirection(new Sword(), Vector2Int.right)));
+                StartCoroutine(PropagateEffect(player.UseItemWithDirection(new Sword(), Direction.Right)));
             } else if (Input.GetKeyUp(KeyCode.X)){
-                StartCoroutine(PropagateEffect(player.UseItemWithDirection(new Hooklock(), Vector2Int.right)));
+                StartCoroutine(PropagateEffect(player.UseItemWithDirection(new Hooklock(), Direction.Left)));
             } else if (Input.GetKeyUp(KeyCode.C)){
                 StartCoroutine(EnemiesActs());
             } else if (Input.GetKeyUp(KeyCode.V)){
@@ -101,15 +102,17 @@ namespace Components{
             } else if (Input.GetKeyUp(KeyCode.N)){
                 selectMap.Pop();
             } else if (Input.GetKeyUp(KeyCode.M)){
-                backPack.AddBlock(new Sword(), Vector2Int.one, Vector2Int.left);
+                backPackPanel.AddBlock(new Sword(), Vector2Int.one, Vector2Int.left);
+            } else if (Input.GetKeyUp(KeyCode.Q)){
+                player.backPack.AddItem(new Sword(), Direction.Left, Vector2Int.one);
             }
         }
 
         private void MovePlayer(Vector2Int direction){
-            MoveTileObject(player, direction);
+            MoveTileObject(player, direction.AlignedDirection());
         }
 
-        private void MoveTileObject(IMovable tileObject, Vector2Int direction){
+        private void MoveTileObject(IMovable tileObject, Direction direction){
             StartCoroutine(PropagateEffect(tileObject.Move(direction)));
         }
 
@@ -258,12 +261,12 @@ namespace Components{
             }
         }
 
-        private IEnumerator PlayerUseItemWithDirectionCoroutine(ItemModel item, Vector2Int direction){
+        private IEnumerator PlayerUseItemWithDirectionCoroutine(ItemModel item, Direction direction){
             yield return PropagateEffect(player.UseItemWithDirection(item, direction));
             // Perhaps advance phase;
         }
 
-        public void PlayerUseItemWithDirection(ItemModel weapon, Vector2Int direction){
+        public void PlayerUseItemWithDirection(ItemModel weapon, Direction direction){
             UIManager.Shared.ShowAllComponents();
             StartCoroutine(PlayerUseItemWithDirectionCoroutine(weapon, direction));
         }

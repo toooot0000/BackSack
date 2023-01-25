@@ -14,12 +14,11 @@ namespace Components.Items{
     [Table("items")]
     public abstract class ItemModel: SelfSetUpModel{
         
-        public static readonly Vector2Int DefaultDirection = Vector2Int.right;
+        public static readonly Direction DefaultDirection = Direction.Right;
         public Vector2Int[] TakeUpRange;
         
         [Key("icon")]
         public string IconPath;
-        public Vector2Int RotateDirection = Vector2Int.up;
         public abstract IEffectTemplate EffectTemplate{ get; }
         
         [Key("animator")]
@@ -33,11 +32,13 @@ namespace Components.Items{
 
 
     public static class EnumerableExtensions{
-        public static IEnumerable<Vector2Int> Rotate(this IEnumerable<Vector2Int> src, Vector2Int direction){
+
+        public static IEnumerable<Vector2Int> Rotate(this IEnumerable<Vector2Int> src, Direction direction){
+            
             if (direction == ItemModel.DefaultDirection){
                 return src;
             }
-            if(direction == ItemModel.DefaultDirection * -1){
+            if(direction == ItemModel.DefaultDirection.Opposite()){
                 return src.Select(v => -v);
             }
             if (direction.IsClockwiseLess(ItemModel.DefaultDirection)){

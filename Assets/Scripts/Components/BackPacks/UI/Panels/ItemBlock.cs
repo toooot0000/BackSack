@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Components.Items;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Utility.Extensions;
 
-namespace Components.UI.BackPacks{
+namespace Components.BackPacks.UI.Panels{
     public class ItemBlock: MonoBehaviour{
         private ItemModel _item;
         public Image icon;
@@ -21,7 +19,7 @@ namespace Components.UI.BackPacks{
         public Transform tileRoot;
         public Transform bridgeRoot;
 
-        public BackPack backPack; 
+        public BackPackPanel backPackPanel; 
 
 
         public ItemModel Item{
@@ -123,12 +121,12 @@ namespace Components.UI.BackPacks{
 
         public void OnLongTouched(){
             Debug.Log("Block Long Touched!");
-            // backPack.OnBlockClicked(this);
+            
         }
 
         public void OnClicked(){
             Debug.Log("Block Clicked!");
-            backPack.OnBlockClicked(this);
+            backPackPanel.OnBlockClicked(this);
         }
     }
 }

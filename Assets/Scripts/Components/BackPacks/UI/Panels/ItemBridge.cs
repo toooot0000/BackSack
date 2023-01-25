@@ -1,8 +1,7 @@
-﻿using Components.UI.Common;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Components.UI.BackPacks{
+namespace Components.BackPacks.UI.Panels{
     public class ItemBridge: MonoBehaviour, IPointerClickHandler{
         public ItemBlock block;
         // protected override void OnLongTouch(){

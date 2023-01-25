@@ -28,14 +28,14 @@ namespace Components.DirectionSelects{
             enabled = true;
         }
 
-        private void Select(Vector2Int direction){
+        private void Select(Direction direction){
             GameManager.Shared.PlayerUseItemWithDirection(_item, direction);
             enabled = false;
         }
 
-        private void OnDirectionChanged(Vector2Int direction){
+        private void OnDirectionChanged(Direction direction){
             if (_item == null) return;
-            tileManager.DisableAll();
+            tileManager.DisableAllTiles();
             foreach (var position in _item.Range.Rotate(direction)){
                 var stagePosition = position + Player.GetStagePosition();
                 tileManager.AddTargetInfoTile(new TargetInfoTileOption(){

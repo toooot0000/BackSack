@@ -1,10 +1,11 @@
 ﻿using Components.Effects;
 using Components.SelectMaps;
 using UnityEngine;
+using Utility.Extensions;
 
 namespace Components.Enemies.Intentions.Instances{
     public class MoveIntention: IEnemyIntention{
-        public Vector2Int Direction;
+        public Direction Direction;
         private readonly Enemy _enemy;
         public MoveIntention(Enemy enemy){
             _enemy = enemy;
@@ -15,7 +16,7 @@ namespace Components.Enemies.Intentions.Instances{
 
         public void Label(SelectMap map){
             map.AddNewTile(new SelectMapTileOptions(
-                Direction + _enemy.GetStagePosition(), 
+                Direction.ToVector2Int() + _enemy.GetStagePosition(), 
                 Color.cyan,
                 SelectMapIcon.Move
             ));

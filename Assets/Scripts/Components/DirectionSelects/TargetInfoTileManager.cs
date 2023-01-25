@@ -35,7 +35,11 @@ namespace Components.DirectionSelects{
             }
         }
 
-        public void DisableAll(){
+        private void OnDisable(){
+            DisableAllTiles();
+        }
+
+        public void DisableAllTiles(){
             foreach (var tile in _tiles){
                 tile.enabled = false;
             }
