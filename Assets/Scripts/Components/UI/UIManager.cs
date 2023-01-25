@@ -1,4 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Components.UI.Attributes;
 using UnityEngine;
 using Utility;
 
@@ -15,25 +19,14 @@ namespace Components.UI{
         private readonly List<UIComponent> _components = new();
         public GameObject windowContainer;
 
-        public event UIWindowDelegate OnLoad; // right after load a ui;
-        public event UIWindowDelegate OnOpen; // Right after ui is opened;
-        public event UIWindowDelegate OnClose; // Right after ui is closed;
+        public event UIWindowDelegate WindowLoaded; // right after load a ui;
 
         private void Awake(){
             if (Shared) Destroy(this);
             Shared = this;
         }
 
-        private UIWindow OpenUI(string uiPrefabName){
-            
-            // Find the ui already opened
-            var cur = _windows.Find(uiBase => uiBase.name == uiPrefabName);
-            if (cur != null){
-                _windows.Remove(cur);
-                _windows.Add(cur);
-                return cur;
-            }
-
+        private UIWindow LoadUI(string uiPrefabName){
             // Loading Prefab
             var ui = Resources.Load<GameObject>($"{ResourcesFolder}{uiPrefabName}");
             if (ui == null){
@@ -41,32 +34,59 @@ namespace Components.UI{
                 return null;
             }
             ui = Instantiate(ui, windowContainer.transform);
-            cur = ui.GetComponent<UIWindow>();
-            if (cur == null){
+            var ret = ui.GetComponent<UIWindow>();
+            if (ret == null){
                 Debug.LogError($"UI prefab doesn't have UIBase component! PrefabName = {uiPrefabName}");
                 return null;
             }
-            OnLoad?.Invoke(cur);
-
-            _windows.Add(cur);
-            cur.OnClose += RemoveUI;
-            StartCoroutine(CoroutineUtility.Delayed(() => {
-                cur.Open();
-                OnOpen?.Invoke(cur);
-            }));
-            return cur;
-        }
-
-        public T OpenUI<T>(string uiPrefabName, IUISetUpOptions<T> arg = null) where T : UIWindow{
-            var ret = OpenUI(uiPrefabName) as T;
-            if (ret == null) return null;
-            arg?.ApplyOptions(ret);
             return ret;
         }
 
-        private void RemoveUI(UIWindow uiWindow){
-            OnClose?.Invoke(uiWindow);
-            _windows.Remove(uiWindow);
+        public T Open<T>(UIOpenOption<T> arg) where T : UIWindow{
+            var ret = _windows.OfType<T>().FirstOrDefault();
+            if (ret != null){
+                Elevate(ret);
+                if (ret.gameObject.activeSelf) return ret;
+                ret.gameObject.SetActive(true);
+                ret.Open();
+                return ret;
+            }
+            ret = LoadUI(GetPrefabName(typeof(T))) as T;
+            if (ret == null) return null;
+            _windows.Add(ret);
+
+            if (arg != null){
+                arg.WindowOptions?.ApplyOptions(ret);
+                if(arg.HideComponents) HideAllComponents();
+            }
+            
+            WindowLoaded?.Invoke(ret);
+            ret.Closed += RemoveUI;
+            ret.Open();
+            return ret;
+        }
+
+
+        public T Open<T>(bool hideAllComps = true) where T : UIWindow{
+            return Open<T>(new UIOpenOption<T>(null){
+                HideComponents = true
+            });
+        }
+
+        private static string GetPrefabName(ICustomAttributeProvider uiWindowType){
+            var attr = (Prefab[])uiWindowType.GetCustomAttributes(typeof(Prefab), false);
+            if (attr.Length == 0){
+                throw new Exception($"UIWindow does not provide a prefab name! Type: {uiWindowType}");
+            }
+            return attr.FirstOrDefault()?.Name;
+        }
+        
+        private static void RemoveUI(UIWindow uiWindow){
+            uiWindow.gameObject.SetActive(false);
+        }
+
+        private void Elevate(Component window){
+            window.transform.SetAsLastSibling();
         }
         
         public void RegisterComponent(UIComponent component){

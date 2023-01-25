@@ -7,7 +7,10 @@ namespace Components.Buffs.BuffNames{
     public class BuffNameDisplay: MonoBehaviour{
         public ObjectToaster toaster;
         public void AddBuffNameDisplay(string buffName, bool add, Transform parent){
-            toaster.AddToast(add ? buffName : $"<s>{buffName}</s>", parent);
+            toaster.AddToast(add ? buffName : $"<s>{buffName}</s>", parent, new ToastOptions(){
+                Start = Color.red,
+                End = Color.red
+            });
         }
     }
 }

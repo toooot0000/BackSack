@@ -4,15 +4,10 @@ using UnityEngine;
 using Utility;
 
 namespace Components.UI{
-
-    public interface IUISetUpOptions<in T> where T: UIWindow{
-        void ApplyOptions(T window);
-    }
-    
     public abstract class UIWindow : MonoBehaviour{
 
         public static IEnumerator FadeIn(CanvasGroup canvasGroup, Action completion = null){
-            var coroutine = TweenUtility.Lerp(0.2f,
+            var coroutine = TweenUtility.Lerp(UIManager.UITransitionTime,
                 () => canvasGroup.alpha = 0,
                 i => canvasGroup.alpha = i,
                 completion
@@ -21,24 +16,27 @@ namespace Components.UI{
         }
 
         public static IEnumerator FadeOut(CanvasGroup canvasGroup, Action completion = null){
-            var coroutine = TweenUtility.Lerp(0.2f,
+            var coroutine = TweenUtility.Lerp(UIManager.UITransitionTime,
                 () => canvasGroup.alpha = 1,
                 i => canvasGroup.alpha = 1 - i,
                 completion);
             yield return coroutine();
         }
-        
-        public virtual string Name => "Base";
 
         public virtual void Open(){
-            OnOpen?.Invoke(this);
+            Opened?.Invoke(this);
+            OnOpen();
         }
 
         public virtual void Close(){
-            OnClose?.Invoke(this);
+            Closed?.Invoke(this);
+            OnClose();
         }
 
-        public event UIWindowDelegate OnOpen;
-        public event UIWindowDelegate OnClose;
+        protected abstract void OnOpen();
+        protected abstract void OnClose();
+
+        public event UIWindowDelegate Opened;
+        public event UIWindowDelegate Closed;
     }
 }

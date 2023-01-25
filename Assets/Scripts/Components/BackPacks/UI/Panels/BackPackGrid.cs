@@ -6,6 +6,7 @@ namespace Components.BackPacks.UI.Panels{
         public Grid grid;
         public Bindable<int> gridWidth;
         public Bindable<int> gridHeight;
+        private Vector3? _oriPosition;
 
         private void Start(){
             Resize();
@@ -19,10 +20,11 @@ namespace Components.BackPacks.UI.Panels{
             rectTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, minLen * gridWidth);
             rectTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, minLen * gridHeight);
             grid.cellSize = new Vector3(minLen, minLen);
-            var localPosition = rectTrans.localPosition;
+            _oriPosition ??= rectTrans.localPosition;
+            var localPosition = _oriPosition.Value;
             if ((gridWidth & 1) == 1) localPosition.x -= minLen / 2;
             if ((gridHeight & 1) == 1) localPosition.y -= minLen / 2;
-            grid.transform.localPosition = localPosition;
+            rectTrans.localPosition = localPosition;
         }
         
         public Vector3 GridToWorldPosition(Vector2Int gridPosition){

@@ -106,5 +106,13 @@ namespace Components.BackPacks{
             RowNum.Set(newRow);
             ColNum.Set(newCol);
         }
+
+        public void SetItemPosition(ItemModel item, Vector2Int position){
+            // TODO
+        }
+
+        public void RotateItem(ItemModel item, Direction direction){
+            // TODO
+        }
     }
 }
