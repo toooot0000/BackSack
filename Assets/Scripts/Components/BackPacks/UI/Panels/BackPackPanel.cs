@@ -35,22 +35,29 @@ namespace Components.BackPacks.UI.Panels{
         }
 
         private void AddBlock(BackPackItemWrapper item){
-            AddBlock(item.Item, item.PlacePosition, item.PlaceDirection.ToVector2Int());
+            AddBlock(item.Item, item.PlacePosition, item.PlaceDirection);
         }
 
-        public void AddBlock(ItemModel item, Vector2Int stagePosition, Vector2Int? direction = null){
-            if(direction == null) direction = Vector2Int.right;
+        public void AddBlock(ItemModel item, Vector2Int stagePosition, Direction direction){
             var block = _blocks.FirstNotActiveOrNew(MakeNew);
             block.Item = item;
-            block.transform.position = grid.StageToWorldPosition(stagePosition);
-            var angle = Vector2.Angle(direction.Value, Vector2.right);
-            block.transform.rotation = Quaternion.Euler(0, 0, angle);
+            SetBlockPosition(block, stagePosition);
+            SetBlockRotation(block, direction);
             block.backPackPanel = this;
+        }
+
+        private void SetBlockPosition(ItemBlock block, Vector2Int stagePosition) {
+            block.transform.position = grid.StageToWorldPosition(stagePosition);
+        }
+
+        private void SetBlockRotation(ItemBlock block, Direction direction) {
+            var angle = Vector2.Angle(direction.ToVector2Int(), Vector2.right);
+            block.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
 
         private void RemoveBlock(BackPackItemWrapper item){
             foreach (var block in _blocks){
-                if (!Equals(item, block.Item)) continue;
+                if (item.Item != block.Item) continue;
                 block.enabled = false;
                 block.gameObject.SetActive(false);
             }

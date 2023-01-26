@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Codice.Utils;
 using Components.UI.Attributes;
 using UnityEngine;
 using Utility;
@@ -42,47 +43,61 @@ namespace Components.UI{
             return ret;
         }
 
-        public T Open<T>(UIOpenOption<T> arg) where T : UIWindow{
-            var ret = _windows.OfType<T>().FirstOrDefault();
-            if (ret != null){
-                Elevate(ret);
-                if (ret.gameObject.activeSelf) return ret;
-                ret.gameObject.SetActive(true);
-                ret.Open();
-                return ret;
+        public T Open<T>(UIOpenOption<T> arg = null) where T : UIWindow{
+            if (arg != null && arg.ReuseExisted) {
+                var reused = TryReuseWindow(arg);
+                if (reused != null) return reused;
             }
-            ret = LoadUI(GetPrefabName(typeof(T))) as T;
+            var ret = LoadUI(GetPrefabName(typeof(T))) as T;
             if (ret == null) return null;
             _windows.Add(ret);
-
-            if (arg != null){
-                arg.WindowOptions?.ApplyOptions(ret);
-                if(arg.HideComponents) HideAllComponents();
-            }
-            
-            WindowLoaded?.Invoke(ret);
-            ret.Closed += RemoveUI;
-            ret.Open();
+            ret.Closed += OnWindowClosed;
+            OpenWindow(ret, arg?.BeforeOpen, arg);
             return ret;
         }
 
-
-        public T Open<T>(bool hideAllComps = true) where T : UIWindow{
-            return Open<T>(new UIOpenOption<T>(null){
-                HideComponents = true
-            });
+        private void OnWindowClosed<T>(T window) where T: UIWindow {
+            window.gameObject.SetActive(false);
+            foreach (var w in _windows) {
+                if (w.gameObject.activeSelf) return;
+            }
+            ShowAllComponents();
         }
 
-        private static string GetPrefabName(ICustomAttributeProvider uiWindowType){
+        public void CloseActive() {
+            // TODO
+        }
+
+        private T TryReuseWindow<T>(UIOpenOption<T> arg) where T : UIWindow {
+            var ret = _windows.OfType<T>().FirstOrDefault();
+            if (ret == null) return null;
+            ret.gameObject.SetActive(true);
+            ret.enabled = true;
+            ret.Closed += OnWindowClosed;
+            OpenWindow(ret, arg?.BeforeOpen, arg, arg?.Reopen ?? true);
+            return ret;
+        }
+
+        private void OpenWindow<T>(
+            T window, 
+            Action<T> openCallback, 
+            IUIWindowOptions<T> options, 
+            bool open = true
+        ) where T: UIWindow{
+            HideAllComponents();
+            Elevate(window);
+            options?.ApplyOptions(window);
+            openCallback?.Invoke(window);
+            if(open) window.Open();
+        }
+
+        private static string GetPrefabName(ICustomAttributeProvider uiWindowType) {
             var attr = (Prefab[])uiWindowType.GetCustomAttributes(typeof(Prefab), false);
-            if (attr.Length == 0){
+            if (attr.Length == 0) {
                 throw new Exception($"UIWindow does not provide a prefab name! Type: {uiWindowType}");
             }
+
             return attr.FirstOrDefault()?.Name;
-        }
-        
-        private static void RemoveUI(UIWindow uiWindow){
-            uiWindow.gameObject.SetActive(false);
         }
 
         private void Elevate(Component window){

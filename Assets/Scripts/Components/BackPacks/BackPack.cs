@@ -15,7 +15,9 @@ namespace Components.BackPacks{
         private readonly List<BackPackItemWrapper> _items = new();
 
         public event Action<BackPackItemWrapper> ItemAdded;
-        public event Action<BackPackItemWrapper> ItemRemoved; 
+        public event Action<BackPackItemWrapper> ItemRemoved;
+        public event Action<BackPackItemWrapper> ItemRotated;
+        public event Action<BackPackItemWrapper> ItemPositionChanged;
 
         public Bindable<int> RowNum = 3;
         public Bindable<int> ColNum = 3;
@@ -107,7 +109,12 @@ namespace Components.BackPacks{
             ColNum.Set(newCol);
         }
 
+        public BackPackItemWrapper GetWrapper(ItemModel item) {
+            return _items.FirstOrDefault(w => w.Item == item);
+        }
+
         public void SetItemPosition(ItemModel item, Vector2Int position){
+            
             // TODO
         }
 

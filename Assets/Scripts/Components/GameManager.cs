@@ -101,8 +101,6 @@ namespace Components{
                 selectMap.Stash();
             } else if (Input.GetKeyUp(KeyCode.N)){
                 selectMap.Pop();
-            } else if (Input.GetKeyUp(KeyCode.M)){
-                backPackPanel.AddBlock(new Sword(), Vector2Int.one, Vector2Int.left);
             } else if (Input.GetKeyUp(KeyCode.Q)){
                 player.backPack.AddItem(new Sword(), Direction.Left, Vector2Int.one);
             }

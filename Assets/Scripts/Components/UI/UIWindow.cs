@@ -23,20 +23,22 @@ namespace Components.UI{
             yield return coroutine();
         }
 
-        public virtual void Open(){
-            Opened?.Invoke(this);
+        public void Open(){
             OnOpen();
         }
-
-        public virtual void Close(){
-            Closed?.Invoke(this);
+        
+        /// <summary>
+        /// ONLY entry to close a window. Even Manager would call this function.
+        /// </summary>
+        public void Close(){
             OnClose();
+            Closed?.Invoke(this);
+            Closed = null;
         }
 
         protected abstract void OnOpen();
         protected abstract void OnClose();
 
-        public event UIWindowDelegate Opened;
         public event UIWindowDelegate Closed;
     }
 }
