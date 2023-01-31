@@ -34,13 +34,15 @@ namespace Components{
         private static GameManager _shared;
         public static GameManager Shared => _shared;
         public GameState State => Model.State;
+
+        [HideInInspector] 
+        public bool AllowPlayerInput = false;
     
     
         public Player player;
         public Stage stage;
         public SelectMap selectMap;
         public BackPackPanel backPackPanel;
-        public DirectionSelectManager directionSelectManager;
 
 
         private bool _isEnd = false;
@@ -76,36 +78,32 @@ namespace Components{
 
 
         private void Update(){
-            if (Input.GetKeyUp(KeyCode.UpArrow)){
-                MovePlayer(Vector2Int.up);
-            } else if (Input.GetKeyUp((KeyCode.LeftArrow))){
-                MovePlayer(Vector2Int.left);
-            } else if (Input.GetKeyUp(KeyCode.DownArrow)){
-                MovePlayer(Vector2Int.down);
-            } else if (Input.GetKeyUp(KeyCode.RightArrow)){
-                MovePlayer(Vector2Int.right);
-            } else if (Input.GetKeyUp(KeyCode.Space)){
-                _allActionFinished = true;
-            } else if (Input.GetKeyUp(KeyCode.Z)){
-                StartCoroutine(PropagateEffect(player.UseItemWithDirection(new Sword(), Direction.Right)));
-            } else if (Input.GetKeyUp(KeyCode.X)){
-                StartCoroutine(PropagateEffect(player.UseItemWithDirection(new Hooklock(), Direction.Left)));
-            } else if (Input.GetKeyUp(KeyCode.C)){
-                StartCoroutine(EnemiesActs());
-            } else if (Input.GetKeyUp(KeyCode.V)){
-                foreach (var enemy in IController.GetControllers<IAutomate>()){
-                    if(!enemy.IsActive) continue;
-                    enemy.ShowIntention(selectMap);
-                }
-            } else if (Input.GetKeyUp(KeyCode.B)){
-                selectMap.Stash();
-            } else if (Input.GetKeyUp(KeyCode.N)){
-                selectMap.Pop();
-            } else if (Input.GetKeyUp(KeyCode.M)){
-                backPackPanel.AddBlock(new Sword(), Vector2Int.one, Vector2Int.left);
-            } else if (Input.GetKeyUp(KeyCode.Q)){
+            TestInput();
+            GetInput();
+        }
+
+        private void TestInput(){
+            if (Input.GetKeyUp(KeyCode.Q)){
                 player.backPack.AddItem(new Sword(), Direction.Left, Vector2Int.one);
             }
+        }
+
+        private void GetInput(){
+            if (!AllowPlayerInput) return;
+            if (Input.GetKeyUp(KeyCode.UpArrow)){
+                MovePlayer(Vector2Int.up);
+                AllowPlayerInput = false;
+            } else if (Input.GetKeyUp((KeyCode.LeftArrow))){
+                MovePlayer(Vector2Int.left);
+                AllowPlayerInput = false;
+            } else if (Input.GetKeyUp(KeyCode.DownArrow)){
+                MovePlayer(Vector2Int.down);
+                AllowPlayerInput = false;
+            } else if (Input.GetKeyUp(KeyCode.RightArrow)){
+                MovePlayer(Vector2Int.right);
+                AllowPlayerInput = false;
+            }
+            if(!AllowPlayerInput) _allActionFinished = true;
         }
 
         private void MovePlayer(Vector2Int direction){
@@ -148,26 +146,22 @@ namespace Components{
 
         private IEnumerator _GameLoop(){
         
-            OtherTurnStarts();
+            yield return OtherTurnStarts();
             yield return new WaitUntil(_AdvancePhase);
         
             // Player turn starts
-            PlayerTurnStarts();
+            yield return PlayerTurnStarts();
             yield return new WaitUntil(_AdvancePhase);
         
             // Player input instruction 
-            yield return WaitForPlayerInput();
-        
-            // Process Player action
-            PlayerActs();
-            yield return new WaitUntil(_AdvancePhase);
-        
+            yield return WaitForPlayerAction();
+
             // Player turn ends
-            PlayerTurnEnds();
+            yield return PlayerTurnEnds();
             yield return new WaitUntil(_AdvancePhase);
         
             // Enemies' turns execute sequentially on the model layer, but performed in parallel on the view layer
-            EnemiesTurnStarts();
+            yield return EnemiesTurnStarts();
             yield return new WaitUntil(_AdvancePhase);
         
             // Perform actions;
@@ -175,10 +169,10 @@ namespace Components{
             yield return new WaitUntil(_AdvancePhase);
         
             // Enemies' turns ends?
-            EnemiesTurnEnds();
+            yield return EnemiesTurnEnds();
             yield return new WaitUntil(_AdvancePhase);
         
-            OtherTurnEnds();
+            yield return OtherTurnEnds();
             yield return new WaitUntil(_AdvancePhase);
         }
     
@@ -192,49 +186,80 @@ namespace Components{
             // blah blah TODO
         }
 
-        private void PlayerTurnStarts(){
+        private IEnumerator PlayerTurnStarts(){
             Debug.Log("Game Phase: Player turn starts!");
+            foreach (var buff in player.Buffs){
+                if (buff is IOnTurnBegin begin) yield return PropagateEffect(begin.OnTurnBegin(player));
+            }
+            _allActionFinished = true;
         }
 
-        private void PlayerActs(){
-            Debug.Log("Game Phase: Acting player action");
-        }
-
-        private void PlayerTurnEnds(){
+        private IEnumerator PlayerTurnEnds(){
             Debug.Log("Game Phase: Player turn ends");
             foreach (var playerBuff in player.GetBuffOfTrigger<IOnTurnEnd>()){
-                var effect = playerBuff.OnTurnEnd(player);
-                player.Consume(effect);
+                yield return PropagateEffect(playerBuff.OnTurnEnd(player));
             }
+            selectMap.Pop();
+            _allActionFinished = true;
         }
 
-        private IEnumerator WaitForPlayerInput(){
+        private IEnumerator WaitForPlayerAction(){
             Debug.Log("Game Phase: Wait for player instruction");
+            AllowPlayerInput = true;
+            _allActionFinished = false;
             yield return new WaitUntil(_AdvancePhase);
         }
 
-        private void EnemiesTurnStarts(){
+        private IEnumerator EnemiesTurnStarts(){
             Debug.Log("Game Phase: Other objects' turn start & calculate actions");
+            foreach (var floor in stage.GetFloors()){
+                if (floor.TileObject is not Enemy enemy) continue;
+                foreach (var buff in enemy.Buffs){
+                    if (buff is not IOnTurnBegin onTurnBegin) continue;
+                    yield return PropagateEffect(onTurnBegin.OnTurnBegin(enemy));
+                }
+            }
+            _allActionFinished = true;
         }
 
         private IEnumerator EnemiesActs(){
             Debug.Log("Game Phase: Other objects' actions");
-            foreach (var enemy in IController.GetControllers<IAutomate>()){
-                yield return PropagateEffect(enemy.DoAction());
+            foreach (var floor in stage.GetFloors()){
+                if (floor.TileObject is Enemy enemy){
+                    yield return PropagateEffect(enemy.DoAction());
+                }
             }
+
+            _allActionFinished = true;
         }
 
-        private void EnemiesTurnEnds(){
+        private IEnumerator EnemiesTurnEnds(){
             Debug.Log("Game Phase: Other objects' actions");
+            foreach (var floor in stage.GetFloors()){
+                if (floor.TileObject is not Enemy enemy) continue;
+                foreach (var buff in enemy.Buffs){
+                    if (buff is not IOnTurnEnd onTurnEnd) continue;
+                    yield return PropagateEffect(onTurnEnd.OnTurnEnd(enemy));
+                }
+                enemy.ShowIntention(selectMap);
+            }
+            
+            _allActionFinished = true;
         }
 
-        private void OtherTurnStarts(){
+        private IEnumerator OtherTurnStarts(){
             Debug.Log("Game Phase: Other Turn Starts");
+            _allActionFinished = true;
+            yield return null;
         }
 
-        private void OtherTurnEnds(){
+        private IEnumerator OtherTurnEnds(){
             Debug.Log("Game Phase: Other Turn Ends");
-        
+            foreach (var floor in stage.GetFloors()){
+                if(floor.Ground) 
+                    yield return PropagateEffect(floor.Ground.OnTurnEnd(floor.TileObject));
+            }
+            _allActionFinished = true;
         }
 
         private IEnumerator WaitForAllAnimationComplete(){
@@ -263,17 +288,12 @@ namespace Components{
 
         private IEnumerator PlayerUseItemWithDirectionCoroutine(ItemModel item, Direction direction){
             yield return PropagateEffect(player.UseItemWithDirection(item, direction));
-            // Perhaps advance phase;
+            _allActionFinished = true;
         }
 
         public void PlayerUseItemWithDirection(ItemModel weapon, Direction direction){
-            UIManager.Shared.ShowAllComponents();
+            if (!AllowPlayerInput) return;
             StartCoroutine(PlayerUseItemWithDirectionCoroutine(weapon, direction));
-        }
-
-        public void StartSelectDirection(ItemModel item){
-            UIManager.Shared.HideAllComponents();
-            directionSelectManager.ActiveWithItem(item);
         }
     }
 }

@@ -77,7 +77,7 @@ namespace Components.SelectMaps{
         }
 
         public void Stash(){
-            if (_stack.Peek() == null || _stack.Peek().Count == 0) return;
+            if (_stack.Count == 0 || _stack.Peek() == null || _stack.Peek().Count == 0) return;
             _stack.Push(new());
             foreach (var tile in _tiles){
                 tile.gameObject.SetActive(false);
@@ -87,7 +87,7 @@ namespace Components.SelectMaps{
         public void Pop(){
             if (_stack.Count == 0) return;
             _stack.Pop();
-            if (_stack.Peek() == null || _stack.Peek().Count <= 0) return;
+            if (_stack.Count == 0 || _stack.Peek() == null || _stack.Peek().Count <= 0) return;
             foreach (var tile in _tiles){
                 tile.gameObject.SetActive(false);
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Components.DirectionSelects;
 using Components.Items;
 using Components.UI;
 using Components.UI.Common;
@@ -13,6 +14,7 @@ namespace Components.BackPacks.UI.Panels{
         public GameObject blockPrefab;
         public BackPackGrid grid;
         public BackPack backPack;
+        public DirectionSelectManager selectManager;
 
         private readonly List<ItemBlock> _blocks = new();
 
@@ -65,7 +67,8 @@ namespace Components.BackPacks.UI.Panels{
 
         public void OnBlockClicked(ItemBlock block){
             Debug.Log($"Use item: {block.Item}");
-            GameManager.Shared.StartSelectDirection(block.Item);
+            // GameManager.Shared.StartSelectDirection(block.Item);
+            selectManager.ActiveWithItem(block.Item);
         } 
 
         public override void Hide(){

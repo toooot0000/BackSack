@@ -82,6 +82,12 @@ namespace Components.Stages{
 
         public Floor GetFloor(Vector2Int stagePosition) => Model.GetFloor(stagePosition);
 
+        public IEnumerable<Floor> GetFloors(){
+            foreach (var modelFloor in Model.Floors){
+                yield return modelFloor;
+            }
+        }
+
         #region Helper Functions
 
         public Vector3 GridToWorldPosition(Vector2Int gridPosition){
@@ -153,7 +159,9 @@ namespace Components.Stages{
         }
 
         public Ground GetGround(Vector2Int stagePosition) => GetFloor(stagePosition).Ground;
-        
+
+        public IEnumerable<Ground> GetGrounds() => _grounds;
+
 #endregion
         
         public IEffect TileObjectEnterPosition(ITileObject tileObject, Vector2Int position){

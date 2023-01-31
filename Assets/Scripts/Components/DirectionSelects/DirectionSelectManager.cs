@@ -3,6 +3,7 @@ using System.Linq;
 using Components.Items;
 using Components.Players;
 using Components.Stages;
+using Components.UI;
 using UnityEngine;
 using Utility.Extensions;
 
@@ -24,11 +25,13 @@ namespace Components.DirectionSelects{
         }
 
         public void ActiveWithItem(ItemModel itemModel){
+            UIManager.Shared.HideAllComponents();
             _item = itemModel;
             enabled = true;
         }
 
         private void Select(Direction direction){
+            UIManager.Shared.ShowAllComponents();
             GameManager.Shared.PlayerUseItemWithDirection(_item, direction);
             enabled = false;
         }

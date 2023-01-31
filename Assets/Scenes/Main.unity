@@ -556,6 +556,7 @@ MonoBehaviour:
   blockPrefab: {fileID: 254976274665475377, guid: ef35557da41603f4b9e67d28c979f5a9, type: 3}
   grid: {fileID: 2103806615}
   backPack: {fileID: 1336642782}
+  selectManager: {fileID: 1401290933}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,11 +1000,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4cf33161a8f794a899c51fb47afe21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AllowPlayerInput: 0
   player: {fileID: 1336642767}
   stage: {fileID: 2042807071}
   selectMap: {fileID: 556860017}
   backPackPanel: {fileID: 275498372}
-  directionSelectManager: {fileID: 1401290933}
 --- !u!114 &1035943762
 MonoBehaviour:
   m_ObjectHideFlags: 0
