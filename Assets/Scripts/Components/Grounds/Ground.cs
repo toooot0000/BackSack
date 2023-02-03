@@ -88,7 +88,6 @@ namespace Components.Grounds{
         }
 
         public IEffect OnTurnEnd(ITileObject tileObject){
-            if (tileObject == null) return null;
             if (Model.LastTurnNum > 0){
                 Model.LastTurnNum--;
                 if (Model.LastTurnNum == 0){
@@ -101,13 +100,11 @@ namespace Components.Grounds{
         }
 
         public IEffect OnTileObjectEnter(ITileObject tileObject){
-            if (tileObject == null) return null;
             if(_reducer is IOnTileObjectEnter enter) return enter.OnTileObjectEnter(this, tileObject);
             return null;
         }
 
         public IEffect OnTileObjectExit(ITileObject tileObject){
-            if (tileObject == null) return null;
             if (_reducer is IOnTileObjectExit exit) return exit.OnTileObjectExit(this, tileObject);
             return null;
         }

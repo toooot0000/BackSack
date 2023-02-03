@@ -20,7 +20,8 @@ namespace Utility.Animation.Tweens{
         protected virtual void Update(){
             if (IsPaused) return;
             _curTime += IsReversing ? -Time.deltaTime : Time.deltaTime;
-            OnTimerUpdate( Mathf.Clamp(_curTime / totalTime, 0, 1));
+            _curTime = Mathf.Clamp(_curTime, 0, totalTime);
+            OnTimerUpdate( Mathf.Clamp01(_curTime / totalTime));
             if(0 < _curTime && _curTime < totalTime)  return;
             if (!repeat){
                 IsPaused = true;
@@ -61,8 +62,12 @@ namespace Utility.Animation.Tweens{
             _curTime = IsReversing? totalTime : 0;
         }
 
-        public void Reverse(){
-            IsReversing = !IsReversing;
+        public void Reverse(bool? val = null){
+            if (val is { } b){
+                IsReversing = b;
+            } else{
+                IsReversing = !IsReversing;
+            }
         }
 
         public float CurrentTime => _curTime;
@@ -79,7 +84,7 @@ namespace Utility.Animation.Tweens{
         protected virtual void OnComplete(){ }
         protected virtual void OnRepeat(){ }
         protected virtual void OnStart(){ }
-        protected virtual void OnReverseStart(){ OnComplete();}
-        protected virtual void OnReverseComplete(){ OnStart(); }
+        protected virtual void OnReverseStart(){ }
+        protected virtual void OnReverseComplete(){ }
     }
 }

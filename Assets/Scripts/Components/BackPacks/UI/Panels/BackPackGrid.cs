@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
 using Utility;
 
 namespace Components.BackPacks.UI.Panels{
@@ -6,15 +8,20 @@ namespace Components.BackPacks.UI.Panels{
         public Grid grid;
         public Bindable<int> gridWidth;
         public Bindable<int> gridHeight;
+        public Image bg; 
         private Vector3? _oriPosition;
+        private Vector2 _originSize;
+
+        private void Awake(){
+            _originSize = (transform as RectTransform)!.rect.size;
+        }
 
         private void Start(){
             Resize();
         }
 
         public void Resize(){
-            var oriSize = (transform as RectTransform)!.rect.size;
-            var size = new Vector2(oriSize.x / gridWidth, oriSize.y / gridHeight);
+            var size = new Vector2(_originSize.x / gridWidth, _originSize.y / gridHeight);
             var minLen = Mathf.Min(size.x, size.y);
             var rectTrans = (grid.transform as RectTransform)!;
             rectTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, minLen * gridWidth);
@@ -25,6 +32,12 @@ namespace Components.BackPacks.UI.Panels{
             if ((gridWidth & 1) == 1) localPosition.x -= minLen / 2;
             if ((gridHeight & 1) == 1) localPosition.y -= minLen / 2;
             rectTrans.localPosition = localPosition;
+            
+            // bg
+            var bgTrans = (bg.transform as RectTransform)!;
+            bgTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rectTrans.rect.width);
+            bgTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, rectTrans.rect.height);
+            bg.pixelsPerUnitMultiplier = (float)gridWidth / rectTrans.rect.width * 100f; // 100 is the size of the tile sprite width/height
         }
         
         public Vector3 GridToWorldPosition(Vector2Int gridPosition){
@@ -39,6 +52,10 @@ namespace Components.BackPacks.UI.Panels{
             return new Vector2Int(stagePosition.x - gridWidth / 2, stagePosition.y - gridHeight / 2);
         }
 
+        public Vector2Int GridToStagePosition(Vector2Int gridPosition){
+            return new Vector2Int(gridPosition.x + gridWidth / 2, gridPosition.y + gridHeight / 2);
+        }
+
         public Vector3 StageToWorldPosition(Vector2Int stagePosition){
             return GridToWorldPosition(StageToGridPosition(stagePosition));
         }
@@ -48,5 +65,21 @@ namespace Components.BackPacks.UI.Panels{
         }
 
         public Vector2 GetCellSize() => grid.cellSize;
+
+
+        public Vector2Int GetClosestGrid(Vector3 worldPosition){
+            var ret = (Vector2Int)grid.WorldToCell(worldPosition);
+            ret.Clamp(new Vector2Int(- gridWidth/2, - gridHeight/2), new Vector2Int(gridWidth/2 - 1, gridHeight/2 - 1));
+            return ret;
+        }
+
+        public Vector3 GetClosestWorld(Vector3 worldPosition){
+            var cell = GetClosestGrid(worldPosition);
+            return GridToWorldPosition(cell);
+        }
+
+        public RectInt GridBound =>
+            new RectInt(new Vector2Int(-gridWidth / 2, -gridHeight / 2),
+                new Vector2Int(gridWidth - 1, gridHeight - 1));
     }
 }

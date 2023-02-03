@@ -1,53 +1,30 @@
 ﻿using System.Collections.Generic;
-using Components.Items;
 using UnityEngine;
-using UnityEngine.UI;
 using Utility.Extensions;
 
-namespace Components.BackPacks.UI.Panels{
-    public class ItemBlock: MonoBehaviour{
-        private ItemModel _item;
-        public Image icon;
+namespace Components.BackPacks.UI.Panels.ItemBlocks.ShapeBlocks{
+    public class ShapeBlock: MonoBehaviour{
+        [HideInInspector]
         public BackPackGrid grid;
         public float padding = 10f;
-
         public GameObject tilePrefab;
         public GameObject bridgePrefab;
-
-        private readonly List<ItemTile> _tiles = new();
-
+        private readonly List<Tile> _tiles = new();
         public Transform tileRoot;
         public Transform bridgeRoot;
 
-        public BackPackPanel backPackPanel; 
-
-
-        public ItemModel Item{
-            set{
-                _item = value;
-                icon.sprite = Resources.Load<Sprite>(value.IconPath);
-                var size = grid.GetCellSize();
-                var minLen = Mathf.Min(size.x, size.y) - padding * 2 - 10;
-                ((RectTransform)icon.transform).sizeDelta = new Vector2(minLen, minLen);
-                Reload();
-            }
-            get => _item;
-        }
-
-        private ItemTile MakeNewTile(){
-            var ret = Instantiate(tilePrefab, tileRoot).GetComponent<ItemTile>();
-            ret.block = this;
+        protected virtual Tile MakeNewTile(){
+            var ret = Instantiate(tilePrefab, tileRoot).GetComponent<Tile>();
             return ret;
         }
 
-        private ItemBridge MakeNewBridge(){
-            var ret = Instantiate(bridgePrefab, bridgeRoot).GetComponent<ItemBridge>();
-            ret.block = this;
+        protected virtual Bridge MakeNewBridge(){
+            var ret = Instantiate(bridgePrefab, bridgeRoot).GetComponent<Bridge>();
             return ret;
         }
 
 
-        private void OnDisable(){
+        public virtual void OnDisable(){
             foreach (var tile in _tiles){
                 tile.gameObject.SetActive(false);
                 if(tile.rightBridge != null) tile.rightBridge.gameObject.SetActive(false);
@@ -55,7 +32,7 @@ namespace Components.BackPacks.UI.Panels{
             }
         }
 
-        public void OnEnable(){
+        public virtual void OnEnable(){
             foreach (var tile in _tiles){
                 tile.gameObject.SetActive(true);
                 if(tile.rightBridge != null) tile.rightBridge.gameObject.SetActive(true);
@@ -80,17 +57,17 @@ namespace Components.BackPacks.UI.Panels{
                 }
             }
         }
-        
 
-        private void Reload(){
+
+        protected void Reload(Vector2Int[] takeUpRange){
             
             OnDisable();
             
             var cellSize = grid.GetCellSize();
-            var positionSet = new HashSet<Vector2Int>(_item.TakeUpRange);
+            var positionSet = new HashSet<Vector2Int>(takeUpRange);
             var tileSize = cellSize - new Vector2(padding * 2, padding * 2);
 
-            foreach (var position in _item.TakeUpRange){
+            foreach (var position in takeUpRange){
                 var tile = _tiles.FirstNotActiveOrNew(MakeNewTile);
                 var tilePosition = new Vector3(position.x * cellSize.x, position.y * cellSize.y);
                 var tileTransform = (RectTransform)tile.transform;
@@ -102,7 +79,7 @@ namespace Components.BackPacks.UI.Panels{
                     tile.rightBridge.gameObject.SetActive(true);
                     var trans = (RectTransform)tile.rightBridge.transform;
                     trans.localPosition = tilePosition + new Vector3(cellSize.x / 2, 0, 0);
-                    trans.sizeDelta = new Vector2(padding*2f + 15, tileSize.y);
+                    trans.sizeDelta = new Vector2(padding*2f + 13, tileSize.y);
                 } else if(tile.rightBridge != null) 
                     tile.rightBridge.gameObject.SetActive(false);
                 
@@ -111,22 +88,12 @@ namespace Components.BackPacks.UI.Panels{
                     tile.downBridge ??= MakeNewBridge();
                     tile.downBridge.gameObject.SetActive(true);
                     var trans = (tile.downBridge.transform as RectTransform)!;
-                    trans.rotation = Quaternion.Euler(0, 0, 90);
+                    trans.localRotation = Quaternion.Euler(0, 0, 90);
                     trans.localPosition = tilePosition - new Vector3(0, cellSize.y/2, 0);
-                    trans.sizeDelta = new Vector2(padding*2f + 15, tileSize.x);
+                    trans.sizeDelta = new Vector2(padding*2f + 13, tileSize.x);
                 } else if(tile.downBridge != null) 
                     tile.downBridge.gameObject.SetActive(false);
             }
-        }
-
-        public void OnLongTouched(){
-            Debug.Log("Block Long Touched!");
-            
-        }
-
-        public void OnClicked(){
-            Debug.Log("Block Clicked!");
-            backPackPanel.OnBlockClicked(this);
         }
     }
 }

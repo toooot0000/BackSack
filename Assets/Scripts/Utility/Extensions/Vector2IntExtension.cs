@@ -76,5 +76,9 @@ namespace Utility.Extensions{
         public static Vector3Int ToVector3Int(this Vector2Int vec){
             return new Vector3Int(vec.x, vec.y, 0);
         }
+
+        public static void Clamp(this ref Vector2Int vec, RectInt bound){
+            vec.Clamp(bound.min, bound.max);
+        }
     }
 }

@@ -74,7 +74,7 @@ namespace Components.UI{
         }
 
         private static string GetPrefabName(ICustomAttributeProvider uiWindowType){
-            var attr = (Prefab[])uiWindowType.GetCustomAttributes(typeof(Prefab), false);
+            var attr = (UIPrefab[])uiWindowType.GetCustomAttributes(typeof(UIPrefab), false);
             if (attr.Length == 0){
                 throw new Exception($"UIWindow does not provide a prefab name! Type: {uiWindowType}");
             }

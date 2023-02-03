@@ -11,6 +11,7 @@ using Utility.Extensions;
 
 namespace Components.TileObjects{
     public abstract class TileObject : Controller, ITileObject{
+        public event Action StagePositionUpdated;
         public Stage stage;
 
         protected override void AfterSetModel(){
@@ -18,9 +19,11 @@ namespace Components.TileObjects{
         }
 
         protected void UpdateStagePosition(Vector2Int newStagePosition){
+            if (m_GetModel().CurrentStagePosition == newStagePosition) return;
             stage.GetFloor(m_GetModel().CurrentStagePosition).TileObject = null;
             stage.GetFloor(newStagePosition).TileObject = this;
             m_GetModel().CurrentStagePosition = newStagePosition;
+            StagePositionUpdated?.Invoke();
         }
 
         public void SetStagePosition(Vector2Int stagePosition){

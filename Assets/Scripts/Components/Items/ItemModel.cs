@@ -13,8 +13,6 @@ using Object = UnityEngine.Object;
 namespace Components.Items{
     [Table("items")]
     public abstract class ItemModel: SelfSetUpModel{
-        
-        public static readonly Direction DefaultDirection = Direction.Right;
         public Vector2Int[] TakeUpRange;
         
         [Key("icon")]
@@ -35,13 +33,13 @@ namespace Components.Items{
 
         public static IEnumerable<Vector2Int> Rotate(this IEnumerable<Vector2Int> src, Direction direction){
             
-            if (direction == ItemModel.DefaultDirection){
+            if (direction == Const.DefaultDirection){
                 return src;
             }
-            if(direction == ItemModel.DefaultDirection.Opposite()){
+            if(direction == Const.DefaultDirection.Opposite()){
                 return src.Select(v => -v);
             }
-            if (direction.IsClockwiseLess(ItemModel.DefaultDirection)){
+            if (direction.IsClockwiseLess(Const.DefaultDirection)){
                 return src.Select(v => v.Rotate90DegAntiClockwise());
             }
             return src.Select(v => v.Rotate90DegClockwise());

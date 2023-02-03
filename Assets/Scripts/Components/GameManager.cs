@@ -56,8 +56,6 @@ namespace Components{
 
         private Coroutine _gameLoop = null;
 
-        private Enemy _enemy;
-
         private void Awake(){
             if (_shared == null) _shared = this;
             else Destroy(this);
@@ -71,7 +69,6 @@ namespace Components{
             stage.SetModel(MVC.Model.FromJsonString<StageModel>(Resources.Load<TextAsset>("Stages/stage-test-1").text));
             player = IController.GetController<Player>();
             player.SetModel(new PlayerModel());
-            _enemy = IController.GetController<Enemy>();
 
             _gameLoop = StartCoroutine(GameLoop());
         }
@@ -84,7 +81,7 @@ namespace Components{
 
         private void TestInput(){
             if (Input.GetKeyUp(KeyCode.Q)){
-                player.backPack.AddItem(new Sword(), Direction.Left, Vector2Int.one);
+                player.backPack.AddItem(new Sword(), Direction.Up, Vector2Int.one);
             }
         }
 
@@ -212,6 +209,8 @@ namespace Components{
 
         private IEnumerator EnemiesTurnStarts(){
             Debug.Log("Game Phase: Other objects' turn start & calculate actions");
+            selectMap.HideAll();
+            selectMap.Pop();
             foreach (var floor in stage.GetFloors()){
                 if (floor.TileObject is not Enemy enemy) continue;
                 foreach (var buff in enemy.Buffs){
@@ -224,10 +223,8 @@ namespace Components{
 
         private IEnumerator EnemiesActs(){
             Debug.Log("Game Phase: Other objects' actions");
-            foreach (var floor in stage.GetFloors()){
-                if (floor.TileObject is Enemy enemy){
-                    yield return PropagateEffect(enemy.DoAction());
-                }
+            foreach (var enemy in stage.enemyManager.GetSortedActiveEnemies()){
+                yield return PropagateEffect(enemy.DoAction());
             }
 
             _allActionFinished = true;
@@ -235,15 +232,13 @@ namespace Components{
 
         private IEnumerator EnemiesTurnEnds(){
             Debug.Log("Game Phase: Other objects' actions");
-            foreach (var floor in stage.GetFloors()){
-                if (floor.TileObject is not Enemy enemy) continue;
+            foreach (var enemy in stage.enemyManager.GetSortedActiveEnemies()){
                 foreach (var buff in enemy.Buffs){
                     if (buff is not IOnTurnEnd onTurnEnd) continue;
                     yield return PropagateEffect(onTurnEnd.OnTurnEnd(enemy));
                 }
-                enemy.ShowIntention(selectMap);
+                if(enemy.gameObject.activeSelf) enemy.ShowIntention(selectMap);
             }
-            
             _allActionFinished = true;
         }
 

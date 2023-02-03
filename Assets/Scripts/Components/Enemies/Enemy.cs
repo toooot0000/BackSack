@@ -7,11 +7,14 @@ using Components.TileObjects.Automate;
 using Components.TileObjects.BattleObjects;
 using MVC;
 using UnityEngine;
+using Utility.Extensions;
 
 namespace Components.Enemies{
     public class Enemy: BattleObject, IAttacker, IAutomate{
         public new EnemyView view;
         public string enemyFolder = "";
+        [HideInInspector]
+        public EnemyManager Manager;
         
         private IIntentionContext _context = null;
         private IIntentionContext Context{

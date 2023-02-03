@@ -2,10 +2,10 @@
 
 namespace Components.UI.Attributes{
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    public class Prefab: Attribute{
+    public class UIPrefab: Attribute{
         public readonly string Name;
 
-        public Prefab(string name){
+        public UIPrefab(string name){
             Name = name;
         }
     }

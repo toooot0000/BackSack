@@ -1,11 +1,12 @@
 ﻿using Components.BackPacks.UI.Panels;
+using Components.BackPacks.UI.Panels.ItemBlocks;
 using Components.UI;
 using Components.UI.Attributes;
 using UnityEngine;
 using Utility;
 
 namespace Components.BackPacks.UI.Windows{
-    [Prefab("UIRearrangeWindow")]
+    [UIPrefab("UIRearrangeWindow")]
     
     public class RearrangeWindow: UIWindow{
         
