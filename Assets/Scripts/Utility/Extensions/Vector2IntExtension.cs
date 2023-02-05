@@ -1,12 +1,18 @@
 ﻿using System;
+using System.ComponentModel;
 using UnityEngine;
 
 namespace Utility.Extensions{
     public enum Direction{
+        [Description("Up")]
         Up,
+        [Description("Left")]
         Left,
+        [Description("Right")]
         Right,
+        [Description("Down")]
         Down,
+        [Description("Null")]
         Null
     }
     
@@ -35,6 +41,32 @@ namespace Utility.Extensions{
 
         public static bool IsClockwiseLess(this Direction dir, Direction other){
             return dir.ToVector2Int().IsClockwiseLess(other.ToVector2Int());
+        }
+
+        private static Direction RotateClockWise(this Direction dir){
+            return dir switch{
+                Direction.Up => Direction.Right,
+                Direction.Left => Direction.Up,
+                Direction.Right => Direction.Down,
+                Direction.Down => Direction.Left,
+                Direction.Null => Direction.Null,
+                _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
+            };
+        }
+
+        public static void RotateClockWise(this ref Direction dir){
+            dir = RotateClockWise(dir);
+        }
+
+        public static void RotateCounterclockwise(this ref Direction dir){
+            dir = dir switch{
+                Direction.Up => Direction.Left,
+                Direction.Left => Direction.Down,
+                Direction.Right => Direction.Up,
+                Direction.Down => Direction.Right,
+                Direction.Null => Direction.Null,
+                _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
+            };
         }
     }
     public static class Vector2IntExtension{

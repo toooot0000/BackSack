@@ -48,5 +48,18 @@ namespace Utility.Extensions{
             var z = vec.x * other.y - other.x * vec.y;
             return z < 0;
         }
+
+        public static void Clamp(this ref Vector2 vec, Vector2 min, Vector2 max){
+            vec.x = Mathf.Clamp(vec.x, min.x, max.x);
+            vec.y = Mathf.Clamp(vec.y, min.y, max.y);
+        }
+
+        public static void MinOne(this ref Vector2 vec, Vector2 other){
+            vec = Vector2.Min(vec, other);
+        }
+        
+        public static void MaxOne(this ref Vector2 vec, Vector2 other){
+            vec = Vector2.Max(vec, other);
+        }
     }
 }

@@ -69,7 +69,7 @@ namespace Components.BackPacks.UI.Panels{
 
         public Vector2Int GetClosestGrid(Vector3 worldPosition){
             var ret = (Vector2Int)grid.WorldToCell(worldPosition);
-            ret.Clamp(new Vector2Int(- gridWidth/2, - gridHeight/2), new Vector2Int(gridWidth/2 - 1, gridHeight/2 - 1));
+            ret.Clamp(new Vector2Int(- gridWidth/2, - gridHeight/2), new Vector2Int(gridWidth/2, gridHeight/2));
             return ret;
         }
 
@@ -80,6 +80,6 @@ namespace Components.BackPacks.UI.Panels{
 
         public RectInt GridBound =>
             new RectInt(new Vector2Int(-gridWidth / 2, -gridHeight / 2),
-                new Vector2Int(gridWidth - 1, gridHeight - 1));
+                new Vector2Int(gridWidth, gridHeight));
     }
 }

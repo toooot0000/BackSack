@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Utility;
 using Utility.Extensions;
 
 namespace Components.BackPacks.UI.Panels.ItemBlocks.ShapeBlocks{
@@ -12,6 +14,19 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks.ShapeBlocks{
         private readonly List<Tile> _tiles = new();
         public Transform tileRoot;
         public Transform bridgeRoot;
+
+        private void UpdateSize(){
+            var rectTrans = (RectTransform)transform;
+            var size = ((RectTransform)(_tiles[0].transform)).GetWorldRect();
+            foreach (var tile in _tiles){
+                var rect = ((RectTransform)tile.transform).GetWorldRect();
+                size.min = Vector2.Min(size.min, rect.min);
+                size.max = Vector2.Max(size.max, rect.max);
+            }
+            rectTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.size.y);
+            rectTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.size.x);
+            
+        }
 
         protected virtual Tile MakeNewTile(){
             var ret = Instantiate(tilePrefab, tileRoot).GetComponent<Tile>();
@@ -56,6 +71,7 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks.ShapeBlocks{
                     trans.sizeDelta = new Vector2(trans.sizeDelta.x, tileSize.y);
                 }
             }
+            UpdateSize();
         }
 
 
@@ -73,6 +89,7 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks.ShapeBlocks{
                 var tileTransform = (RectTransform)tile.transform;
                 tileTransform.localPosition = tilePosition;
                 tileTransform.sizeDelta = tileSize;
+                
                 
                 if (positionSet.Contains(position + Vector2Int.right)){
                     tile.rightBridge ??= MakeNewBridge();
@@ -94,6 +111,7 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks.ShapeBlocks{
                 } else if(tile.downBridge != null) 
                     tile.downBridge.gameObject.SetActive(false);
             }
+            UpdateSize();
         }
     }
 }

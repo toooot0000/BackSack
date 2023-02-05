@@ -90,29 +90,60 @@ namespace Components.BackPacks{
             return true;
         }
 
-        public bool RemoveItemAtPosition(Vector2Int position){
+        public BackPackItemWrapper RemoveItemAtPosition(Vector2Int position){
             var bpIt = Get(position.x, position.y);
-            return bpIt != null && RemoveItem(bpIt);
+            if (bpIt == null) return null;
+            if(RemoveItem(bpIt)) return bpIt;
+            return null;
         }
 
         public void Resize(int newRow, int newCol){
             var old = _inventory;
             _inventory = new BackPackItemWrapper[newRow * newCol];
             for (var i = 0; i < RowNum; i++){
-                for (var j = 0; j < RowNum; j++){
+                for (var j = 0; j < ColNum; j++){
                     _inventory[i * newCol + j] = old[i * ColNum + j];
                 }
             }
             RowNum.Set(newRow);
             ColNum.Set(newCol);
         }
-
-        public void SetItemPosition(ItemModel item, Vector2Int position){
-            // TODO
+        
+        /// <summary>
+        /// Put the given item back in the back pack. Return all the items that was originally at those positions. 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public BackPackItemWrapper[] PutItem(BackPackItemWrapper item){
+            if (_items.Contains(item)) return Array.Empty<BackPackItemWrapper>();
+            var ret = new List<BackPackItemWrapper>();
+            foreach (var p in item.Item.TakeUpRange.Rotate(item.PlaceDirection)){
+                var curP = p + item.PlacePosition;
+                if (Get(curP.x, curP.y) is { } other && other != item){
+                    ret.Add(other);
+                    RemoveItem(other);
+                }
+                Set(curP.x, curP.y, item);
+            }
+            _items.Add(item);
+            return ret.ToArray();
         }
 
-        public void RotateItem(ItemModel item, Direction direction){
-            // TODO
+        public Vector2Int FindSuitablePosition(ItemModel item, Direction direction){
+            var temp = Vector2Int.zero;
+            for (var i = 0; i < RowNum; i++){
+                for (var j = 0; j < ColNum; j++){
+                    temp.x = i;
+                    temp.y = j;
+                    if (CanPutIn(item.TakeUpRange, direction, temp)){
+                        return temp;
+                    }
+                }
+            }
+
+            return new Vector2Int(-1, -1);
         }
+        
+        
     }
 }

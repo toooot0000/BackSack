@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Components.BackPacks;
 using Components.BackPacks.UI.Panels;
 using Components.Buffs;
 using Components.Buffs.Triggers;
@@ -79,9 +80,20 @@ namespace Components{
             GetInput();
         }
 
+        private BackPackItemWrapper _wrapper;
+
         private void TestInput(){
             if (Input.GetKeyUp(KeyCode.Q)){
-                player.backPack.AddItem(new Sword(), Direction.Up, Vector2Int.one);
+                _wrapper = player.backPack.AddItem(new Sword(), Direction.Up, Vector2Int.one);
+            } else if (Input.GetKeyUp(KeyCode.Space)){
+                Debug.Log(_wrapper.ToString());
+            } else if (Input.GetKeyUp(KeyCode.W)){
+                var sword = new Sword();
+                sword.TakeUpRange = new Vector2Int[1]{ Vector2Int.zero };
+                var pos = player.backPack.FindSuitablePosition(sword, Direction.Down);
+                if (pos != new Vector2Int(-1, -1)){
+                    player.backPack.AddItem(sword, Direction.Down, pos);
+                }
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using Components.BackPacks.UI.Panels.BackupAreas;
 using UnityEngine;
 using Utility;
 using Utility.Animation.Tweens;
@@ -9,14 +10,24 @@ namespace Components.BackPacks.UI.Panels{
         public RectTransform panelTrans;
         public Vector2 targetSize = new(600, 400);
         public AnimationCurve curve;
+        public BackupArea backupArea;
         private Vector2 _origin;
 
         protected override void OnStart(){
             _origin = panelTrans.rect.size;
+            backupArea.canvasGroup.blocksRaycasts = false;
+            backupArea.canvasGroup.interactable = false;
+        }
+
+        protected override void OnComplete(){
+            backupArea.canvasGroup.blocksRaycasts = true;
+            backupArea.canvasGroup.interactable = true;
         }
 
         protected override void OnReverseStart(){
             _origin = panelTrans.rect.size;
+            backupArea.canvasGroup.blocksRaycasts = false;
+            backupArea.canvasGroup.interactable = false;
         }
 
         public void Play(Action callback){
@@ -29,6 +40,7 @@ namespace Components.BackPacks.UI.Panels{
             var curSize = Vector2.Lerp(_origin, targetSize, i);
             panelTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, curSize.x);
             panelTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, curSize.y);
+            backupArea.canvasGroup.alpha = i;
         }
     }
 }

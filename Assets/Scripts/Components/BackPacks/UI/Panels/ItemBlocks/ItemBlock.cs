@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Components.BackPacks.UI.Panels.BackupAreas;
 using Components.BackPacks.UI.Panels.ItemBlocks.ShapeBlocks;
 using Components.Items;
 using UnityEngine;
@@ -8,22 +9,22 @@ using Utility.Extensions;
 
 namespace Components.BackPacks.UI.Panels.ItemBlocks{
     [RequireComponent(typeof(DragController))]
-    public class ItemBlock: ShapeBlock{
+    [RequireComponent(typeof(Detector))]
+    public class ItemBlock : ShapeBlock{
         private BackPackItemWrapper _itemWrapper;
         public Image icon;
-        
-        [NonSerialized] 
-        public BackPackPanel BackPackPanel;
+
+        [NonSerialized] public BackPackPanel BackPackPanel;
         private DragController _dragController;
-        
-        [Header("Shadow Block Configs")]
-        public GameObject shadowPrefab;
+
+        [Header("Shadow Block Configs")] public GameObject shadowPrefab;
         public Transform shadowRoot;
         private ShadowBlock _shadow;
-        [NonSerialized]
-        public RectInt ItemBound;
+        [NonSerialized] public RectInt ItemBound;
 
         public PositionTween positionTween;
+        public BackupArea backUpArea;
+        private Detector _detector;
 
         public BackPackItemWrapper ItemWrapper{
             set{
@@ -38,13 +39,14 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
 
         private void UpdateTransform(){
             transform.position = grid.StageToWorldPosition(ItemWrapper.PlacePosition);
-            transform.rotation = Quaternion.Euler(0, 0, Vector2.Angle(Const.DefaultDirection.ToVector2Int(), ItemWrapper.PlaceDirection.ToVector2Int()));
+            transform.rotation = Quaternion.Euler(0, 0,
+                Vector2.Angle(Const.DefaultDirection.ToVector2Int(), ItemWrapper.PlaceDirection.ToVector2Int()));
         }
 
         private void UpdateItemBound(){
             foreach (var pos in ItemWrapper.Item.TakeUpRange.Rotate(ItemWrapper.PlaceDirection)){
                 ItemBound.min = Vector2Int.Min(ItemBound.min, pos);
-                ItemBound.max = Vector2Int.Max(ItemBound.max, pos);
+                ItemBound.max = Vector2Int.Max(ItemBound.max,  pos + Vector2Int.one);
             }
         }
 
@@ -69,12 +71,12 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
 
         public void OnLongTouched(){
             Debug.Log("Block Long Touched!");
-            
+
         }
 
         public void OnClicked(){
-            Debug.Log("Block Clicked!");
             if (BackPackPanel.IsRearranging) return;
+            Debug.Log("Block Clicked!");
             BackPackPanel.OnBlockClicked(this);
         }
 
@@ -84,6 +86,13 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
             _dragController.StartDrag();
             EnableShadow();
             positionTween.enabled = false;
+            _detector.enabled = true;
+            if (_isInBackup){
+                backUpArea.RemoveBlock(this);
+                backUpArea.MakeEmptyPosition(this);
+            } else{
+                BackPackPanel.PickUpItemFromGrid(this);
+            }
         }
 
         public void OnPointUp(){
@@ -91,11 +100,44 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
             if (!BackPackPanel.IsRearranging) return;
             _dragController.EndDrag();
             DisableShadow();
-            positionTween.Target = GetClosestPossiblePosition();
+            _detector.enabled = false;
+
+            
+            if(_isInBackup){
+                ItemWrapper.PlacePosition = Vector2Int.zero;
+                BackPackPanel.PutBlockInBackUp(this);
+            } else{
+                positionTween.Target = GetTargetPosition();
+                ItemWrapper.PlacePosition = grid.GridToStagePosition(GetClosesGridPosition());
+                BackPackPanel.PutBlockInGrid(this);
+            }
+            
         }
 
         private void Start(){
             _dragController = GetComponent<DragController>();
+            _detector = GetComponent<Detector>();
+            _detector.area = backUpArea;
+            _detector.EnteredArea += OnEnterBackupArea;
+            _detector.ExitArea += OnExitBackupArea;
+
+        }
+
+        private void Update(){
+            if (!_isInBackup) return;
+            backUpArea.UpdateEmptyPosition(this);
+        }
+
+        private bool _isInBackup = false;
+
+        private void OnEnterBackupArea(){
+            _isInBackup = true;
+            backUpArea.MakeEmptyPosition(this);
+        }
+
+        private void OnExitBackupArea(){
+            _isInBackup = false;
+            backUpArea.RemoveEmptyPosition();
         }
 
         private void EnableShadow(){
@@ -103,6 +145,7 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
                 _shadow = Instantiate(shadowPrefab, shadowRoot).GetComponent<ShadowBlock>();
                 _shadow.Master = this;
             }
+
             _shadow.enabled = true;
         }
 
@@ -110,13 +153,29 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
             _shadow.enabled = false;
         }
 
-        public Vector3 GetClosestPossiblePosition(){
+        private Vector2Int GetClosesGridPosition(){
             var closest = grid.GetClosestGrid(transform.position);
             var gridBound = grid.GridBound;
             gridBound.min -= ItemBound.min;
-            gridBound.max -= ItemBound.max;
-            closest.Clamp(gridBound);
-            return grid.GridToWorldPosition(closest);
+            gridBound.max -= (ItemBound.max - Vector2Int.one);
+            closest.Clamp(gridBound.min, gridBound.max - Vector2Int.one);
+            return closest;
+        }
+        
+        public Vector3 GetTargetPosition() => !_isInBackup
+            ? grid.GridToWorldPosition(GetClosesGridPosition())
+            : backUpArea.GetClosestPosition(this);
+
+        public void RotateClockwise(){
+            ItemWrapper.PlaceDirection.RotateClockWise();
+            var cur = transform.rotation.eulerAngles.z;
+            transform.rotation = Quaternion.Euler(0, 0, cur + 90);
+        }
+
+        public void RotateCounterclockwise(){ 
+            ItemWrapper.PlaceDirection.RotateCounterclockwise();
+            var cur = transform.rotation.eulerAngles.z;
+            transform.rotation = Quaternion.Euler(0, 0, cur + 90);
         }
     }
 }

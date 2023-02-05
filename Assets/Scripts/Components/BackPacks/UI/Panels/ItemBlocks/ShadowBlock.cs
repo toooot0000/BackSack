@@ -30,7 +30,7 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
         }
 
         private void Update(){
-            transform.position = Master.GetClosestPossiblePosition();
+            transform.position = Master.GetTargetPosition();
         }
     }
 }

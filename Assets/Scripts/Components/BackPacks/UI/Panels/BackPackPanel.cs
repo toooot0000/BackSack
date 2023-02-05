@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Components.BackPacks.UI.Panels.BackupAreas;
 using Components.BackPacks.UI.Panels.ItemBlocks;
 using Components.DirectionSelects;
 using Components.Items;
@@ -17,6 +18,7 @@ namespace Components.BackPacks.UI.Panels{
         public BackPack backPack;
         public DirectionSelectManager selectManager;
         public PanelTween tween;
+        public BackupArea backupArea;
 
         private readonly List<ItemBlock> _blocks = new();
         
@@ -30,7 +32,6 @@ namespace Components.BackPacks.UI.Panels{
             grid.gridWidth.Bind((i) => Resize());
             grid.gridHeight.Bind((i)=> Resize());
             backPack.ItemAdded += AddBlock;
-            backPack.ItemRemoved += RemoveBlock;
             Resize();
         }
 
@@ -43,19 +44,11 @@ namespace Components.BackPacks.UI.Panels{
 
         private void AddBlock(BackPackItemWrapper item){
             var block = _blocks.FirstNotActiveOrNew(MakeNew);
-            block.ItemWrapper = item;
             block.BackPackPanel = this;
+            block.backUpArea = backupArea;
+            block.ItemWrapper = item;
+            
         }
-
-        // public void AddBlock(ItemModel item, Vector2Int stagePosition, Vector2Int? direction = null){
-        //     if(direction == null) direction = Vector2Int.right;
-        //     var block = _blocks.FirstNotActiveOrNew(MakeNew);
-        //     block.Item = item;
-        //     block.transform.position = grid.StageToWorldPosition(stagePosition);
-        //     var angle = Vector2.Angle(direction.Value, Vector2.right);
-        //     block.transform.rotation = Quaternion.Euler(0, 0, angle);
-        //     block.BackPackPanel = this;
-        // }
 
         private void RemoveBlock(BackPackItemWrapper item){
             foreach (var block in _blocks){
@@ -95,6 +88,27 @@ namespace Components.BackPacks.UI.Panels{
             IsRearranging = false;
             tween.Reverse(true);
             tween.Play();
+        }
+
+        public void PutBlockInGrid(ItemBlock block){
+            var spared = backPack.PutItem(block.ItemWrapper);
+            if (spared.Length == 0) return;
+            var set = new HashSet<BackPackItemWrapper>(spared);
+            foreach (var itemBlock in _blocks){
+                if(!set.Contains(itemBlock.ItemWrapper)) continue;
+                set.Remove(itemBlock.ItemWrapper);
+                backupArea.AddBlock(itemBlock);
+            }
+        }
+
+        public void PutBlockInBackUp(ItemBlock block){
+            backPack.RemoveItem(block.ItemWrapper);
+            backupArea.RemoveEmptyPosition();
+            backupArea.AddBlock(block);
+        }
+
+        public void PickUpItemFromGrid(ItemBlock block){
+            backPack.RemoveItem(block.ItemWrapper);
         }
     }
 }
