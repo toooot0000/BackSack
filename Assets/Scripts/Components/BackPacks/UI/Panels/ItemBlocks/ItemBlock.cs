@@ -14,13 +14,20 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
         private BackPackItemWrapper _itemWrapper;
         public Image icon;
 
-        [NonSerialized] public BackPackPanel BackPackPanel;
+        [NonSerialized] 
+        public BackPackPanel BackPackPanel;
         private DragController _dragController;
 
-        [Header("Shadow Block Configs")] public GameObject shadowPrefab;
+        [Header("Shadow Block Configs")] 
+        public GameObject shadowPrefab;
         public Transform shadowRoot;
         private ShadowBlock _shadow;
-        [NonSerialized] public RectInt ItemBound;
+        
+        /// <summary>
+        /// PositionRect after rotation
+        /// </summary>
+        [NonSerialized] 
+        public RectInt ItemRect;
 
         public PositionTween positionTween;
         public BackupArea backUpArea;
@@ -45,13 +52,14 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
 
         private void UpdateItemBound(){
             foreach (var pos in ItemWrapper.Item.TakeUpRange.Rotate(ItemWrapper.PlaceDirection)){
-                ItemBound.min = Vector2Int.Min(ItemBound.min, pos);
-                ItemBound.max = Vector2Int.Max(ItemBound.max,  pos + Vector2Int.one);
+                ItemRect.min = Vector2Int.Min(ItemRect.min, pos);
+                ItemRect.max = Vector2Int.Max(ItemRect.max,  pos + Vector2Int.one);
             }
         }
 
         private void UpdateIcon(){
             icon.sprite = Resources.Load<Sprite>(_itemWrapper.Item.IconPath);
+            icon.transform.localPosition = Vector3.zero;
             var size = grid.GetCellSize();
             var minLen = Mathf.Min(size.x, size.y) - padding * 2 - 10;
             ((RectTransform)icon.transform).sizeDelta = new Vector2(minLen, minLen);
@@ -156,8 +164,8 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
         private Vector2Int GetClosesGridPosition(){
             var closest = grid.GetClosestGrid(transform.position);
             var gridBound = grid.GridBound;
-            gridBound.min -= ItemBound.min;
-            gridBound.max -= (ItemBound.max - Vector2Int.one);
+            gridBound.min -= ItemRect.min;
+            gridBound.max -= (ItemRect.max - Vector2Int.one);
             closest.Clamp(gridBound.min, gridBound.max - Vector2Int.one);
             return closest;
         }

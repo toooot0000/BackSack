@@ -12,20 +12,44 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks.ShapeBlocks{
         public GameObject tilePrefab;
         public GameObject bridgePrefab;
         private readonly List<Tile> _tiles = new();
-        public Transform tileRoot;
-        public Transform bridgeRoot;
+        public RectTransform tileRoot;
+        public RectTransform bridgeRoot;
+
+        private Vector2Int[] _takeUpRange;
+        [NonSerialized]
+        public RectInt PositionRect;
 
         private void UpdateSize(){
             var rectTrans = (RectTransform)transform;
-            var size = ((RectTransform)(_tiles[0].transform)).GetWorldRect();
-            foreach (var tile in _tiles){
-                var rect = ((RectTransform)tile.transform).GetWorldRect();
-                size.min = Vector2.Min(size.min, rect.min);
-                size.max = Vector2.Max(size.max, rect.max);
+            PositionRect = new RectInt();
+            foreach (var pos in _takeUpRange){
+                PositionRect.min = Vector2Int.Min(pos, PositionRect.min);
+                PositionRect.max = Vector2Int.Max(pos + Vector2Int.one, PositionRect.max);
             }
-            rectTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.size.y);
-            rectTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.size.x);
+
+            var cellSize = grid.GetCellSize();
+            var sizeX = PositionRect.size.x * cellSize.x;
+            var sizeY = PositionRect.size.y * cellSize.y;
             
+            rectTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, sizeX);
+            rectTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, sizeY);
+            
+            tileRoot.anchorMin = Vector2.zero;
+            tileRoot.anchorMax = Vector2.one;
+            tileRoot.sizeDelta = Vector2.zero;
+            bridgeRoot.anchorMin = Vector2.zero;
+            bridgeRoot.anchorMax = Vector2.one;
+            bridgeRoot.sizeDelta = Vector2.zero;
+        }
+
+        private void UpdatePivot(){
+            var rectTrans = (RectTransform)transform;
+            var pivotTile = (Vector2)_takeUpRange[0];
+            pivotTile += new Vector2(0.5f, 0.5f) - PositionRect.min;
+            var pivot =  new Vector2(pivotTile.x / PositionRect.size.x, pivotTile.y / PositionRect.size.y);
+            rectTrans.pivot = pivot;
+            tileRoot.pivot = pivot;
+            bridgeRoot.pivot = pivot;
         }
 
         protected virtual Tile MakeNewTile(){
@@ -56,8 +80,7 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks.ShapeBlocks{
         }
 
         public void Resize(){
-            var cellSize = grid.GetCellSize();
-            var tileSize = cellSize - new Vector2(padding * 2, padding * 2);
+            var tileSize = GetTileSize();
             foreach (var itemTile in _tiles){
                 var tileTrans = (RectTransform)itemTile.transform;
                 tileTrans.sizeDelta = tileSize;
@@ -74,14 +97,21 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks.ShapeBlocks{
             UpdateSize();
         }
 
+        public Vector2 GetTileSize() => grid.GetCellSize() - new Vector2(padding * 2, padding * 2);
+
 
         protected void Reload(Vector2Int[] takeUpRange){
-            
             OnDisable();
+
+            _takeUpRange = takeUpRange;
+            
+            UpdateSize();
+            UpdatePivot();
+            
             
             var cellSize = grid.GetCellSize();
             var positionSet = new HashSet<Vector2Int>(takeUpRange);
-            var tileSize = cellSize - new Vector2(padding * 2, padding * 2);
+            var tileSize = GetTileSize();
 
             foreach (var position in takeUpRange){
                 var tile = _tiles.FirstNotActiveOrNew(MakeNewTile);
@@ -111,7 +141,6 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks.ShapeBlocks{
                 } else if(tile.downBridge != null) 
                     tile.downBridge.gameObject.SetActive(false);
             }
-            UpdateSize();
         }
     }
 }

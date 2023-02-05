@@ -22,11 +22,11 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
 
         public void Start(){
             grid = Master.grid;
-            Reload(Master.ItemWrapper.Item.TakeUpRange);
             var transform1 = Master.transform;
             var transform2 = transform;
             transform2.position = transform1.position;
             transform2.rotation = transform1.rotation;
+            Reload(Master.ItemWrapper.Item.TakeUpRange);
         }
 
         private void Update(){

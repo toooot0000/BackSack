@@ -31,6 +31,8 @@ namespace Components.BackPacks.UI.Panels.BackupAreas{
             var rectTrans = (RectTransform)itemBlock.transform;
             var index = container.GetInsertIndex(rectTrans);
             placeHolder.sizeDelta = rectTrans.rect.size;
+            placeHolder.pivot = rectTrans.pivot;
+            placeHolder.rotation = rectTrans.rotation;
             container.Insert(index, placeHolder);
             _prevInd = index;
         }

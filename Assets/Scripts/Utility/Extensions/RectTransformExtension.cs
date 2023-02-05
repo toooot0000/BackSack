@@ -13,5 +13,12 @@ namespace Utility.Extensions{
             trans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, rect.width);
             trans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rect.height);
         }
+
+        public static void SetCenterPosition(this RectTransform trans, Vector2 pos){
+            var corners = new Vector3[4];
+            trans.GetWorldCorners(corners);
+            var curCenter = (Vector2)(corners[0] + corners[2]) * 0.5f;
+            trans.position += (Vector3)(pos - curCenter);
+        }
     }
 }

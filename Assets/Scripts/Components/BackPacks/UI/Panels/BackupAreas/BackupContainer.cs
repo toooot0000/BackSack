@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Components.BackPacks.UI.Panels.ItemBlocks;
 using Components.UI.Containers;
 using UnityEngine;
@@ -56,7 +57,7 @@ namespace Components.BackPacks.UI.Panels.BackupAreas{
             _children.Insert(index, newChild);
             _parents[newChild] = newChild.parent;
             newChild.SetParent(transform, true);
-            UpdateLayout();
+            SetLayoutDirty();
         }
 
         public void Remove(RectTransform child){
@@ -64,12 +65,12 @@ namespace Components.BackPacks.UI.Panels.BackupAreas{
             _children.Remove(child);
             child.SetParent(_parents[child]);
             _parents.Remove(child);
-            UpdateLayout();
+            SetLayoutDirty();
         }
 
         public void Move(int from, int to){
             (_children[from], _children[to]) = (_children[to], _children[from]);
-            UpdateLayout();
+            SetLayoutDirty();
         }
 
         public Vector2 GetSize(){
@@ -88,7 +89,20 @@ namespace Components.BackPacks.UI.Panels.BackupAreas{
             return ret;
         }
 
-        public void UpdateLayout(){
+        private bool _isLayoutDirty = false;
+        private void SetLayoutDirty(){
+            _isLayoutDirty = true;
+            enabled = true;
+        }
+
+        private void Update(){
+            if (!_isLayoutDirty) return;
+            UpdateLayout();
+            _isLayoutDirty = false;
+            enabled = false;
+        }
+
+        private void UpdateLayout(){
             var finalSize = GetSize();
             var trans = (RectTransform)transform;
             trans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, finalSize.y);
@@ -100,8 +114,8 @@ namespace Components.BackPacks.UI.Panels.BackupAreas{
             for (var i = _children.Count - 1; i >= 0; i--){
                 var child = _children[i];
                 var size = child.rect.size;
-                child.position = curPos + new Vector2(0, size.y / 2);
-                
+                // child.position = curPos + new Vector2(0, size.y / 2);
+                child.SetCenterPosition(new Vector2(curPos.x, curPos.y + size. y * .5f));
                 curPos.y += size.y + spacing;
             }
 
