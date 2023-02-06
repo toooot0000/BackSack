@@ -5,9 +5,7 @@ using Utility.Animation;
 using Utility.Extensions;
 
 namespace Components.TileObjects.ForceMovables{
-    public interface IForceMovableView : IMovableView{
-        
-    }
+    public interface IForceMovableView : IMovableView{ }
     
     public class ForceMovableView: AnimationController<TileObjectAnimation>, IForceMovableView{
         public void MoveToPosition(Vector3 worldPosition){

@@ -9,32 +9,34 @@ using Components.Effects;
 using Components.Grounds.Effects;
 using Components.Items;
 using Components.Items.Animations;
+using Components.TileObjects;
 using Components.TileObjects.BattleObjects;
 using UnityEngine;
 using Utility.Extensions;
 
 namespace Components.Players{
     public sealed class Player: BattleObject, IAttacker{
-        public new PlayerView view;
+        public PlayerView view;
         public BackPack backPack;
 
         protected override void Awake(){
             base.Awake();
-            base.view = view;
             backPack = GetComponent<BackPack>();
         }
 
-        public new PlayerModel Model{
-            set => SetModel(value);
-            get => base.Model as PlayerModel;
+        private PlayerModel _model;
+        public PlayerModel Model{
+            set{
+                _model = value;
+                _model.CurrentStagePosition = stage.GridToStagePosition(Vector2Int.zero);
+                SetStagePosition(_model.CurrentStagePosition);
+            }
+            get => _model;
         }
 
-        protected override void AfterSetModel(){
-            Model.CurrentStagePosition = stage.GridToStagePosition(Vector2Int.zero);
-            base.AfterSetModel();
-        }
+        public override ITileObjectView View => view;
 
-#region Attack
+        #region Attack
 
         public IEffect UseItemWithPosition(DisposableModel disposableModel, Vector2Int position){
             throw new NotImplementedException();
@@ -71,11 +73,33 @@ namespace Components.Players{
         }
         
 
-#endregion
+        #endregion
 
+        public override Vector2Int CurrentStagePosition{
+            set => Model.CurrentStagePosition = value;
+            get => Model.CurrentStagePosition;
+        }
         
+        public override int Weight{ 
+            get => Model.Weight;
+            set => Model.Weight = value;
+        }
 
-
-        
+        public override int HealthLimit{
+            get => Model.HealthLimit;
+            set => Model.HealthLimit = value;
+        }
+        public override int HealthPoint{
+            get => Model.HealthPoint;
+            set => Model.HealthPoint = value;
+        }
+        public override int ShieldPoint{ 
+            get => Model.ShieldPoint;
+            set => Model.ShieldPoint = value;
+        }
+        public override int DefendPoint{
+            get => Model.DefendPoint;
+            set => Model.DefendPoint = value;
+        }
     }
 }

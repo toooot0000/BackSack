@@ -36,7 +36,7 @@ namespace Components{
         public static GameManager Shared => _shared;
         public GameState State => Model.State;
 
-        [HideInInspector] 
+        [NonSerialized] 
         public bool AllowPlayerInput = false;
     
     
@@ -67,9 +67,9 @@ namespace Components{
             LoadGame();
         
             stage = IController.GetController<Stage>();
-            stage.SetModel(MVC.Model.FromJsonString<StageModel>(Resources.Load<TextAsset>("Stages/stage-test-1").text));
+            stage.Model = MVC.Model.FromJsonString<StageModel>(Resources.Load<TextAsset>("Stages/stage-test-1").text);
             player = IController.GetController<Player>();
-            player.SetModel(new PlayerModel());
+            player.Model = new PlayerModel();
 
             _gameLoop = StartCoroutine(GameLoop());
         }

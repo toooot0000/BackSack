@@ -5,10 +5,10 @@ using UnityEngine;
 using Utility.Extensions;
 
 namespace Components.TileObjects.Movables{
-    public class Movable: TileObject, IMovable{
+    public abstract class Movable: TileObject, IMovable{
         
         public IEffect Move(Direction direction){
-            var dest = m_GetModel().CurrentStagePosition + direction.ToVector2Int();
+            var dest = CurrentStagePosition + direction.ToVector2Int();
             if (CanMoveToPosition(dest)) return MoveTo(dest);
             m_GetView().BumpToUnsteppable(direction);
             return null;
@@ -29,7 +29,7 @@ namespace Components.TileObjects.Movables{
         }
 
         private IEffect EnterGround(){
-            var ground = stage.GetGround(m_GetModel().CurrentStagePosition);
+            var ground = stage.GetGround(CurrentStagePosition);
             if (ground == null) return null;
             var effect = ground.OnTileObjectEnter(this);
             return Consume(effect);
@@ -40,8 +40,6 @@ namespace Components.TileObjects.Movables{
             return IsPositionSteppable(stage.GetFloorType(stagePosition))
                    && tileObj is null or IStepOverAble;
         }
-        
-        private ITileObjectModel m_GetModel() => Model as ITileObjectModel;
-        private IMovableView m_GetView() => view as IMovableView;
+        private IMovableView m_GetView() => View as IMovableView;
     }
 }

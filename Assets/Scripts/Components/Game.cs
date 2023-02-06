@@ -7,21 +7,22 @@ namespace Components{
 
     public enum ElementType{
         [Description("fire")]
-        Fire,
+        Fire = 0,
         [Description("water")]
-        Water,
+        Water = 1,
         [Description("wind")]
-        Wind,
+        Wind = 2,
         [Description("earth")]
-        Earth,
+        Earth = 3,
         [Description("electric")]
-        Electric,
+        Electric = 4,
         [Description("poison")]
-        Poison,
+        Poison = 5,
         [Description("physic")]
-        Physic,
+        Physic = 6,
         [Description("real")]
-        Real,
+        Real = 7,
+        Size = 8
     }
     
     public enum GameState{

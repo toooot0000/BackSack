@@ -8,12 +8,6 @@ using Components.TileObjects.ForceMovables;
 using Components.TileObjects.Tweens;
 
 namespace Components.TileObjects.BattleObjects{
-    public interface IBattleObjectView: IForceMovableView{
-        void TakeDamage(IDamage damage);
-        void AddBuff(string buffName);
-        IEnumerator Die();
-    }
-    
     public abstract class BattleObjectView : ForceMovableView, IBattleObjectView{
         public DamageNumber generator;
         public BuffNameDisplay buffNameDisplay;

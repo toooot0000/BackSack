@@ -31,7 +31,7 @@ namespace Tests.PlayerTests.Test_Stages{
             var enemyManager = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
             Assert.That(enemyManager!=null);
 
-            stageManager.SetModel(stage);
+            // stageManager.SetModel(stage);
             
             Assert.That(stage.Floors[1,1].TileObject != null);
             var enemy = stage.Floors[1, 1].TileObject;
@@ -55,7 +55,7 @@ namespace Tests.PlayerTests.Test_Stages{
             Assert.That(enemyManager!=null);
             
             
-            stageManager.SetModel(stage);
+            // stageManager.SetModel(stage);
             var treasureBox = grid.GetComponentInChildren<TreasureBox>();
             Assert.That(treasureBox != null);
             Assert.That(stage.Floors[3,2].TileObject != null);

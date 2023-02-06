@@ -41,8 +41,8 @@ namespace Components.Items.Animations{
             _curTime = 0f;
             _target = attack.Targets.First();
             _source = attack.Attacker;
-            _relativePosition = _target.GetWorldPosition() - _source.GetWorldPosition();
-            lineRenderer.SetPosition(0, _source.GetWorldPosition());
+            _relativePosition = _target.Position - _source.Position;
+            lineRenderer.SetPosition(0, _source.Position);
             arrow.transform.Rotate(axis: new Vector3(0, 0, 1), Vector3.Angle(Vector3.right, _relativePosition));
             while (_curTime < preTime){
                 _curTime += Time.deltaTime;

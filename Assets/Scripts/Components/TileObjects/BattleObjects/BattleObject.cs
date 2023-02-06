@@ -11,17 +11,21 @@ using Components.TileObjects.ForceMovables;
 using Utility.Extensions;
 
 namespace Components.TileObjects.BattleObjects{
-    public interface IBattleObjectModel: IForceMovableModel, IDamageableModel{ }
-    
-    public abstract class BattleObject: ForceMovable, IDamageable, IBuffHolder {
+    public abstract class BattleObject: ForceMovable, IBattleObject {
+        public abstract int HealthLimit{ get; set; }
+        public abstract int HealthPoint{ get; set; }
+        public abstract int ShieldPoint{ get; set; }
+        public abstract int DefendPoint{ get; set; }
+        
         public virtual IEffect Consume(IDamage effect){
-            m_GetModel().HealthPoint -= effect.Point;
+            HealthPoint -= effect.Point;
             m_GetView().TakeDamage(effect);
-            if (m_GetModel().HealthPoint <= 0){
+            if (HealthPoint <= 0){
                 return Die();
             }
             return null;
         }
+
 
         public virtual IEffect Die(){
             return new CoroutineEffect(DieCoroutine);
@@ -52,10 +56,6 @@ namespace Components.TileObjects.BattleObjects{
 
         public List<Buff> Buffs{ get; set; } = new();
         
-        private IBattleObjectModel m_GetModel() => Model as IBattleObjectModel;
-        
-        private IBattleObjectView m_GetView() => view as IBattleObjectView;
-
-        
+        private IBattleObjectView m_GetView() => View as IBattleObjectView;
     }
 }

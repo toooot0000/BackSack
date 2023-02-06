@@ -23,7 +23,7 @@ namespace Components.Enemies.Intentions{
         /// <param name="o2">TileObject2</param>
         /// <returns>o1 -> o2</returns>
         protected static Vector2Int GetTileObjectDistance(ITileObject o1, ITileObject o2){
-            return o2.GetStagePosition() - o1.GetStagePosition();
+            return o2.CurrentStagePosition - o1.CurrentStagePosition;
         }
         
     }

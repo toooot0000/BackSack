@@ -34,11 +34,11 @@ namespace Components.Attacks{
                 if(forceMovement != null){
                     if (forceMovement.Pulling){
                         forceMovement.Direction =
-                            (attack.Attacker.GetStagePosition() - effectConsumer.GetStagePosition()).AlignedDirection();
+                            (attack.Attacker.CurrentStagePosition - effectConsumer.CurrentStagePosition).AlignedDirection();
                     }
                     else{
                         forceMovement.Direction =
-                            (effectConsumer.GetStagePosition() - attack.Attacker.GetStagePosition()).AlignedDirection();
+                            (effectConsumer.CurrentStagePosition - attack.Attacker.CurrentStagePosition).AlignedDirection();
                     }
                 }
                 var side = effectConsumer.Consume(eff);
@@ -46,7 +46,7 @@ namespace Components.Attacks{
             }
             if (eff is IGroundEffect groundEffect){
                 foreach (var stagePos in attack.TargetPositions){
-                    var side = attack.Attacker.GetStage().Consume(groundEffect, stagePos);
+                    var side = GameManager.Shared.stage.Consume(groundEffect, stagePos);
                     if(side != null) results.Add(side);
                 }
             }

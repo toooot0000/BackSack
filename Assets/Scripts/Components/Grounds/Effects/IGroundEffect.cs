@@ -1,4 +1,5 @@
 ﻿using Components.Effects;
+using Components.Stages;
 using MVC;
 
 namespace Components.Grounds.Effects{
@@ -7,8 +8,8 @@ namespace Components.Grounds.Effects{
         ElementType Element{ get; }
         int LastTurnNum{ get; }
     }
-
     public class GroundEffect : IGroundEffect{
+
         public GroundEffect(ElementType element, int lastTurnNum){
             Element = element;
             LastTurnNum = lastTurnNum;

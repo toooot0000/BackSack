@@ -101,10 +101,7 @@ MonoBehaviour:
   tileRoot: {fileID: 254976275441230962}
   bridgeRoot: {fileID: 254976274437518410}
   icon: {fileID: 7045121724033302637}
-  shadowPrefab: {fileID: 9040352683555153320, guid: f668e305f3c166b46934cf4f79cd26ef, type: 3}
-  shadowRoot: {fileID: 2560217685190408336}
   positionTween: {fileID: 4607840130759698362}
-  backUpArea: {fileID: 0}
   areaDetector: {fileID: 2123488511957780345}
   clockwiseDetector: {fileID: 6707974899704846951}
   counterclockwiseDetector: {fileID: 6005551629553258265}

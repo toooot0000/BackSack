@@ -1,8 +1,10 @@
-﻿using Components.Attacks;
+﻿using System;
+using Components.Attacks;
 using Components.Effects;
 using Components.Enemies.Intentions;
 using Components.Players;
 using Components.SelectMaps;
+using Components.TileObjects;
 using Components.TileObjects.Automate;
 using Components.TileObjects.BattleObjects;
 using MVC;
@@ -11,10 +13,7 @@ using Utility.Extensions;
 
 namespace Components.Enemies{
     public class Enemy: BattleObject, IAttacker, IAutomate{
-        public new EnemyView view;
-        public string enemyFolder = "";
-        [HideInInspector]
-        public EnemyManager Manager;
+        public EnemyView view;
         
         private IIntentionContext _context = null;
         private IIntentionContext Context{
@@ -30,7 +29,6 @@ namespace Components.Enemies{
         private GameObject Core{
             get{
                 if (_core != null) return _core;
-                var id = Model.ID!.Value.ToString();
                 var prefab = Resources.Load<GameObject>(Model.CorePath);
                 if (prefab == null) return null;
                 _core = Instantiate(prefab, transform);
@@ -38,15 +36,15 @@ namespace Components.Enemies{
             }
         }
 
-        public new EnemyModel Model{
-            set => SetModel(value);
-            get => base.Model as EnemyModel;
-        }
-
-        protected override void AfterSetModel(){
-            base.AfterSetModel();
-            var spr = Resources.Load<Sprite>(Model.SprPath);
-            view.SetSprite(spr);
+        private EnemyModel _model;
+        public EnemyModel Model{
+            set{
+                _model = value;
+                var spr = Resources.Load<Sprite>(Model.SprPath);
+                view.SetSprite(spr);
+                SetStagePosition(_model.CurrentStagePosition);
+            }
+            get => _model;
         }
 
         public IEffect DoAction(){
@@ -77,18 +75,38 @@ namespace Components.Enemies{
             }
         }
 
-        public void LabelIntention(SelectMap map){
-            ActionPattern.GetIntention(this, Context).Label(map);
-        }
-
         public IAttackAnimator GetAttackAnimator(IAttack attack){
             if (attack is not IEnemyAttack enemyAttack) return null;
             return enemyAttack.GetAnimator();
         }
 
-        protected override void Awake(){
-            base.Awake();
-            base.view = view;
+        public override ITileObjectView View => view;
+        
+        public override Vector2Int CurrentStagePosition{
+            set => Model.CurrentStagePosition = value;
+            get => Model.CurrentStagePosition;
+        }
+        
+        public override int Weight{ 
+            get => Model.Weight;
+            set => Model.Weight = value;
+        }
+
+        public override int HealthLimit{
+            get => Model.HealthLimit;
+            set => Model.HealthLimit = value;
+        }
+        public override int HealthPoint{
+            get => Model.HealthPoint;
+            set => Model.HealthPoint = value;
+        }
+        public override int ShieldPoint{ 
+            get => Model.ShieldPoint;
+            set => Model.ShieldPoint = value;
+        }
+        public override int DefendPoint{
+            get => Model.DefendPoint;
+            set => Model.DefendPoint = value;
         }
     }
 }

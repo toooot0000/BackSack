@@ -7,17 +7,10 @@ using Utility.Extensions;
 
 namespace Components.TreasureBoxes{
     public class TreasureBox: TileObject, ITileObjectView{
-        public new TreasureBoxModel Model{
-            set => base.SetModel(value);
-            get => base.Model as TreasureBoxModel;
-        }
-        
-        protected override void Awake(){
-            base.Awake();
-            base.view = this;
-        }
+        public TreasureBoxModel Model{ set; get; }
 
-        protected override void AfterSetModel(){
+        public void SetModel(TreasureBoxModel model){
+            Model = model;
             transform.position = stage.StageToWorldPosition(Model.CurrentStagePosition);
         }
         
@@ -33,5 +26,8 @@ namespace Components.TreasureBoxes{
         public void SetPosition(Vector3 worldPosition){
             throw new System.NotImplementedException();
         }
+
+        public override Vector2Int CurrentStagePosition{ get; set; }
+        public override ITileObjectView View => this;
     }
 }

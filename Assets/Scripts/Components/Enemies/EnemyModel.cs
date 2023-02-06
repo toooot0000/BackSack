@@ -10,14 +10,14 @@ using Utility.Loader.Attributes;
 
 namespace Components.Enemies{
     [Table("enemies")]
-    public class EnemyModel: SelfSetUpModel, IBattleObjectModel{
-        public Vector2Int CurrentStagePosition{ get; set; }
-        public Vector2Int Size{ set; get; } = Vector2Int.one;
-        public int Weight{ get; set; }
-        public int HealthPoint{ get; set; }
-        public int ShieldPoint{ get; set; }
-        public int DefendPoint{ get; set; }
-        public Dictionary<ElementType, int> Resistances{ get; set; }
+    public class EnemyModel: SelfSetUpModel{
+        public Vector2Int CurrentStagePosition;
+        public Vector2Int Size = Vector2Int.one;
+        public int Weight;
+        public int HealthLimit;
+        public int HealthPoint;
+        public int ShieldPoint;
+        public int DefendPoint;
 
         [Key("sprite_path")] 
         public string SprPath;

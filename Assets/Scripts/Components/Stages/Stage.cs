@@ -15,7 +15,7 @@ using UnityEngine.Tilemaps;
 using Utility;
 
 namespace Components.Stages{
-    public class Stage: Controller, IView{
+    public class Stage: Controller{
         public Grid grid;
         public Tilemap floorMap;
         public EnemyManager enemyManager;
@@ -25,9 +25,13 @@ namespace Components.Stages{
 
         private readonly Dictionary<FloorType, Tile> _tiles = new();
 
-        private new StageModel Model{
-            set => base.SetModel(value);
-            get => base.Model as StageModel;
+        private StageModel _model;
+        public StageModel Model{
+            set{
+                _model = value;
+                BuildStage();
+            }
+            get => _model;
         }
 
         protected override void Awake(){
@@ -38,7 +42,7 @@ namespace Components.Stages{
             }
         }
 
-        protected override void AfterSetModel(){
+        protected void BuildStage(){
             floorMap.ClearAllTiles();
             foreach(var floor in Model.Floors){
                 CreateFloor(floor.Position, floor.Type);

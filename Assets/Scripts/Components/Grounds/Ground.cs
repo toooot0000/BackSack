@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Components.Damages;
 using Components.Effects;
+using Components.Gizmos.ObjectToasts;
 using Components.Grounds.Effects;
 using Components.Grounds.Instances;
 using Components.Grounds.Reducer;
@@ -13,42 +13,27 @@ using Utility;
 using Utility.Extensions;
 
 namespace Components.Grounds{
-
-    public class Explosion : IDamage, IEffectTemplate{
-        public Explosion(){
-            Point = 5;
-            Element = ElementType.Fire;
-        }
-        public IEffectConsumer Target{ get; set; }
-        public IController Source{ get; set; }
-        public IEffect ToEffect() => this;
-
-        public int Point{ set; get; }
-        public ElementType Element{ get; }
-    }
-    
     public class Ground: Controller, IView{
         public Stage stage;
         public SpriteRenderer sprRenderer;
+        public ObjectToaster toaster;
+
+        private GroundModel _model;
         
-        public new GroundModel Model{
-            set => SetModel(value);
-            get => base.Model as GroundModel;
+        public GroundModel Model{
+            set{
+                if(_model != null) _model.AfterTypeChanged -= UpdateSprite;
+                _model = value;
+                _model.AfterTypeChanged += UpdateSprite;
+                UpdateSprite();
+                UpdatePosition();
+                _reducer = Reducers[Model.Type];
+            }
+            get => _model;
         }
 
         private IReducer _reducer;
 
-        protected override void BeforeSetModel(){
-            if(base.Model is GroundModel old) old.AfterTypeChanged -= UpdateSprite;
-        }
-
-        protected override void AfterSetModel(){
-            Model.AfterTypeChanged += UpdateSprite;
-            UpdateSprite();
-            UpdatePosition();
-            _reducer = Reducers[Model.Type];
-        }
-        
         private static Dictionary<GroundType, IReducer> _reducers = null;
         private static Dictionary<GroundType, IReducer> Reducers{
             get{
@@ -93,6 +78,11 @@ namespace Components.Grounds{
                 if (Model.LastTurnNum == 0){
                     Model.Type = GroundType.Null;
                     _reducer = null;
+                } else{
+                    toaster.AddToast($"{Model.LastTurnNum.ToString()}", transform, new ToastOptions(){
+                        Start = Color.red,
+                        End = Color.red
+                    });
                 }
             }
             if(_reducer is IOnTurnEnd end) return end.OnTurnEnd(this, tileObject);

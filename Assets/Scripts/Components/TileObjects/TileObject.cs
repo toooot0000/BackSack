@@ -11,27 +11,35 @@ using Utility.Extensions;
 
 namespace Components.TileObjects{
     public abstract class TileObject : Controller, ITileObject{
+        
+        public abstract Vector2Int CurrentStagePosition{ set; get; }
+
+        public Vector3 Position{
+            get => transform.position;
+            set => transform.position = value;
+        }
+
+        public virtual Vector2Int Size{ get; set; }
+        
+        public abstract ITileObjectView View{ get; }
+        
         public event Action StagePositionUpdated;
         public Stage stage;
 
-        protected override void AfterSetModel(){
-            SetStagePosition(m_GetModel().CurrentStagePosition);
-        }
-
         protected void UpdateStagePosition(Vector2Int newStagePosition){
-            if (m_GetModel().CurrentStagePosition == newStagePosition) return;
-            stage.GetFloor(m_GetModel().CurrentStagePosition).TileObject = null;
+            if (CurrentStagePosition == newStagePosition) return;
+            stage.GetFloor(CurrentStagePosition).TileObject = null;
             stage.GetFloor(newStagePosition).TileObject = this;
-            m_GetModel().CurrentStagePosition = newStagePosition;
+            CurrentStagePosition = newStagePosition;
             StagePositionUpdated?.Invoke();
         }
 
         public void SetStagePosition(Vector2Int stagePosition){
             UpdateStagePosition(stagePosition);
-            m_GetView().SetPosition(stage.StageToWorldPosition(stagePosition));
+            View.SetPosition(stage.StageToWorldPosition(stagePosition));
         }
 
-        public Vector2Int GetStagePosition() => m_GetModel().CurrentStagePosition;
+        public Vector2Int GetStagePosition() => CurrentStagePosition;
         public Vector3 GetWorldPosition() => stage.StageToWorldPosition(GetStagePosition());
         public Stage GetStage() => stage;
 
@@ -46,9 +54,6 @@ namespace Components.TileObjects{
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
-
-        private ITileObjectModel m_GetModel() => Model as ITileObjectModel;
-        private ITileObjectView m_GetView() => view as ITileObjectView;
 
         public IEffect Consume(MultiEffect effect){
             var ret = new List<IEffect>();

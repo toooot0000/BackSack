@@ -115,7 +115,7 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
             _dragController = GetComponent<DragController>();
             areaDetector.EnteredArea += OnEnterBackupAreaWhileSelected;
             areaDetector.ExitArea += OnExitBackupAreaWhileSelected;
-            clockwiseDetector.EnteredArea += RotateCounterclockwise;
+            clockwiseDetector.EnteredArea += RotateClockwise;
             counterclockwiseDetector.EnteredArea += RotateCounterclockwise;
         }
         [NonSerialized]
@@ -134,7 +134,7 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
         public void RotateClockwise(){
             ItemWrapper.PlaceDirection.RotateClockWise();
             var cur = transform.rotation.eulerAngles.z;
-            transform.rotation = Quaternion.Euler(0, 0, cur + 90);
+            transform.rotation = Quaternion.Euler(0, 0, cur - 90);
             UpdateItemBound();
             BackPackPanel.SelectedRotated();
         }

@@ -12,10 +12,10 @@ namespace Components.TileObjects.ForceMovables{
     public abstract class ForceMovable : Movable, IForceMovable{
 
         private int GetForceDistance(IForceMovement forceMovement){
-            var weight = m_GetModel().Weight;
+            var weight = Weight;
             var distance =  Math.Clamp(Math.Abs(forceMovement.Force) - weight, 0, 5);
             if (forceMovement.Pulling && forceMovement.Source is ITileObject srcTileObject){
-                var srcStagePosition = srcTileObject.GetStagePosition();
+                var srcStagePosition = srcTileObject.CurrentStagePosition;
                 var xDif = Math.Abs(srcStagePosition.x - GetStagePosition().x);
                 var yDif = Math.Abs(srcStagePosition.y -GetStagePosition().y);
                 distance = Math.Min(distance, Math.Max(xDif, yDif) - 1);
@@ -24,7 +24,7 @@ namespace Components.TileObjects.ForceMovables{
         }
 
         private int GetRemainForce(int movedDistance, IForceMovement forceMovement) =>
-            forceMovement.Pulling ? 0 : forceMovement.Force - m_GetModel().Weight - movedDistance;
+            forceMovement.Pulling ? 0 : forceMovement.Force - Weight - movedDistance;
         
         protected virtual IEffect FallIntoAna(){
             if (this is IDamageable damageable){
@@ -42,7 +42,7 @@ namespace Components.TileObjects.ForceMovables{
             if (distance == 0) return null;
             var direction = effect.Direction.ToVector2Int();
             for (var i = 1; i <= distance; i++){
-                var curPos = m_GetModel().CurrentStagePosition + direction * i;
+                var curPos = CurrentStagePosition + direction * i;
                 IEffect side;
                 switch (stage.GetFloorType(curPos)){
                     case FloorType.Ana:
@@ -72,7 +72,7 @@ namespace Components.TileObjects.ForceMovables{
                         });
                 }
             }
-            MoveTo(m_GetModel().CurrentStagePosition + direction * distance);
+            MoveTo(CurrentStagePosition + direction * distance);
             return null;
         }
 
@@ -83,7 +83,7 @@ namespace Components.TileObjects.ForceMovables{
             CallConsumer<IForceMovement>(_results, effect, this);
             return MakeSideEffect(_results);
         }
-        private IForceMovableModel m_GetModel() => Model as IForceMovableModel;
-        private ForceMovableView m_GetView() => view as ForceMovableView;
+        
+        public abstract int Weight{ get; set; }
     }
 }

@@ -24,7 +24,6 @@ namespace Components.Enemies{
             var newEnemy = enemyControllers.FirstNotActiveOrNew(CreateInstance);
             newEnemy.stage = stage;
             newEnemy.Model = enemyModel;
-            newEnemy.Manager = this;
             newEnemy.StagePositionUpdated += () => { isSorted = true; };
             isSorted = false;
             return newEnemy;
