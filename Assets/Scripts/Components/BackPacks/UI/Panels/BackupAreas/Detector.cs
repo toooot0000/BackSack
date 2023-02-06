@@ -7,14 +7,16 @@ namespace Components.BackPacks.UI.Panels.BackupAreas{
         public event Action EnteredArea;
         public event Action InsideArea;
         public event Action ExitArea;
-        
-        public float range = 20;
-        public BackupArea area;
 
+        public float range = 20;
+        public RectTransform area;
+        
         private bool _isInside = false;
 
+        private readonly Vector3[] _corners = new Vector3[4];
+
         private void Update(){
-            if ((area.transform as RectTransform).GetWorldRect().Contains(Input.mousePosition)){
+            if (area.GetWorldRect(_corners).Contains(Input.mousePosition)){
                 if (_isInside){
                     InsideArea?.Invoke();
                 } else{
@@ -28,5 +30,6 @@ namespace Components.BackPacks.UI.Panels.BackupAreas{
                 }
             }
         }
+
     }
 }

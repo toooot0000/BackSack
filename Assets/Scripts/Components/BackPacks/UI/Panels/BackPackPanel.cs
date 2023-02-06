@@ -19,6 +19,13 @@ namespace Components.BackPacks.UI.Panels{
         public DirectionSelectManager selectManager;
         public PanelTween tween;
         public BackupArea backupArea;
+        public RectTransform clockwiseTransform;
+        public RectTransform counterclockwiseTransform;
+        
+        [Header("Shadow Block")]
+        public GameObject shadowPrefab;
+        public Transform shadowRoot;
+        private ShadowBlock _shadow;
 
         private readonly List<ItemBlock> _blocks = new();
         
@@ -45,18 +52,12 @@ namespace Components.BackPacks.UI.Panels{
         private void AddBlock(BackPackItemWrapper item){
             var block = _blocks.FirstNotActiveOrNew(MakeNew);
             block.BackPackPanel = this;
-            block.backUpArea = backupArea;
             block.ItemWrapper = item;
-            
+            block.areaDetector.area = backupArea.transform as RectTransform;
+            block.clockwiseDetector.area = clockwiseTransform;
+            block.counterclockwiseDetector.area = counterclockwiseTransform;
         }
-
-        private void RemoveBlock(BackPackItemWrapper item){
-            foreach (var block in _blocks){
-                if (item != block.ItemWrapper) continue;
-                block.enabled = false;
-                block.gameObject.SetActive(false);
-            }
-        }
+        
 
         private void Resize(){
             grid.Resize();
@@ -67,7 +68,6 @@ namespace Components.BackPacks.UI.Panels{
 
         public void OnBlockClicked(ItemBlock block){
             Debug.Log($"Use item: {block.ItemWrapper}");
-            // GameManager.Shared.StartSelectDirection(block.Item);
             selectManager.ActiveWithItem(block.ItemWrapper.Item);
         } 
 
@@ -90,7 +90,7 @@ namespace Components.BackPacks.UI.Panels{
             tween.Play();
         }
 
-        public void PutBlockInGrid(ItemBlock block){
+        private void PutBlockInGrid(ItemBlock block){
             var spared = backPack.PutItem(block.ItemWrapper);
             if (spared.Length == 0) return;
             var set = new HashSet<BackPackItemWrapper>(spared);
@@ -98,17 +98,79 @@ namespace Components.BackPacks.UI.Panels{
                 if(!set.Contains(itemBlock.ItemWrapper)) continue;
                 set.Remove(itemBlock.ItemWrapper);
                 backupArea.AddBlock(itemBlock);
+                itemBlock.IsInBackup = true;
             }
         }
 
-        public void PutBlockInBackUp(ItemBlock block){
+        private void PutBlockInBackUp(ItemBlock block){
             backPack.RemoveItem(block.ItemWrapper);
-            backupArea.RemoveEmptyPosition();
-            backupArea.AddBlock(block);
+            backupArea.ReplacePlaceholder(block);
         }
 
+        private ItemBlock _selected;
+
+
         public void PickUpItemFromGrid(ItemBlock block){
+            _selected = block;
             backPack.RemoveItem(block.ItemWrapper);
+            EnableShadow();
+        }
+
+        public void PickUpItemFromBackup(ItemBlock block){
+            _selected = block;
+            backupArea.RemoveBlock(block);
+            backupArea.MakePlaceholder(block);
+            EnableShadow();
+        }
+
+        public void SelectedEnterBackupArea(){
+            backupArea.MakePlaceholder(_selected);
+        }
+
+        public void SelectedExitBackupArea(){
+            backupArea.RemovePlaceholder();
+        }
+
+        public void PutSelectedInBackup(){
+            _selected.ItemWrapper.PlacePosition = Vector2Int.zero;
+            PutBlockInBackUp(_selected);
+            _selected = null;
+            DisableShadow();
+        }
+
+        public void PutSelectedInGrid(){
+            var gridPosition = grid.GetClosestGrid(_selected);
+            _selected.ItemWrapper.PlacePosition = gridPosition;
+            _selected.positionTween.Target = grid.GridToWorldPosition(gridPosition);
+            PutBlockInGrid(_selected);
+            _selected = null;
+            DisableShadow();
+        }
+
+        public Vector3 GetSelectedClosestPosition(){
+            return _selected.IsInBackup ? backupArea.GetClosestWorld(_selected) : grid.GetClosestWorld(_selected);
+        }
+
+        private void Update(){
+            if (_selected is not{ IsInBackup: true }) return;
+            backupArea.UpdatePlaceholder(_selected);
+        }
+
+        private void EnableShadow(){
+            if (_shadow == null){
+                _shadow = Instantiate(shadowPrefab, shadowRoot).GetComponent<ShadowBlock>();
+                _shadow.Panel = this;
+            }
+            _shadow.enabled = true;
+            _shadow.Master = _selected;
+        }
+
+        private void DisableShadow(){
+            _shadow.enabled = false;
+        }
+
+        public void SelectedRotated(){
+            _shadow.SyncRotation();
         }
     }
 }

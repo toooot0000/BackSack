@@ -11,23 +11,30 @@ namespace Components.BackPacks.UI.Panels{
         public Vector2 targetSize = new(600, 400);
         public AnimationCurve curve;
         public BackupArea backupArea;
+        public CanvasGroup buttonGroup;
         private Vector2 _origin;
 
         protected override void OnStart(){
             _origin = panelTrans.rect.size;
             backupArea.canvasGroup.blocksRaycasts = false;
             backupArea.canvasGroup.interactable = false;
+            buttonGroup.blocksRaycasts = false;
+            buttonGroup.interactable = false;
         }
 
         protected override void OnComplete(){
             backupArea.canvasGroup.blocksRaycasts = true;
             backupArea.canvasGroup.interactable = true;
+            buttonGroup.blocksRaycasts = false;
+            buttonGroup.interactable = false;
         }
 
         protected override void OnReverseStart(){
             _origin = panelTrans.rect.size;
             backupArea.canvasGroup.blocksRaycasts = false;
             backupArea.canvasGroup.interactable = false;
+            buttonGroup.blocksRaycasts = false;
+            buttonGroup.interactable = false;
         }
 
         public void Play(Action callback){
@@ -41,6 +48,7 @@ namespace Components.BackPacks.UI.Panels{
             panelTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, curSize.x);
             panelTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, curSize.y);
             backupArea.canvasGroup.alpha = i;
+            buttonGroup.alpha = i;
         }
     }
 }

@@ -9,7 +9,6 @@ using Utility.Extensions;
 
 namespace Components.BackPacks.UI.Panels.ItemBlocks{
     [RequireComponent(typeof(DragController))]
-    [RequireComponent(typeof(Detector))]
     public class ItemBlock : ShapeBlock{
         private BackPackItemWrapper _itemWrapper;
         public Image icon;
@@ -18,11 +17,6 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
         public BackPackPanel BackPackPanel;
         private DragController _dragController;
 
-        [Header("Shadow Block Configs")] 
-        public GameObject shadowPrefab;
-        public Transform shadowRoot;
-        private ShadowBlock _shadow;
-        
         /// <summary>
         /// PositionRect after rotation
         /// </summary>
@@ -30,8 +24,9 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
         public RectInt ItemRect;
 
         public PositionTween positionTween;
-        public BackupArea backUpArea;
-        private Detector _detector;
+        public Detector areaDetector;
+        public Detector clockwiseDetector;
+        public Detector counterclockwiseDetector;
 
         public BackPackItemWrapper ItemWrapper{
             set{
@@ -45,12 +40,13 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
         }
 
         private void UpdateTransform(){
-            transform.position = grid.StageToWorldPosition(ItemWrapper.PlacePosition);
+            transform.position = grid.GridToWorldPosition(ItemWrapper.PlacePosition);
             transform.rotation = Quaternion.Euler(0, 0,
                 Vector2.Angle(Const.DefaultDirection.ToVector2Int(), ItemWrapper.PlaceDirection.ToVector2Int()));
         }
 
         private void UpdateItemBound(){
+            ItemRect = new RectInt();
             foreach (var pos in ItemWrapper.Item.TakeUpRange.Rotate(ItemWrapper.PlaceDirection)){
                 ItemRect.min = Vector2Int.Min(ItemRect.min, pos);
                 ItemRect.max = Vector2Int.Max(ItemRect.max,  pos + Vector2Int.one);
@@ -77,11 +73,6 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
             return ret;
         }
 
-        public void OnLongTouched(){
-            Debug.Log("Block Long Touched!");
-
-        }
-
         public void OnClicked(){
             if (BackPackPanel.IsRearranging) return;
             Debug.Log("Block Clicked!");
@@ -92,12 +83,13 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
             Debug.Log("Block pointer down!");
             if (!BackPackPanel.IsRearranging) return;
             _dragController.StartDrag();
-            EnableShadow();
             positionTween.enabled = false;
-            _detector.enabled = true;
-            if (_isInBackup){
-                backUpArea.RemoveBlock(this);
-                backUpArea.MakeEmptyPosition(this);
+            areaDetector.enabled = true;
+            clockwiseDetector.enabled = true;
+            counterclockwiseDetector.enabled = true;
+            
+            if (IsInBackup){
+                BackPackPanel.PickUpItemFromBackup(this);
             } else{
                 BackPackPanel.PickUpItemFromGrid(this);
             }
@@ -107,83 +99,52 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks{
             Debug.Log("Block Pointer Up!");
             if (!BackPackPanel.IsRearranging) return;
             _dragController.EndDrag();
-            DisableShadow();
-            _detector.enabled = false;
-
+            areaDetector.enabled = false;
+            clockwiseDetector.enabled = false;
+            counterclockwiseDetector.enabled = false;
             
-            if(_isInBackup){
-                ItemWrapper.PlacePosition = Vector2Int.zero;
-                BackPackPanel.PutBlockInBackUp(this);
+            if(IsInBackup){
+                BackPackPanel.PutSelectedInBackup();
             } else{
-                positionTween.Target = GetTargetPosition();
-                ItemWrapper.PlacePosition = grid.GridToStagePosition(GetClosesGridPosition());
-                BackPackPanel.PutBlockInGrid(this);
+                BackPackPanel.PutSelectedInGrid();
             }
             
         }
 
-        private void Start(){
+        private void Awake(){
             _dragController = GetComponent<DragController>();
-            _detector = GetComponent<Detector>();
-            _detector.area = backUpArea;
-            _detector.EnteredArea += OnEnterBackupArea;
-            _detector.ExitArea += OnExitBackupArea;
+            areaDetector.EnteredArea += OnEnterBackupAreaWhileSelected;
+            areaDetector.ExitArea += OnExitBackupAreaWhileSelected;
+            clockwiseDetector.EnteredArea += RotateCounterclockwise;
+            counterclockwiseDetector.EnteredArea += RotateCounterclockwise;
+        }
+        [NonSerialized]
+        public bool IsInBackup = false;
 
+        private void OnEnterBackupAreaWhileSelected(){
+            IsInBackup = true;
+            BackPackPanel.SelectedEnterBackupArea();
         }
 
-        private void Update(){
-            if (!_isInBackup) return;
-            backUpArea.UpdateEmptyPosition(this);
-        }
-
-        private bool _isInBackup = false;
-
-        private void OnEnterBackupArea(){
-            _isInBackup = true;
-            backUpArea.MakeEmptyPosition(this);
-        }
-
-        private void OnExitBackupArea(){
-            _isInBackup = false;
-            backUpArea.RemoveEmptyPosition();
-        }
-
-        private void EnableShadow(){
-            if (_shadow == null){
-                _shadow = Instantiate(shadowPrefab, shadowRoot).GetComponent<ShadowBlock>();
-                _shadow.Master = this;
-            }
-
-            _shadow.enabled = true;
-        }
-
-        private void DisableShadow(){
-            _shadow.enabled = false;
-        }
-
-        private Vector2Int GetClosesGridPosition(){
-            var closest = grid.GetClosestGrid(transform.position);
-            var gridBound = grid.GridBound;
-            gridBound.min -= ItemRect.min;
-            gridBound.max -= (ItemRect.max - Vector2Int.one);
-            closest.Clamp(gridBound.min, gridBound.max - Vector2Int.one);
-            return closest;
+        private void OnExitBackupAreaWhileSelected(){
+            IsInBackup = false;
+            BackPackPanel.SelectedExitBackupArea();
         }
         
-        public Vector3 GetTargetPosition() => !_isInBackup
-            ? grid.GridToWorldPosition(GetClosesGridPosition())
-            : backUpArea.GetClosestPosition(this);
-
         public void RotateClockwise(){
             ItemWrapper.PlaceDirection.RotateClockWise();
             var cur = transform.rotation.eulerAngles.z;
             transform.rotation = Quaternion.Euler(0, 0, cur + 90);
+            UpdateItemBound();
+            BackPackPanel.SelectedRotated();
         }
 
         public void RotateCounterclockwise(){ 
             ItemWrapper.PlaceDirection.RotateCounterclockwise();
             var cur = transform.rotation.eulerAngles.z;
             transform.rotation = Quaternion.Euler(0, 0, cur + 90);
+            UpdateItemBound();
+            BackPackPanel.SelectedRotated();
         }
     }
 }

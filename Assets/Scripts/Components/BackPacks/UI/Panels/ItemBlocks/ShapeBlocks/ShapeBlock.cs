@@ -42,7 +42,7 @@ namespace Components.BackPacks.UI.Panels.ItemBlocks.ShapeBlocks{
             bridgeRoot.sizeDelta = Vector2.zero;
         }
 
-        private void UpdatePivot(){
+        protected void UpdatePivot(){
             var rectTrans = (RectTransform)transform;
             var pivotTile = (Vector2)_takeUpRange[0];
             pivotTile += new Vector2(0.5f, 0.5f) - PositionRect.min;

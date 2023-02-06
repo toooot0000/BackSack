@@ -7,30 +7,34 @@ using Utility.Extensions;
 
 namespace Components.BackPacks.UI.Panels.ItemBlocks{
     public class ShadowBlock: ShapeBlock{
-        public CanvasGroup canvasGroup;
-        [NonSerialized] public ItemBlock Master;
+        private ItemBlock _master;
+        public ItemBlock Master{
+            get => _master;
+            set{
+                _master = value;
+                grid = value.grid;
+                SyncTransform();
+                Reload(value.ItemWrapper.Item.TakeUpRange);
+                
+            }
+        }
 
-        public override void OnEnable(){
-            base.OnEnable();
-            if (Master == null) return;
+        [NonSerialized] public BackPackPanel Panel;
+        
+
+        private void SyncTransform(){
             var transform1 = Master.transform;
             var transform2 = transform;
             transform2.position = transform1.position;
             transform2.rotation = transform1.rotation;
         }
 
-
-        public void Start(){
-            grid = Master.grid;
-            var transform1 = Master.transform;
-            var transform2 = transform;
-            transform2.position = transform1.position;
-            transform2.rotation = transform1.rotation;
-            Reload(Master.ItemWrapper.Item.TakeUpRange);
+        public void SyncRotation(){
+            transform.rotation = Master.transform.rotation;
         }
 
         private void Update(){
-            transform.position = Master.GetTargetPosition();
+            transform.position = Panel.GetSelectedClosestPosition();
         }
     }
 }
