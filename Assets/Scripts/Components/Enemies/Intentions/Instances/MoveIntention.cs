@@ -11,7 +11,7 @@ namespace Components.Enemies.Intentions.Instances{
             _enemy = enemy;
         }
         public IEffect DoAction(){
-            return _enemy.Move(Direction);
+            return _enemy.TryMove(Direction);
         }
 
         public void Label(SelectMap map){

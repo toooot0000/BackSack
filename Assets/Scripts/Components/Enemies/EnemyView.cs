@@ -1,9 +1,4 @@
-﻿using System;
-using Components.Attacks;
-using Components.TileObjects;
-using Components.TileObjects.BattleObjects;
-using Components.TileObjects.ForceMovables;
-using MVC;
+﻿using Components.TileObjects.BattleObjects;
 using UnityEngine;
 
 namespace Components.Enemies{

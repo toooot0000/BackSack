@@ -55,6 +55,7 @@ namespace Components.Grounds.Instances{
         public IEffect OnTileObjectExit(Ground ground, ITileObject tileObject){
             if (tileObject is not IBuffHolder holder) return null;
             var layer = holder.GetBuffOfType<BlindBuff>().Layer;
+            if (layer <= 0) return null; 
             return new ChangeBuffEffect<BlindBuff>(holder, -layer);
         }
     }

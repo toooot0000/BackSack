@@ -4,11 +4,11 @@ using Components.Attacks;
 using Components.Buffs.BuffNames;
 using Components.Damages;
 using Components.Damages.DamageNumbers;
-using Components.TileObjects.ForceMovables;
+using Components.TileObjects.Movables;
 using Components.TileObjects.Tweens;
 
 namespace Components.TileObjects.BattleObjects{
-    public abstract class BattleObjectView : ForceMovableView, IBattleObjectView{
+    public abstract class BattleObjectView : MovableView, IBattleObjectView{
         public DamageNumber generator;
         public BuffNameDisplay buffNameDisplay;
 
@@ -22,6 +22,7 @@ namespace Components.TileObjects.BattleObjects{
 
         public virtual IEnumerator Die(){
             yield return PlayAndWaitUntilComplete<Die>();
+            Destroy();
         }
 
         public void RemoveBuff(string buffName){

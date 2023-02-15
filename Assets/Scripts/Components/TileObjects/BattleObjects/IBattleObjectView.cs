@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using Components.Damages;
-using Components.TileObjects.ForceMovables;
+using Components.TileObjects.Movables;
 
 namespace Components.TileObjects.BattleObjects{
-    public interface IBattleObjectView: IForceMovableView{
+    public interface IBattleObjectView: IMovableView{
         void TakeDamage(IDamage damage);
         void AddBuff(string buffName);
         IEnumerator Die();

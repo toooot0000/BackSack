@@ -1,7 +1,7 @@
 ﻿using Components.Buffs;
 using Components.Damages;
-using Components.TileObjects.ForceMovables;
+using Components.TileObjects.Movables;
 
 namespace Components.TileObjects.BattleObjects{
-    public interface IBattleObject: IForceMovable, IDamageable, IBuffHolder{}
+    public interface IBattleObject: IMovable, IDamageable, IBuffHolder{}
 }

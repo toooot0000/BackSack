@@ -2,7 +2,6 @@
 using Components.Attacks;
 using Components.Effects;
 using Components.TileObjects;
-using Components.TileObjects.ForceMovables;
 using Components.TileObjects.Tweens;
 using UnityEngine;
 using Utility.Extensions;

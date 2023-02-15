@@ -4,6 +4,7 @@ using Components.Grounds;
 using Components.Stages;
 using Components.TileObjects;
 using StageEditor.Tiles;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Utility;
@@ -21,6 +22,8 @@ namespace StageEditor{
         public StageTile tileTreasure;
 
         private Tilemap[] _allMaps = Array.Empty<Tilemap>();
+
+        public readonly Converter Converter = new Converter();
 
         [HideInInspector] 
         public string loadName = ""; 
@@ -85,25 +88,8 @@ namespace StageEditor{
         /// Convert current editing result to a Stage model.
         /// </summary>
         /// <returns></returns>
-        public StageModel ToStage(){
-            var size = floorMap.size;
-            var ret = new StageModel{
-                Floors = new Floor[size.x, size.y],
-                Meta = new StageMeta{
-                    Version = versionNumber,
-                    Height = size.y,
-                    Width = size.x,
-                    Name = stageName
-                }
-            };
-            for (var i = 0; i < size.x; i++){
-                for (var j = 0; j < size.y; j++){
-                    if (!SetStageFloorType(i, j, ret)) continue;
-                    SetStageObject(i, j, ret);
-                    SetStageGroundEffect(i, j, ret);
-                }
-            }
-            return ret;
+        public StageModel ToStageModel(){
+            return Converter.ToStageModel(this);
         }
         
         
@@ -111,29 +97,16 @@ namespace StageEditor{
         /// Set up all the maps based on the argument stage. 
         /// </summary>
         /// <param name="source"></param>
-        public void FromStage(StageModel source){
-
-            foreach (var map in AllMaps){
-                map.ClearAllTiles();
-            }
-            
-            versionNumber = source.Meta.Version;
-            stageName = source.Meta.Name;
-            for (int i = 0; i < source.Width; i++){
-                for (int j = 0; j < source.Height; j++){
-                    SetMapFloor(i, j, source);
-                    SetMapObject(i, j, source);
-                    SetMapGroundEffect(i, j, source);
-                }
-            }
+        public void LoadFromStageModel(StageModel source){
+            Converter.LoadFromStageModel(this, source);
         }
 
-        private void SetMapFloor(int i, int j, StageModel src){
+        public void SetMapFloorFromModel(int i, int j, StageModel src){
             var positionInGrid = src.GetGridPosition(i, j).ToVector3Int();
             floorMap.SetTile(positionInGrid, TypeToFloorTypeToFloorTile[src.Floors[i, j].Type]);
         }
 
-        private void SetMapObject(int i, int j, StageModel src){
+        public void SetMapObjectFromModel(int i, int j, StageModel src){
             var positionInGrid = src.GetGridPosition(i, j).ToVector3Int();
             switch (src.Floors[i, j].TileObjectType){
                 case TileObjectType.Enemy:
@@ -145,14 +118,14 @@ namespace StageEditor{
             }
         }
 
-        private void SetMapGroundEffect(int i, int j, StageModel src){
+        public void SetMapGroundEffectFromModel(int i, int j, StageModel src){
             var positionInGrid = src.GetGridPosition(i, j).ToVector3Int();
             var type = src.Floors[i, j].GroundType;
             if (type == GroundType.Null) return;
             groundEffectMap.SetTile(positionInGrid, TypeToGroundEffectTiles[type]);
         }
 
-        private bool SetStageFloorType(int i, int j, StageModel ret){
+        public bool SetFloorTypeInModel(int i, int j, StageModel ret){
             var tile = floorMap.GetTile<FloorTile>(floorMap.GetGridPosition(i, j));
             if(tile == null){
                 ret.Floors[i, j] = new Floor{
@@ -168,7 +141,7 @@ namespace StageEditor{
             return true;
         }
 
-        private void SetStageObject(int i, int j, StageModel ret){
+        public void SetObjectInModel(int i, int j, StageModel ret){
             // 通过tile 决定类型：tile-player -> Player, tile-enemy-0 -> enemy, tile-chest-x -> chest
             var tile = objectMap.GetTile<ObjectTile>(floorMap.GetGridPosition(i, j));
             if (tile == null){
@@ -190,33 +163,10 @@ namespace StageEditor{
             }
         }
 
-        private void SetStageGroundEffect(int i, int j, StageModel ret){
+        public void SetGroundEffectInModel(int i, int j, StageModel ret){
             var tile = groundEffectMap.GetTile<GroundTile>(floorMap.GetGridPosition(i, j));
             if (tile == null) return ;
             ret.Floors[i, j].GroundType = tile.type;
         }
-    }
-
-    internal static class TilemapExtension{
-        /// <summary>
-        /// Get the grid position based on offsets
-        /// </summary>
-        public static Vector3Int GetGridPosition(this Tilemap tilemap, int xOffset, int yOffset){
-            return tilemap.cellBounds.min + new Vector3Int(xOffset, yOffset);
-        }
-
-        public static StageTile GetStageTile(this Tilemap tilemap, int xOffset, int yOffset){
-            return tilemap.GetTile<StageTile>(tilemap.GetGridPosition(xOffset, yOffset));
-        }
-    }
-
-    internal static class StageExtension{
-        public static Vector3Int GetGridPosition(this StageModel stageModel, int row, int col){
-            return new Vector3Int(row - stageModel.Width/2, col - stageModel.Height/2);
-        }
-    }
-
-    internal static class Vector2IntExtension{
-        public static Vector3Int ToVector3Int(this Vector2Int vec) => new Vector3Int(vec.x, vec.y, 0);
     }
 }

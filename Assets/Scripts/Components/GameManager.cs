@@ -120,7 +120,7 @@ namespace Components{
         }
 
         private void MoveTileObject(IMovable tileObject, Direction direction){
-            StartCoroutine(PropagateEffect(tileObject.Move(direction)));
+            StartCoroutine(PropagateEffect(tileObject.TryMove(direction)));
         }
 
         /// <summary>

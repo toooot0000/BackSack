@@ -23,9 +23,17 @@ namespace Components.TileObjects{
         
         public abstract ITileObjectView View{ get; }
         
+        /// <summary>
+        /// Sent whenever the stage position is changed
+        /// </summary>
         public event Action StagePositionUpdated;
         public Stage stage;
-
+        
+        
+        /// <summary>
+        /// Update the stage position of current TileObject. Also inform Stage the change. Will send StagePositionUpdated event.
+        /// </summary>
+        /// <param name="newStagePosition"></param>
         protected void UpdateStagePosition(Vector2Int newStagePosition){
             if (CurrentStagePosition == newStagePosition) return;
             stage.GetFloor(CurrentStagePosition).TileObject = null;
@@ -33,8 +41,14 @@ namespace Components.TileObjects{
             CurrentStagePosition = newStagePosition;
             StagePositionUpdated?.Invoke();
         }
-
-        public void SetStagePosition(Vector2Int stagePosition){
+        
+        
+        /// <summary>
+        /// Set the position of the TileObject, both model-wise and view-wise
+        /// </summary>
+        /// <param name="stagePosition"></param>
+        public virtual void SetStagePosition(Vector2Int stagePosition){
+            if (!CanSetPositionForGivenFloorType(stage.GetFloorType(stagePosition))) return;
             UpdateStagePosition(stagePosition);
             View.SetPosition(stage.StageToWorldPosition(stagePosition));
         }
@@ -43,7 +57,7 @@ namespace Components.TileObjects{
         public Vector3 GetWorldPosition() => stage.StageToWorldPosition(GetStagePosition());
         public Stage GetStage() => stage;
 
-        public virtual bool IsPositionSteppable(FloorType floor){
+        public virtual bool CanSetPositionForGivenFloorType(FloorType floor){
             return floor switch{
                 FloorType.Empty => true,
                 FloorType.Ana => false,
@@ -54,6 +68,8 @@ namespace Components.TileObjects{
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
+
+        public bool IsDestroyed{ set; get; } = false;
 
         public IEffect Consume(MultiEffect effect){
             var ret = new List<IEffect>();
@@ -103,9 +119,10 @@ namespace Components.TileObjects{
             }
         }
 
-        public static void Destroy(TileObject tileObject){
-            tileObject.stage.GetFloor(tileObject.GetStagePosition()).TileObject = null;
-            tileObject.gameObject.SetActive(false);
+        public virtual void Destroy(){
+            IsDestroyed = true;
+            stage.GetFloor(GetStagePosition()).TileObject = null;
+            View.Destroy();
         }
     }
 }

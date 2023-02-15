@@ -1,17 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Components.Attacks;
 using Components.Buffs;
 using Components.Buffs.Effects;
 using Components.Damages;
 using Components.Effects;
-using Components.Grounds.Effects;
-using Components.TileObjects.Effects;
-using Components.TileObjects.ForceMovables;
-using Utility.Extensions;
+using Components.TileObjects.Movables;
 
 namespace Components.TileObjects.BattleObjects{
-    public abstract class BattleObject: ForceMovable, IBattleObject {
+    public abstract class BattleObject:  Movable, IBattleObject {
         public abstract int HealthLimit{ get; set; }
         public abstract int HealthPoint{ get; set; }
         public abstract int ShieldPoint{ get; set; }

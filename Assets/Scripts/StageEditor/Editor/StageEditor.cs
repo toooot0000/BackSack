@@ -18,7 +18,7 @@ namespace StageEditor.Editor{
             base.OnInspectorGUI();
             var stageInEdit = (target as StageInEditManager)!;
             if (GUILayout.Button("Export")){
-                Export(stageInEdit.ToStage());
+                Export(stageInEdit.ToStageModel());
                 Debug.Log("Export complete!");
             }
             EditorGUILayout.Separator();
@@ -28,7 +28,7 @@ namespace StageEditor.Editor{
                 var stage = Load(stageInEdit.loadName);
                 if (stage == null) return;
                 Debug.Log("Load complete!");
-                stageInEdit.FromStage(stage);
+                stageInEdit.LoadFromStageModel(stage);
             }
 
             if (GUILayout.Button("Select a stage to load")){
@@ -38,7 +38,7 @@ namespace StageEditor.Editor{
                     var ext = Path.GetExtension(path);
                     var stage = Load(fullName[..^ext.Length]);
                     if (stage != null){
-                        stageInEdit.FromStage(stage);
+                        stageInEdit.LoadFromStageModel(stage);
                     }
                 } 
             }

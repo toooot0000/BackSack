@@ -1,11 +1,4 @@
-﻿using System.Collections.Generic;
-using Components.Buffs;
-using Components.Damages;
-using Components.TileObjects.BattleObjects;
-using Components.TileObjects.ForceMovables;
-using MVC;
-using UnityEngine;
-using Utility.Loader;
+﻿using UnityEngine;
 using Utility.Loader.Attributes;
 
 namespace Components.Enemies{

@@ -46,14 +46,9 @@ namespace StageEditor.Tiles{
                 }
                 var inst = CreateInstance<T>();
                 ProjectWindowUtil.CreateAsset(inst, finalPath);
-                // AssetDatabase.CreateAsset(inst, path);
             }
-            // var path = EditorUtility.SaveFilePanelInProject("Save Stage Tile", "New Stage Tile", "asset", "Save Road Tile", "assets");
-            // if (path == "") return;
-            // var instance = CreateInstance<T>();
-            // AssetDatabase.CreateAsset(instance, path);
-        }
-
+        } 
+        
         [MenuItem("Tools/Tiles/Convert to StageTile")]
         public static void ConvertTileToStageTile(){
             var selected = Selection.objects;

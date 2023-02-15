@@ -1,0 +1,199 @@
+{
+  "main": {
+    "id": "1cfbdf5b7aec2f4e",
+    "type": "split",
+    "children": [
+      {
+        "id": "5126ef10d8762819",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fba57ede7bdb1c54",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "对象/属性/可受伤对象(Damageable).md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "ad31bcba5ca73def",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "对象/环境物品/箱子(Box).md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "cdfca7745c7f2590",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "对象/环境物品/掉落物(PickupAble).md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "4b995b7dc7ee7a96",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "对象/属性/自动对象(Automate).md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "08951a89d7fb4603",
+    "type": "split",
+    "children": [
+      {
+        "id": "95b149a9508e86da",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "46569a7b72180bd2",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "65d829d9daec453c",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "tag:#box",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "07b50763815a0b0c",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d5e8d5ff53ef51c9",
+    "type": "split",
+    "children": [
+      {
+        "id": "60f28d08e4e277d1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f6b4a29268277113",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "对象/属性/自动对象(Automate).md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "3902ce3fc5decd5d",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "对象/属性/自动对象(Automate).md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ef9b6ee9dcd19e93",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "76195a070a0c34ee",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "对象/属性/自动对象(Automate).md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "4b995b7dc7ee7a96",
+  "lastOpenFiles": [
+    "对象/属性/战斗对象(BattleObject).md",
+    "对象/属性/可移动对象(Movable).md",
+    "对象/属性/自动对象(Automate).md",
+    "对象/属性/可受伤对象(Damageable).md",
+    "对象/属性/可交谈对象(Talkable).md",
+    "对象/属性/可强制移动对象(ForceMovable).md",
+    "对象/属性/可踩上对象(Stepoverable).md",
+    "对象/环境物品/柱子(Pillar).md",
+    "对象/环境物品/掉落物(PickupAble).md",
+    "对象/环境物品/箱子(Box).md"
+  ]
+}
