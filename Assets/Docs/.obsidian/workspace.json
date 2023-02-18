@@ -49,7 +49,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "对象/属性/自动对象(Automate).md",
+                "file": "对象/环境物品/掉落物(PickupAble).md",
                 "mode": "source",
                 "source": false
               }
@@ -122,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "对象/属性/自动对象(Automate).md",
+                "file": "对象/环境物品/掉落物(PickupAble).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "对象/属性/自动对象(Automate).md",
+                "file": "对象/环境物品/掉落物(PickupAble).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "对象/属性/自动对象(Automate).md"
+                "file": "对象/环境物品/掉落物(PickupAble).md"
               }
             }
           }
@@ -185,15 +185,15 @@
   },
   "active": "4b995b7dc7ee7a96",
   "lastOpenFiles": [
-    "对象/属性/战斗对象(BattleObject).md",
-    "对象/属性/可移动对象(Movable).md",
+    "关卡/关卡/房间(Stage).md",
+    "关卡/关卡/房间组成元素.md",
+    "关卡/关卡/房间组成元素随机生成.md",
+    "关卡/关卡/关卡(Level).md",
+    "关卡/关卡/关卡随机生成.md",
+    "互动/伤害(Damage).md",
+    "互动/互动方式(interact).md",
+    "互动/对话(Talk).md",
     "对象/属性/自动对象(Automate).md",
-    "对象/属性/可受伤对象(Damageable).md",
-    "对象/属性/可交谈对象(Talkable).md",
-    "对象/属性/可强制移动对象(ForceMovable).md",
-    "对象/属性/可踩上对象(Stepoverable).md",
-    "对象/环境物品/柱子(Pillar).md",
-    "对象/环境物品/掉落物(PickupAble).md",
-    "对象/环境物品/箱子(Box).md"
+    "对象/属性/战斗对象(BattleObject).md"
   ]
 }

@@ -1,4 +1,5 @@
 ﻿using Components.Stages;
+using Components.Stages.Floors;
 using UnityEditor;
 
 namespace StageEditor.Tiles{

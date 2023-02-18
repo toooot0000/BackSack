@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Components.Damages;
 using Components.Effects;
 using Components.Stages;
+using Components.Stages.Floors;
 using Components.TileObjects.Effects;
 using Components.TileObjects.StepOverAbles;
 using UnityEngine;
@@ -94,10 +95,10 @@ namespace Components.TileObjects.Movables{
                     case FloorType.Ana:
                         MoveTo(curPos);
                         return FallIntoAna();
-                    case FloorType.Pillar:
-                    case FloorType.Stair:
+                    // case FloorType.Pillar:
+                    // case FloorType.Stair:
                     case FloorType.Block:
-                    case FloorType.Gate:
+                    // case FloorType.Gate:
                         side = MoveTo(curPos - direction);
                         if (side == null) return HitToObstacle();
                         var hitSide = HitToObstacle();

@@ -1,44 +1,40 @@
-﻿using Components.Stages;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Components.Stages;
+using Components.Stages.Floors;
+using Components.Stages.Templates;
+using StageEditor.MapConverters;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace StageEditor{
-    public class Converter{
+    public class Converter: MonoBehaviour{
 
-        public StageModel ToStageModel(StageInEditManager manager){
+        public Tilemap floorMap;
+        public MapConverter[] mapConverters;
+        public IEnumerable<Tilemap> AllMaps => mapConverters.Select(c => c.map);
+
+        public StageTemplate CreateTemplate(StageInEditManager manager){
             var size = manager.floorMap.size;
-            var ret = new StageModel{
-                Floors = new Floor[size.x, size.y],
-                Meta = new StageMeta{
-                    Version = manager.versionNumber,
-                    Height = size.y,
-                    Width = size.x,
-                    Name = manager.stageName
-                }
+            var ret = ScriptableObject.CreateInstance<StageTemplate>();
+            ret.Meta = new StageMeta{
+                version = manager.versionNumber,
+                height = size.y,
+                width = size.x,
+                name = manager.stageName
             };
-            for (var i = 0; i < size.x; i++){
-                for (var j = 0; j < size.y; j++){
-                    if (!manager.SetFloorTypeInModel(i, j, ret)) continue;
-                    manager.SetObjectInModel(i, j, ret);
-                    manager.SetGroundEffectInModel(i, j, ret);
-                }
-            }
             return ret;
         }
         
-        public void LoadFromStageModel(StageInEditManager manager, StageModel source){
-
-            foreach (var map in manager.AllMaps){
-                map.ClearAllTiles();
+        public void ReadFromTemplate(StageTemplate template){
+            foreach (var converter in mapConverters){
+                converter.ReadFromTemplate(template);
             }
-            
-            manager.versionNumber = source.Meta.Version;
-            manager.stageName = source.Meta.Name;
-            for (int i = 0; i < source.Width; i++){
-                for (int j = 0; j < source.Height; j++){
-                    manager.SetMapFloorFromModel(i, j, source);
-                    manager.SetMapObjectFromModel(i, j, source);
-                    manager.SetMapGroundEffectFromModel(i, j, source);
-                }
+        }
+
+        public void WriteToTemplate(StageTemplate template){
+            foreach (var converter in mapConverters){
+                converter.WriteToTemplate(template);
             }
         }
     }

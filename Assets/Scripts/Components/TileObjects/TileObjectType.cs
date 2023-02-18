@@ -8,5 +8,7 @@ namespace Components.TileObjects{
         Enemy,
         [Description("treasureBox")]
         Treasure,
+        [Description("description")]
+        Connection,
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Components.Stages{
+namespace Components.Stages.Floors{
     public enum FloorType{
         /// <summary>
         /// 空地
@@ -13,12 +13,12 @@ namespace Components.Stages{
         /// 墙壁
         /// </summary>
         [Description("block")]
-        Block,
-        [Description("pillar")]
-        Pillar,
-        [Description("gate")]
-        Gate,
-        [Description("stair")]
-        Stair,
+        Block
+        // [Description("pillar")]
+        // Pillar,
+        // [Description("gate")]
+        // Gate,
+        // [Description("stair")]
+        // Stair,
     }
 }

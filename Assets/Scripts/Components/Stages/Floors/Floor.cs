@@ -4,9 +4,9 @@ using MVC;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Components.Stages{
+namespace Components.Stages.Floors{
     public class Floor: Model{
-        public Vector2Int Position;
+        public readonly Vector2Int Position;
         public FloorType Type = FloorType.Block;
         public TileObjectType TileObjectType = TileObjectType.Null;
         public int TileObjectId = 0;
@@ -16,5 +16,9 @@ namespace Components.Stages{
         public Ground Ground = null;
         [JsonIgnore]
         public ITileObject TileObject = null;
+
+        public Floor(Vector2Int position){
+            Position = position;
+        }
     }
 }

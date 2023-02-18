@@ -6,6 +6,7 @@ using Components.Effects;
 using Components.Enemies;
 using Components.Grounds;
 using Components.Grounds.Effects;
+using Components.Stages.Floors;
 using Components.TileObjects;
 using Components.TreasureBoxes;
 using MVC;

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Components.Stages;
+using Components.Stages.Templates;
 using MVC;
 using Newtonsoft.Json;
 using UnityEditor;
@@ -8,7 +9,7 @@ using UnityEngine;
 namespace StageEditor.Editor{
     [CustomEditor(typeof(StageInEditManager))]
     public class StageEditor: UnityEditor.Editor{
-        public string StageSavingPath => $"{Application.dataPath}/Resources/{stageResPath}";
+        public string StageSavingPath => $"Assets/Resources/{stageResPath}";
         public string stageResPath = "Stages/";
         public override void OnInspectorGUI(){
             
@@ -18,55 +19,60 @@ namespace StageEditor.Editor{
             base.OnInspectorGUI();
             var stageInEdit = (target as StageInEditManager)!;
             if (GUILayout.Button("Export")){
-                Export(stageInEdit.ToStageModel());
+                ExportTemplate(stageInEdit.WriteToTemplate());
                 Debug.Log("Export complete!");
             }
             EditorGUILayout.Separator();
-
+            
             stageInEdit.loadName = EditorGUILayout.TextField("Name of the file to load:", stageInEdit.loadName);
             if (GUILayout.Button("Load")){
-                var stage = Load(stageInEdit.loadName);
+                var stage = LoadTemplate(stageInEdit.loadName);
                 if (stage == null) return;
                 Debug.Log("Load complete!");
-                stageInEdit.LoadFromStageModel(stage);
+                stageInEdit.ReadFromTemplate(stage);
             }
-
-            if (GUILayout.Button("Select a stage to load")){
-                var path = EditorUtility.OpenFilePanelWithFilters("Select a stage", StageSavingPath, new []{ "JSON", "json"});
+            
+            if (GUILayout.Button("Select a stage template to load")){
+                var path = EditorUtility.OpenFilePanelWithFilters("Select a stage template", StageSavingPath, new []{ "JSON", "json"});
                 if (!string.IsNullOrEmpty(path)){
                     var fullName = Path.GetFileName(path);
                     var ext = Path.GetExtension(path);
-                    var stage = Load(fullName[..^ext.Length]);
+                    var stage = LoadTemplate(fullName[..^ext.Length]);
                     if (stage != null){
-                        stageInEdit.LoadFromStageModel(stage);
+                        stageInEdit.ReadFromTemplate(stage);
                     }
                 } 
             }
 
             if (GUILayout.Button("Clear All")){
-                foreach (var map in stageInEdit.AllMaps){
-                    map.ClearAllTiles();
+                foreach (var map in stageInEdit.converter.mapConverters){
+                    map.Clear();
+                }
+            }
+
+            if (GUILayout.Button("Reload dictionaries")){
+                foreach (var map in stageInEdit.converter.mapConverters){
+                    map.Reload();
                 }
             }
         }
 
-        private StageModel Load(string fileName){
+        private StageTemplate LoadTemplate(string fileName){
             if (!fileName.StartsWith(stageResPath)) fileName = $"{stageResPath}{fileName}";
             Debug.Log($"Loading stage file: {fileName}");
-            var textAsset = Resources.Load<TextAsset>(fileName);
-            if (textAsset == null){
-                Debug.LogError($"Loading stage FAILED! Can't find the stage file with path of {fileName}");
-                return null;
-            }
-            return Model.FromJsonString<StageModel>(textAsset.text);
+            var ret = Resources.Load<StageTemplate>(fileName);
+            if (ret != null) return ret;
+            Debug.LogError($"Loading stage FAILED! Can't find the stage file with path of {fileName}");
+            return null;
         }
-
-        private void Export(StageModel stageModel){
+        
+        
+        private void ExportTemplate(StageTemplate template){
             AssetDatabase.SaveAssets();
-            var filePath = $"{StageSavingPath}{stageModel.Meta.Name}.json";
+            var filePath = $"{StageSavingPath}{template.Meta.name}.asset";
             Debug.Log($"Export stage data to file: {filePath}");
             if (!Directory.Exists(StageSavingPath)) Directory.CreateDirectory(StageSavingPath);
-            File.WriteAllText(filePath, stageModel.ToJson(Formatting.Indented));
+            AssetDatabase.CreateAsset(template, filePath);
             AssetDatabase.Refresh();
         }
     }

@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60444020cb8c463c9ee4eac9e27d2b47, type: 3}
-  m_Name: pillar
+  m_Script: {fileID: 11500000, guid: b378efbd54b54dbfbb84dde61449c347, type: 3}
+  m_Name: randomTile
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 3be969746a364e247a8c32e6412eaad4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9125c204f566db048a92ebcb64d9d14a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -36,4 +36,3 @@ MonoBehaviour:
   m_ColliderType: 1
   tileName: 
   params: 
-  type: 3

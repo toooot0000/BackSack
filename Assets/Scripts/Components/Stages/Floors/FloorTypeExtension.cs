@@ -1,6 +1,6 @@
 ﻿using Utility.Extensions;
 
-namespace Components.Stages{
+namespace Components.Stages.Floors{
     public static partial class FloorTypeExtension{
         public const string ResourcePath = "Tiles/FloorTiles/";
         public const string ResourcePrefix = "";

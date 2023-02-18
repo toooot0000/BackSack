@@ -5,6 +5,7 @@ using Components.Effects;
 using Components.Grounds;
 using Components.Grounds.Effects;
 using Components.Stages;
+using Components.Stages.Floors;
 using MVC;
 using UnityEngine;
 using Utility.Extensions;
@@ -62,9 +63,9 @@ namespace Components.TileObjects{
                 FloorType.Empty => true,
                 FloorType.Ana => false,
                 FloorType.Block => false,
-                FloorType.Gate => true,
-                FloorType.Pillar => false,
-                FloorType.Stair => true,
+                // FloorType.Gate => true,
+                // FloorType.Pillar => false,
+                // FloorType.Stair => true,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

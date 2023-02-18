@@ -1,6 +1,7 @@
 ﻿using System;
 using Components.Effects;
 using Components.Stages;
+using Components.Stages.Floors;
 using MVC;
 using UnityEngine;
 
