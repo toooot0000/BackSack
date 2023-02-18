@@ -17,9 +17,9 @@ namespace StageEditor{
         public IEnumerable<Tilemap> AllMaps => converter.AllMaps;
 
         public void ReadFromTemplate(StageTemplate template){
-            hardness = template.Meta.hardness;
-            stageName = template.Meta.name;
-            versionNumber = template.Meta.version;
+            hardness = template.meta.hardness;
+            stageName = template.meta.name;
+            versionNumber = template.meta.version;
             converter.ReadFromTemplate(template);
         }
 

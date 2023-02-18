@@ -17,7 +17,7 @@ namespace StageEditor{
         public StageTemplate CreateTemplate(StageInEditManager manager){
             var size = manager.floorMap.size;
             var ret = ScriptableObject.CreateInstance<StageTemplate>();
-            ret.Meta = new StageMeta{
+            ret.meta = new StageMeta{
                 version = manager.versionNumber,
                 height = size.y,
                 width = size.x,

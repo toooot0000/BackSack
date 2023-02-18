@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
 using Components.Grounds;
 using Components.Stages.Floors;
 using Components.TileObjects;
-using MVC;
-using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
+using Utility.Extensions;
 
 namespace Components.Stages.Templates{
 
@@ -27,29 +26,49 @@ namespace Components.Stages.Templates{
         public int id;
     }
 
+
     public class StageTemplate: ScriptableObject{
         
-        public StageMeta Meta;
+        public StageMeta meta;
+
+        public PositionValuePair<Direction>[] connectedDirection;
+        
         public RandomObjectGroup[] randomGroups;
         
         public PositionValuePair<FloorType>[] floors;
         public PositionValuePair<TileObjectInfo>[] tileObjects;
         public PositionValuePair<GroundType>[] grounds;
 
+        private HashSet<Direction> _directions;
+        public HashSet<Direction> AvailableDirections{
+            get{
+                _directions ??= connectedDirection.Select(p => p.value).ToHashSet();
+                return _directions;
+            }
+        }
+
         public StageModel ToModel(){
             
-            var ret = new StageModel(Meta);
+            var ret = new StageModel(meta);
             foreach (var pair in floors){
-                ret.Floors[pair.position.x, pair.position.y].Type = pair.value;
+                ret.GetFloor(ret.GetStagePosition(pair.position)).Type = pair.value;
             }
 
             foreach (var pair in tileObjects){
-                ret.Floors[pair.position.x, pair.position.y].TileObjectType = pair.value.type;
-                ret.Floors[pair.position.x, pair.position.y].TileObjectId = pair.value.id;
+                ret.GetFloor(ret.GetStagePosition(pair.position)).TileObjectType = pair.value.type;
+                ret.GetFloor(ret.GetStagePosition(pair.position)).TileObjectId = pair.value.id;
             }
 
             foreach (var pair in grounds){
-                ret.Floors[pair.position.x, pair.position.y].GroundType = pair.value;
+                ret.GetFloor(ret.GetStagePosition(pair.position)).GroundType = pair.value;
+            }
+
+            var weighted = new WeightedRandomGroup<RandomObjectInfo>();
+            foreach (var randomObjectGroup in randomGroups){
+                var result = randomObjectGroup.GetResult(weighted);
+                var floor = ret.GetFloor(ret.GetStagePosition(result.position));
+                floor.TileObjectType = result.objectInfo.type;
+                floor.TileObjectId = result.objectInfo.id;
             }
 
             return ret;

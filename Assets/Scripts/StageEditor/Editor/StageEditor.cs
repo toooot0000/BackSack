@@ -69,7 +69,7 @@ namespace StageEditor.Editor{
         
         private void ExportTemplate(StageTemplate template){
             AssetDatabase.SaveAssets();
-            var filePath = $"{StageSavingPath}{template.Meta.name}.asset";
+            var filePath = $"{StageSavingPath}{template.meta.name}.asset";
             Debug.Log($"Export stage data to file: {filePath}");
             if (!Directory.Exists(StageSavingPath)) Directory.CreateDirectory(StageSavingPath);
             AssetDatabase.CreateAsset(template, filePath);

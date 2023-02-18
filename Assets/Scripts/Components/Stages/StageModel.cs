@@ -18,26 +18,10 @@ namespace Components.Stages{
     }
     
     public class StageModel: Model{
-        public Floor[,] Floors;
-        public StageMeta Meta = new StageMeta();
+        public readonly Floor[,] Floors;
+        public readonly StageMeta Meta;
         public int Width => Meta.width;
         public int Height => Meta.height;
-
-        /**
-         * Some more meta data.
-         */
-        public StageModel(){
-            Floors = new Floor[Meta.width, Meta.height];
-            for (var i = 0; i < Meta.width; i++){
-                for (var j = 0; j < Meta.height; j++){
-                    Floors[i, j] = new(new(i, j)){
-                        Ground = null,
-                        TileObject = null,
-                        Type = FloorType.Block
-                    };
-                }
-            }
-        }
 
         public StageModel(StageMeta meta){
             Meta = meta;
